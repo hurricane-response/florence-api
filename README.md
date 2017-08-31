@@ -10,6 +10,14 @@ The Harvey Needs API
 API
 ----
 
+### Overall
+
+* URI: `https://api.harveyneeds.org`
+* Namespaced and versioned: `/api/v1`
+
+* Sample API for list of all shelters: `https://api.harveyneeds.org/api/v1/shelters`
+* Sample API for list of all shelters accepting people: `https://api.harveyneeds.org/api/v1/shelters?accepting=true`
+
 ### Shelters Endpoint
 
 Shape:
