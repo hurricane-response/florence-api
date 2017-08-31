@@ -25,7 +25,9 @@ class Api::V1::NeedsController < ApplicationController
         @needs = @needs.where(are_supplies_needed: true)
       end
 
-
+      if params[:limit].to_i > 0
+        @needs = @needs.limit(params[:limit].to_i)
+      end
   end
 
 end

@@ -8,6 +8,6 @@ json.shelters @shelters do |shelter|
 end
 
 json.meta do
-  json.result_count @shelters.count(:all)
+  json.result_count @shelters.length
   json.filters @filters
 end

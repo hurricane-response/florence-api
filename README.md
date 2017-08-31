@@ -75,6 +75,7 @@ Filters:
 * `accepting` : true/false
 * `shelter` : the name
 * `lat` and `lon` : specify the lat / lon. We'll order by the lat/lon and return results within a 100 mile radius
+* `limit`: only return n results
 
 
 
@@ -125,6 +126,7 @@ Filters:
 * `volunteers_needed` : true
 * `location_name` : the name
 * `lat` and `lon` : specify the lat / lon. We'll order by the lat/lon and return results within a 100 mile radius
+* `limit`: only return n results
 
 Sample:
 
