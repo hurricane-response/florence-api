@@ -16,6 +16,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'sucker_punch'
 gem 'google-api-client', '~> 0.11'
 gem 'dotenv-rails'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'capybara', '~> 2.13'
