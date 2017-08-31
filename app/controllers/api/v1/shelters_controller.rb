@@ -7,7 +7,7 @@ class Api::V1::SheltersController < ApplicationController
     if params[:lat].present? && params[:lon].present?
       @filters[:lon] = params[:lon]
       @filters[:lat] = params[:lat]
-      @shelters = @shelters.near([params[:lat], params[:lon]], 20)
+      @shelters = @shelters.near([params[:lat], params[:lon]], 100)
     end
 
     if params[:county].present?

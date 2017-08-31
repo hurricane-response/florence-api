@@ -7,7 +7,7 @@ class Api::V1::NeedsController < ApplicationController
       if params[:lat].present? && params[:lon].present?
         @filters[:lon] = params[:lon]
         @filters[:lat] = params[:lat]
-        @needs = @needs.near([params[:lat], params[:lon]], 20)
+        @needs = @needs.near([params[:lat], params[:lon]], 100)
       end
 
       if params[:location_name].present?
