@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831193314) do
+ActiveRecord::Schema.define(version: 20170831220720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20170831193314) do
     t.string "timestamp"
     t.string "location_name"
     t.string "location_address"
-    t.string "longitude"
-    t.string "latitude"
+    t.float "longitude"
+    t.float "latitude"
     t.string "contact_for_this_location_name"
     t.string "contact_for_this_location_phone_number"
     t.boolean "are_volunteers_needed"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20170831193314) do
     t.string "updated_by"
     t.string "notes"
     t.string "volunteer_needs"
-    t.string "longitude"
-    t.string "latitude"
+    t.float "longitude"
+    t.float "latitude"
     t.string "supply_needs"
     t.string "source"
     t.string "address_name"

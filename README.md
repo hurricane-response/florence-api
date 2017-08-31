@@ -69,6 +69,15 @@ Shape:
 }
 ```
 
+Filters:
+
+* `county` : County Name
+* `accepting` : true/false
+* `shelter` : the name
+* `lat` and `lon` : specify the lat / lon. We'll order by the lat/lon and return results within a 100 mile radius
+
+
+
 Sample:
 `/api/v1/shelters?county=fort bend&accepting=true`
 
@@ -115,6 +124,7 @@ Filters:
 * `supplies_needed` : true
 * `volunteers_needed` : true
 * `location_name` : the name
+* `lat` and `lon` : specify the lat / lon. We'll order by the lat/lon and return results within a 100 mile radius
 
 Sample:
 

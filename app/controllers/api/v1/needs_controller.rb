@@ -4,6 +4,12 @@ class Api::V1::NeedsController < ApplicationController
       @filters = {}
       @needs = Need.all
 
+      if params[:lat].present? && params[:lon].present?
+        @filters[:lon] = params[:lon]
+        @filters[:lat] = params[:lat]
+        @needs = @needs.near([params[:lat], params[:lon]], 20)
+      end
+
       if params[:location_name].present?
         @filters[:location_name] = params[:location_name]
         @needs = @needs.where("location_name ILIKE ?", "%#{params[:location_name]}%")

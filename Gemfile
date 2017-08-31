@@ -17,6 +17,7 @@ gem 'sucker_punch'
 gem 'google-api-client', '~> 0.11'
 gem 'dotenv-rails'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'geocoder'
 
 group :development, :test do
   gem 'capybara', '~> 2.13'

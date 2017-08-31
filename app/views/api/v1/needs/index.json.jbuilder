@@ -10,6 +10,6 @@ json.needs @needs do |need|
 end
 
 json.meta do
-  json.result_count @needs.count
+  json.result_count @needs.count(:all)
   json.filters @filters
 end

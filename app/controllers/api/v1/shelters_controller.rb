@@ -4,6 +4,12 @@ class Api::V1::SheltersController < ApplicationController
     @filters = {}
     @shelters = Shelter.all
 
+    if params[:lat].present? && params[:lon].present?
+      @filters[:lon] = params[:lon]
+      @filters[:lat] = params[:lat]
+      @shelters = @shelters.near([params[:lat], params[:lon]], 20)
+    end
+
     if params[:county].present?
       @filters[:county] = params[:county]
       @shelters = @shelters.where("county ILIKE ?", "%#{@filters[:county]}%")
