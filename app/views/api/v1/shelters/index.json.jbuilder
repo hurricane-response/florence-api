@@ -6,7 +6,11 @@ json.shelters @shelters do |shelter|
 
   json.needs (shelter.volunteer_needs ||"").split(",") + (shelter.supply_needs || "").split(",")
 
-  json.updatedAt do end
+  begin
+  	json.updatedAt ActiveSupport::TimeZone["Central Time (US & Canada)"].parse(shelter.last_updated).to_datetime.rfc3339
+  rescue
+  	json.updatedAt "baddate"
+  end
 end
 
 json.meta do
