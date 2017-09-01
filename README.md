@@ -40,7 +40,10 @@ Shape:
             "longitude": "-95.7505562",
             "latitude": "29.673294",
             "supply_needs": "toiletries, water, juice, gatorade",
-            "source": ""
+            "source": "",
+            "needs": ["Open up for volunteers in the morning", "8/30th", "toiletries", "water","juice","gatorade"],
+            "updatedAt":"2017-09-01T11:26:00-05:00",
+            "cleanPhone":"2814077161"
         },
         {
             "county": "Harris",
@@ -57,7 +60,30 @@ Shape:
             "longitude": "-95.396748",
             "latitude": "29.854114",
             "supply_needs": "trucks to move people to GRB or other shelters. ",
-            "source": ""
+            "source": "",
+            "needs": ["trucks to move people to GRB or other shelters. "],
+            "updatedAt":"2017-08-30T12:57:00-05:00",
+            "cleanPhone":"7136945570"
+        },
+        {
+            "county": "Harris",
+            "shelter": "Gallery Furniture",
+            "address": "6006 N. Freeway",
+            "city": "Houston",
+            "pets": "Yes",
+            "phone": "ring ring ring banannaphone",
+            "accepting": false,
+            "last_updated": "twelve hours before dawn",
+            "updated_by": "bon",
+            "notes": "No answer (info here by Claudia at 8/29 10:48am; At max capacity.)",
+            "volunteer_needs": "",
+            "longitude": "-95.396748",
+            "latitude": "29.854114",
+            "supply_needs": "trucks to move people to GRB or other shelters. ",
+            "source": "",
+            "needs": ["trucks to move people to GRB or other shelters. "],
+            "updatedAt":"baddate",
+            "cleanPhone":"badphone"
         }
     ],
     "meta": {
