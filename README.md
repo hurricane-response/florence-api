@@ -4,8 +4,8 @@ The Harvey Needs API
 * Imports data from a public google data spreadsheet
 * Each import does a full import of the needs and shelter sheets
 * We serve JSON data here, open and fresh
-* viasocket will post to us when an update is posted to the google spreadsheet
-* We can also trigger an import with `rails google:import`
+* viasocket notifies our api when changes have been made to the source data in Google sheets. The api then does a full refresh of the data from the Google sheet.will post to us when an update is posted to the google spreadsheet
+* An ad-hoc import can be triggered with `rails google:import`
 
 API
 ----
