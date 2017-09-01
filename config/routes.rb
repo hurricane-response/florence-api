@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
       get "/needs" => 'needs#index'
       get "/shelters" => 'shelters#index'
+      get "/products" => 'amazon_products#index'
     end
   end
 end

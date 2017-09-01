@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://webservices.amazon.com/onca/xml?AWSAccessKeyId=AKIAJ5PESCDQX7KIMQ5Q&AssociateTag=oneclickrelie-20&Availability=Available&Keywords=987345jh4nksad.hy98asd67fsjsd&MerchantId=Amazon&Operation=ItemSearch&SearchIndex=All&Service=AWSECommerceService&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2017-09-02T14%3A50%3A52Z&Version=2013-08-01&Signature=1fGXqLbTkcu0Iq1BSTl8qSnvyYYqdZJR0SZ4J291L4w%3D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Jeff/1.5.2 (Language=Ruby; JWos-MBP.attlocal.net)
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      Date:
+      - Sat, 02 Sep 2017 14:50:51 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Vary:
+      - Accept-Encoding,User-Agent
+    body:
+      encoding: ASCII-8BIT
+      string: <?xml version="1.0" ?><ItemSearchResponse xmlns="http://webservices.amazon.com/AWSECommerceService/2013-08-01"><OperationRequest><HTTPHeaders><Header
+        Name="UserAgent" Value="Jeff/1.5.2 (Language=Ruby; JWos-MBP.attlocal.net)"></Header></HTTPHeaders><RequestId>eb33878f-0f15-4b26-9dd7-593ccba4878c</RequestId><Arguments><Argument
+        Name="AWSAccessKeyId" Value="AKIAJ5PESCDQX7KIMQ5Q"></Argument><Argument Name="AssociateTag"
+        Value="oneclickrelie-20"></Argument><Argument Name="Availability" Value="Available"></Argument><Argument
+        Name="Keywords" Value="987345jh4nksad.hy98asd67fsjsd"></Argument><Argument
+        Name="MerchantId" Value="Amazon"></Argument><Argument Name="Operation" Value="ItemSearch"></Argument><Argument
+        Name="SearchIndex" Value="All"></Argument><Argument Name="Service" Value="AWSECommerceService"></Argument><Argument
+        Name="SignatureMethod" Value="HmacSHA256"></Argument><Argument Name="SignatureVersion"
+        Value="2"></Argument><Argument Name="Timestamp" Value="2017-09-02T14:50:52Z"></Argument><Argument
+        Name="Version" Value="2013-08-01"></Argument><Argument Name="Signature" Value="1fGXqLbTkcu0Iq1BSTl8qSnvyYYqdZJR0SZ4J291L4w="></Argument></Arguments><RequestProcessingTime>0.0122987590000000</RequestProcessingTime></OperationRequest><Items><Request><IsValid>True</IsValid><ItemSearchRequest><Availability>Available</Availability><Keywords>987345jh4nksad.hy98asd67fsjsd</Keywords><MerchantId>Deprecated</MerchantId><ResponseGroup>Small</ResponseGroup><SearchIndex>All</SearchIndex></ItemSearchRequest><Errors><Error><Code>AWS.ECommerceService.NoExactMatches</Code><Message>We
+        did not find any matches for your request.</Message></Error></Errors></Request><TotalResults>0</TotalResults><TotalPages>0</TotalPages><MoreSearchResultsUrl>https://www.amazon.com/gp/search?linkCode=xm2&amp;SubscriptionId=AKIAJ5PESCDQX7KIMQ5Q&amp;keywords=987345jh4nksad.hy98asd67fsjsd&amp;tag=oneclickrelie-20&amp;creative=386001&amp;url=search-alias%3Daws-amazon-aps&amp;camp=2025</MoreSearchResultsUrl></Items></ItemSearchResponse>
+    http_version: 
+  recorded_at: Sat, 02 Sep 2017 14:50:52 GMT
+recorded_with: VCR 3.0.3

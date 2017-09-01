@@ -1,0 +1,2 @@
+class IgnoredAmazonProductNeed < ApplicationRecord
+end

@@ -29,5 +29,8 @@ class ImportNeedsJob < ApplicationJob
       puts "ImportNeedsJob Complete - {#{response.values.count - 1}}"
 
     end
+
+    # schedule an update, but it's throttled to 1 every 10 minutes
+    ScheduleAmazonFetchJob.perform_later
   end
 end
