@@ -1,11 +1,34 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+nrg:
+  shelter: "NRG Center "
+  address: "NRG Pkwy Houston TX 77054"
+  city: "Houston"
+  pets: "Yes Dogs and Cats only"
+  phone: "(832) 667-1400"
+  accepting: true
+  last_updated: "2017-08-30 10:25 PM"
+  updated_by: "Lynn"
+  notes: "Will be taking 10000. Working with Baker-Ripley (NOT the Red Cross). See Houston Chronicle article link in the comment."
+  volunteer_needs: "Needs volunteers."
+  longitude: -95.41109
+  latitude: 29.685072
+  supply_needs: "blankets clothing sanitary etc"
+  source: "Https://twitter.com/BakerRipley/status/902725937762054145"
+  address_name: "NRG Center  NRG Pkwy Houston TX 77054 Houston TX"
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+lonestar:
+  county: "Harris"
+  shelter: "Lone Star College North Harris"
+  address: "2700 W W Thorne Dr"
+  city: "Houston"
+  pets: ""
+  phone: "(281) 618-5400"
+  accepting: false
+  last_updated: "2017-08-29 03:27 PM"
+  updated_by: "Doostee"
+  notes: " Shelter at capacity. "
+  volunteer_needs: "Volunteers needed. Here 8/30 4:30pm."
+  longitude: -95.3797033
+  latitude: 30.0071377
+  supply_needs: " Juice boxes for kids towels travel-sized toiletries – shampoo toothpaste toothbrushes pet kennels leashes packaged snacks and ext. cords/power strips"
+  source: "https://t.co/REjWR4UR7Q"
+  address_name: "Lone Star College North Harris 2700 W W Thorne Dr Houston TX"

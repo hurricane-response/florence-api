@@ -1,11 +1,31 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+katy:
+  updated_by: "Stephanie"
+  timestamp: "2017-08-30 11:33 AM"
+  location_name: "Katy Ministries"
+  location_address: "5601 E 5th Street Katy 77493"
+  longitude: -95.819327
+  latitude: 29.789867
+  contact_for_this_location_name: ""
+  contact_for_this_location_phone_number: ""
+  are_volunteers_needed: false
+  tell_us_about_the_volunteer_needs: ""
+  are_supplies_needed: true
+  tell_us_about_the_supply_needs: "non-perishable foods cleaning supplies personal care items"
+  anything_else_you_would_like_to_tell_us: ""
+  source: "https://www.facebook.com/KatyChristianMinistries/posts/1825892877424111"
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+victory:
+  updated_by: "Brisa"
+  timestamp: "8/31/2017 12:30:35"
+  location_name: "Victory Christian Center"
+  location_address: "11420 Cutten Rd Houston Texas TX 77066"
+  longitude: -95.51761
+  latitude: 29.947117
+  contact_for_this_location_name: ""
+  contact_for_this_location_phone_number: "(281) 587-1110"
+  are_volunteers_needed: false
+  tell_us_about_the_volunteer_needs: ""
+  are_supplies_needed: true
+  tell_us_about_the_supply_needs: "open until 6pm:"
+  anything_else_you_would_like_to_tell_us: ""
+  source: "https://www.facebook.com/VCCHouston/"
