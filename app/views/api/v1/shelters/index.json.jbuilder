@@ -11,6 +11,9 @@ json.shelters @shelters do |shelter|
   rescue
   	json.updatedAt "baddate"
   end
+
+  stripped_phone = (shelter.phone||"").gsub(/\D/,"")
+  json.cleanPhone stripped_phone.match?(/^\d{10}$/)? stripped_phone : "badphone"
 end
 
 json.meta do
