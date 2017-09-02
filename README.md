@@ -168,10 +168,24 @@ Sample:
 
 Getting Started (Dev)
 -------
+#### Fork Repository and clone to local machine
+##### Fork Repository
+* Prequisites
+  * A github account and a repository into which to fork other repositories
+* Steps
+  1. Navigate in a browser to https://github.com/sketch-city/harvey-api
+  2. Click the Fork button in the upper right of the screenshot_create-service-account-key
+  3. If prompted choose into where you want to form (e.g., if you are a member of multiple github repositories)
+  4. You'll now have a forked version - your own version - of the repository.
+  5. Go to "Clone or download" button on right of screen and copy that URL. It will be of the format `git clone git@github.com:<YOUR OWN GITHUB REPOSITORY>/harvey-api.git`
 
+##### Clone Fork to local box
+* In the directory on your local box in which you plan to work run: `git clone git@github.com:<YOUR OWN GITHUB REPOSITORY>/harvey-api.git`
+
+#### Setting up your .env file
 You'll need to set the following ENV variables in a .env file
 
-1. Make a working copy of .env: `cp .env.sample .env`
+1. Make a working copy of .env by runng this command at the terminal: `cp .env.sample .env`
 2. Edit the VARS
   * Atom users: `atom .env`
   * vim users: `vim .env`
@@ -181,21 +195,21 @@ You'll need to set the following ENV variables in a .env file
    * Screenshot:  ![Screenshot](/public/images/readme/screenshot_create-service-account-key.png)
 
 4. Get the private key and email from the json file google gets you
-5. Those are the ENV to use
+5. Replace the email value and private key value in the .env file with the values in the JSON
+  * Take care to copy the full private key which will span multiple lines.
 
-
-Development Process
--------
-### Creating a local database
-* Prequisites
-  * PostgreSQL is install and running
+#### Creating a local database
+* Prerequisites
+  * PostgreSQL is installed and running on your local machine
 * Create a postgres users
+  It's recommended though optional that you use a distinct user for the harvey-api database
   * Example `createuser harvey-api_development -P`
-* Create the database (with the owner set to user just created)
+  The `-P` flag will prompt you to create a password for the new user
+* Create the database (with the owner of the database set to user just created in the last step)
   * Example `createdb -O harvey-api_development harvey-api_development`
-* Run rake migrate
+* Run rake migrate to create schema
   * `rake db:migrate`
-* Test it's working!
+* Test it's working by doing an initial import from the Google Sheet
   * `rails google:import`
   Sample output if successful
   ```
@@ -211,18 +225,10 @@ Development Process
   ![Screenshot](/public/images/readme/screenshot_rails_server_run_test.png)
 
 
-### Git and Github use
-#### Forking a repository for yourself
-##### Initial fork for you work
-* Prequisites
-  * A github account and a repository into which to fork other repoistories
-* Steps
-  *
-(Coming soon)
 
-##### Creating a local instance
-`git clone git@github.com:<YOUR OWN GITHUB REPOSITORY>/harvey-api.git`
-
+Development Process
+-------
+#### Git and Github use
 ##### Keeping your fork in sync
 * `git remote add upstream git@github.com:sketch-city/harvey-api.git`
 * `git pull upstream`
@@ -231,11 +237,11 @@ Development Process
 With your own forked repo we strongly recommend that you create branches for each logical unit for work you do.
 
 #### Pull Requests
+(Coming Soon)
 
 ##### More Information and Further Reading
 * More information about keeping your fork in sync with the upstream repository may be found at https://help.github.com/articles/syncing-a-fork/
 * More information about branching can be found at https://git-scm.com/book/id/v2/Git-Branching-Branches-in-a-Nutshell
-
 
 
 Documentation Standards
