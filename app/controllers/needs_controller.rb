@@ -36,6 +36,13 @@ class NeedsController < ApplicationController
     @need = Need.find(params[:id])
   end
 
+  def destroy
+    if(user_signed_in? && current_user.admin?)
+      @need.destroy
+      redirect_to needs_path, notice: "Demoed!"
+    end
+  end
+
   def edit
   end
 
@@ -57,8 +64,6 @@ class NeedsController < ApplicationController
     end
   end
 
-  def destroy
-  end
 
   def drafts
     @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = 'Need'", Need.name).where(accepted_by_id: nil).where(denied_by_id: nil)

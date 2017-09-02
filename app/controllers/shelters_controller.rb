@@ -56,6 +56,10 @@ class SheltersController < ApplicationController
   end
 
   def destroy
+    if(user_signed_in? && current_user.admin?)
+      @shelter.destroy
+      redirect_to shelters_path, notice: "Demoed!"
+    end
   end
 
   def drafts
