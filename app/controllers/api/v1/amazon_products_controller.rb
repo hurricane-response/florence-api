@@ -18,13 +18,15 @@ class Api::V1::AmazonProductsController < ApplicationController
     @products = AmazonProduct
                   .active
                   .where(need: @needs)
+                  .order("priority, need")
 
-    if params[:priority] == true
+    if params[:priority].to_s == "true"
       @filters[:priority] = params[:priority]
       @products = @products.priority
     end
 
     if params[:limit].to_i > 0
+      @filters[:limit] = params[:limit].to_i
       @products = @products.limit(params[:limit].to_i)
     end
   end
