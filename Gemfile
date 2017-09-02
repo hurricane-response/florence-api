@@ -18,6 +18,7 @@ gem 'google-api-client', '~> 0.11'
 gem 'dotenv-rails'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'geocoder'
+gem 'devise'
 
 group :development, :test do
   gem 'capybara', '~> 2.13'

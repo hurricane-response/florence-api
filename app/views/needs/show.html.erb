@@ -1,0 +1,6 @@
+<h1>Need <%= @need.id %></h1>
+
+<%= render "shared/show", record: @need, headers: @headers, columns: @columns %>
+
+<%= link_to 'Update', [:edit, @need], class: "button button-clear" %> |
+<%= link_to 'Back', shelters_path, class: "button button-clear" %>
