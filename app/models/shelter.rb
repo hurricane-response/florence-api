@@ -8,5 +8,4 @@ class Shelter < ApplicationRecord
   has_many :drafts, as: :record
 
   geocoded_by :address
-  after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
 end
