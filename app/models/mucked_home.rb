@@ -1,0 +1,2 @@
+class MuckedHome < ApplicationRecord
+end
