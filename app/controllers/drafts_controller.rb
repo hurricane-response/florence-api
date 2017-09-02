@@ -18,7 +18,7 @@ class DraftsController < ApplicationController
     @record.assign_attributes(info)
 
     if(@record.save)
-      @draft.update(accepted_by: current_user)
+      @draft.update(record: @record, accepted_by: current_user)
       redirect_to @record, notice: "#{@record.class.name} updated"
     else
       flash[:notice] = "Something went wrong."
