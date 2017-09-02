@@ -168,6 +168,11 @@ Sample:
 
 Getting Started (Dev)
 -------
+#### Prequisites
+* Ruby 2.4.1
+* Rails 5.1.
+
+
 #### Fork Repository and clone to local machine
 ##### Fork Repository
 * Prequisites
@@ -195,20 +200,25 @@ You'll need to set the following ENV variables in a .env file
    * Screenshot:  ![Screenshot](/public/images/readme/screenshot_create-service-account-key.png)
 
 4. Get the private key and email from the json file google gets you
-5. Replace the email value and private key value in the .env file with the values in the JSON
+5. While still in the Google develop consoler enable the Google Sheets API. Once enabled it should look like this:
+![Screenshot](/public/images/readme/screenshot_enable_google_sheets_api.png)
+6. Back in the .env file now, replace the email value and private key values with the values in the JSON
   * Take care to copy the full private key which will span multiple lines.
 
 #### Creating a local database
 * Prerequisites
   * PostgreSQL is installed and running on your local machine
-* Create a postgres users
-  It's recommended though optional that you use a distinct user for the harvey-api database
-  * Example `createuser harvey-api_development -P`
-  The `-P` flag will prompt you to create a password for the new user
-* Create the database (with the owner of the database set to user just created in the last step)
-  * Example `createdb -O harvey-api_development harvey-api_development`
-* Run rake migrate to create schema
-  * `rake db:migrate`
+* Method 1: Automatic
+  * Run ‘rails db:setup’
+* Method 2: Manual
+  * Create a postgres users
+    It's recommended though optional that you use a distinct user for the harvey-api database
+    * Example `createuser harvey-api_development -P`
+    The `-P` flag will prompt you to create a password for the new user
+  * Create the database (with the owner of the database set to user just created in the last step)
+    * Example `createdb -O harvey-api_development harvey-api_development`
+* Run rails migrate to create schema
+  * `rails db:migrate`
 * Test it's working by doing an initial import from the Google Sheet
   * `rails google:import`
   Sample output if successful
@@ -228,16 +238,23 @@ You'll need to set the following ENV variables in a .env file
 
 Development Process
 -------
+#### Tests and Testing
+Code should have tests, and any pull requests should be made only after you've made sure passes the test suite
+
 #### Git and Github use
+We force pull-requests from feature branches to master. Once something lands in master, it goes live instantly
+
 ##### Keeping your fork in sync
 * `git remote add upstream git@github.com:sketch-city/harvey-api.git`
-* `git pull upstream`
+* `git fetch upstream`
 
 #### Branching
-With your own forked repo we strongly recommend that you create branches for each logical unit for work you do.
+Within your own forked repo create branches for each logical unit for work you do. One benefit of doing this is you'll be able to periodically sync your forked repo with upstream repo into the master branch without conflicting with work you may be doing.
 
 #### Pull Requests
-(Coming Soon)
+When you believe your code is ready to be merged into the upstream repository (sketch-city/harvey-api) by creating a pull request. Do this by
+* In github click the "Compare & pull request" button that github will present to you once you've committed changes to local repo
+* Describe what you changed and why; reference the issue(s) if any that your work addresses
 
 ##### More Information and Further Reading
 * More information about keeping your fork in sync with the upstream repository may be found at https://help.github.com/articles/syncing-a-fork/
@@ -256,8 +273,7 @@ Documentation such as READMEs (e.g., this document) are written in markdown per 
 Design Choices
 -------------
 
-* one benefit of building our own api is so that we can get rid of using
-  google-sheets eventually.
+* one benefit of building our own api is so that we can get rid of using google-sheets eventually.
 * Hosted on Heroku and Amazon RDS
 
 Thanks To:
@@ -276,19 +292,25 @@ Appendix
 
 
 ### Errors you may get and what they mean
+* Could not load default credentials
+Looks like:
 ```rails aborted!
 Could not load the default credentials
 ```
-You either have not set up a key or did not configure it correctly in your .env file
+You either have not set up a key OR did not configure it correctly in your .env file
 
-
+* "accessNotConfigured: Google Sheets API"
+Looks like:
 ```rails aborted!
 Google::Apis::ClientError: accessNotConfigured: Google Sheets API has not been used in project harvey-api before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/sheets.googleapis.com/overview?project=harvey-api then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
 ```
+You set up a key properly in the Google console but you did not enable Google sheets.
 
-
+* "PG::ConnectionBad"
+Looks like:
 ```rails aborted!
 PG::ConnectionBad: could not connect to server: No such file or directory
 	Is the server running locally and accepting
 	connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
 ```
+Postgres is not running OR there is a connection problem to the database.
