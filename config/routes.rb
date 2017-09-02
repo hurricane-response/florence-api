@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :drafts, only: [:show, :destroy] do
     post :accept, on: :member
   end
+  resources :amazon_products, except: [:new, :create, :destroy]
 
   root to: "shelters#index"
   namespace :api do
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
 
       get "/needs" => 'needs#index'
       get "/shelters" => 'shelters#index'
+      get "/products" => 'amazon_products#index'
     end
   end
 end

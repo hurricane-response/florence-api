@@ -9,4 +9,15 @@ class Need < ApplicationRecord
 
   geocoded_by :location_address
   after_validation :geocode, if: ->(obj){ obj.location_address.present? && obj.location_address_changed? }
+
+  def clean_needs
+    return [] if tell_us_about_the_supply_needs.blank?
+    tell_us_about_the_supply_needs
+      .gsub("\n","")
+      .gsub("*", ",")
+      .split(",")
+      .reject{|n| n =~ /^open/i }
+      .map(&:strip)
+      .select(&:present?)
+  end
 end

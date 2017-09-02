@@ -1,0 +1,6 @@
+<h1><%= @amazon_product.need %></h1>
+
+<%= render "shared/show", record: @amazon_product, headers: @headers, columns: @columns %>
+
+<%= link_to 'Update', [:edit, @amazon_product], class: "button button-clear" %> |
+<%= link_to 'Back', amazon_products_path, class: "button button-clear" %>

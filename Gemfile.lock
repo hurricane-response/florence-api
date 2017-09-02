@@ -27,6 +27,10 @@ GEM
     activejob (5.1.3)
       activesupport (= 5.1.3)
       globalid (>= 0.3.6)
+    activejob-traffic_control (0.1.3)
+      activejob (>= 4.2)
+      activesupport (>= 4.2)
+      suo
     activemodel (5.1.3)
       activesupport (= 5.1.3)
     activerecord (5.1.3)
@@ -53,7 +57,10 @@ GEM
       xpath (~> 2.0)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
+    coderay (1.1.1)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.1)
+    dalli (2.7.6)
     declarative (0.0.9)
     declarative-option (0.1.0)
     devise (4.3.0)
@@ -62,10 +69,12 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    dig_rb (1.0.1)
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
     erubi (1.6.1)
+    excon (0.58.0)
     execjs (2.7.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
@@ -93,6 +102,8 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jeff (1.5.2)
+      excon (>= 0.22.1)
     jwt (1.5.6)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -114,7 +125,9 @@ GEM
     mini_mime (0.1.4)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
+    msgpack (1.1.0)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (2.1.0)
     nokogiri (1.8.0)
@@ -122,6 +135,10 @@ GEM
     orm_adapter (0.5.0)
     os (0.9.6)
     pg (0.21.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     public_suffix (3.0.0)
     puma (3.10.0)
     rack (2.0.3)
@@ -155,6 +172,7 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    redis (4.0.0)
     representable (3.0.4)
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
@@ -184,6 +202,7 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
+    slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -196,8 +215,12 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sucker_punch (2.0.2)
+    sucker_punch (2.0.3)
       concurrent-ruby (~> 1.0.0)
+    suo (0.3.2)
+      dalli
+      msgpack
+      redis
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -206,6 +229,11 @@ GEM
     uber (0.1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    vacuum (2.0.2)
+      dig_rb (~> 1.0)
+      jeff (~> 1.0)
+      multi_xml (~> 0.6.0)
+    vcr (3.0.3)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -223,7 +251,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activejob-traffic_control
   capybara (~> 2.13)
+  connection_pool
   devise
   dotenv-rails
   geocoder
@@ -231,6 +261,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)
+  pry
   puma (~> 3.7)
   rack-cors
   rails (~> 5.1.1)
@@ -240,6 +271,8 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sucker_punch
   uglifier (>= 1.3.0)
+  vacuum
+  vcr
   web-console (>= 3.3.0)
 
 RUBY VERSION
