@@ -1,9 +1,9 @@
 class NeedsController < ApplicationController
   before_action :set_headers
-  before_action :set_need, only: [:show, :edit, :update, :destroy]
+  before_action :set_need, only: [:show, :edit, :update, :destroy, :archive]
 
   def index
-    @needs = Need.all
+    @needs = Need.where(active: !false)
   end
 
   def new
@@ -37,9 +37,12 @@ class NeedsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def archive
     if(user_signed_in? && current_user.admin?)
-      @need.destroy
-      redirect_to needs_path, notice: "Demoed!"
+      @need.update_attributes(active: false)
+      redirect_to needs_path, notice: "Archived!"
     end
   end
 

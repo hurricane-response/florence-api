@@ -5,8 +5,8 @@
 <%= link_to 'Update', [:edit, @need], class: "button button-clear" %> |
 <%= link_to 'Back', needs_path, class: "button button-clear" %>
 <% if user_signed_in? && current_user.admin? %> |
-<%= link_to 'Delete', need_path(@need),
-              method: :delete,
+<%= link_to 'Archive', archive_need_path(@need),
+              method: :post,
               data: { confirm: 'Are you sure?' },
               class: "button button-clear" %>
   <% end %>
