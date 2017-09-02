@@ -7,6 +7,7 @@ The Harvey Needs API
 * We serve JSON data here, open and fresh
 * viasocket notifies our api when changes have been made to the source data in Google sheets. The api then does a full refresh of the data from the Google sheet.will post to us when an update is posted to the google spreadsheet
 * An ad-hoc import can be triggered with `rails google:import`
+* You can load Amazon Products by seeding your database: `rails db:seed` (or doing a full import `rails amazon:import`)
 
 API
 ----
@@ -209,6 +210,12 @@ Getting Started (Dev)
 * Ruby 2.4.1
 * Rails 5.1.
 
+#### User Administration
+In `rails console` you'll want to create an admin user:
+
+```
+User.create! email: "youremail@example.com", password: "yourpassword", admin: true
+```
 
 #### Fork Repository and clone to local machine
 ##### Fork Repository

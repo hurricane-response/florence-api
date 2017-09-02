@@ -1,7 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+amazon_json = JSON.parse File.read("#{Rails.root}/db/seeds/amazon_products.json")
+amazon_json.each do |json|
+  ap = AmazonProduct.where(need: json["need"]).first_or_initialize
+  ap.attributes = json
+  ap.save
+end
+
+ignored_json = JSON.parse File.read("#{Rails.root}/db/seeds/ignored_amazon_product_needs.json")
+ignored_json.each do |json|
+  iapn= IgnoredAmazonProductNeed.where(need: json["need"]).first_or_initialize
+  iapn.attributes = json
+  iapn.save
+end
