@@ -155,3 +155,7 @@ body,
 .container {
   max-width: 100%;
 }
+
+.striped {
+  background: #f4f5f6;
+}

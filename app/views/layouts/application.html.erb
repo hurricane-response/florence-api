@@ -27,10 +27,12 @@
       <div class="navbar">
         <ul>
           <li><%= link_to "Shelters", shelters_path %></li>
-          <li><%= link_to "Shelter Updates", drafts_shelters_path %></li>
-          <li><%= link_to "Needs", needs_path %></li>
-          <li><%= link_to "Need Updates", drafts_needs_path %></li>
           <% if user_signed_in? && current_user.admin? %>
+            <li><%= link_to "Shelters Update Queue", drafts_shelters_path %></li>
+          <% end %>
+          <li><%= link_to "Needs", needs_path %></li>
+          <% if user_signed_in? && current_user.admin? %>
+            <li><%= link_to "Needs Update Queue", drafts_needs_path %></li>
             <li><%= link_to "Users", users_path %></li>
           <% end %>
           <div class="right">
