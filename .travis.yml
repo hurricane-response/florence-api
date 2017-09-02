@@ -15,5 +15,4 @@ deploy:
     repo: sketch-city/harvey-api
   run:
     - "rails db:migrate"
-    - "rails google:import"
     - "rake cleanup"
