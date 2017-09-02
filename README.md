@@ -2,6 +2,7 @@ The Harvey Needs API
 ====================
 
 * Imports data from a public google data spreadsheet
+  * Right now that's https://docs.google.com/spreadsheets/d/14GHRHQ_7cqVrj0B7HCTVE5EbfpNFMbSI9Gi8azQyn-k/edit#gid=0
 * Each import does a full import of the needs and shelter sheets
 * We serve JSON data here, open and fresh
 * viasocket notifies our api when changes have been made to the source data in Google sheets. The api then does a full refresh of the data from the Google sheet.will post to us when an update is posted to the google spreadsheet
@@ -170,16 +171,43 @@ Getting Started (Dev)
 
 You'll need to set the following ENV variables in a .env file
 
-1. `cp .env.sample .env`
-2. `atom .env` to edit the VARS
+1. Make a working copy of .env: `cp .env.sample .env`
+2. Edit the VARS
+  * Atom users: `atom .env`
+  * vim users: `vim .env`
+  * emacs users: `emacs .env`
 3. Get a server credential from google for
    https://console.developers.google.com/apis/api/drive.googleapis.com/overview
+   * Screenshot:  ![Screenshot](/public/images/readme/screenshot_create-service-account-key.png)
+
 4. Get the private key and email from the json file google gets you
 5. Those are the ENV to use
 
 
 Development Process
 -------
+### Creating a local database
+* Prequisites
+  * PostgreSQL is install and running
+* Create a postgres users
+  * Example `createuser harvey-api_development -P`
+* Create the database (with the owner set to user just created)
+  * Example `createdb -O harvey-api_development harvey-api_development`
+* Run rake migrate
+  * `rake db:migrate`
+* Test it's working!
+  * `rails google:import`
+  Sample output if successful
+  ```Starting ImportSheltersJob 2017-09-01 23:32:10 -0400
+ImportSheltersJob Complete - {282}
+Starting ImportNeedsJob 2017-09-01 23:32:12 -0400
+ImportNeedsJob Complete - {89}
+  ```
+* Test the API itself (Run API locally)
+  * Example `rails server `
+  Screenshot of Success:![Screenshot](/public/images/readme/screenshot_rails_server_run_test.png)
+
+
 ### Git and Github use
 #### Forking a repository for yourself
 ##### Initial fork for you work
@@ -209,7 +237,7 @@ With your own forked repo we strongly recommend that you create branches for eac
 
 Documentation Standards
 -------
-### Inline comment style
+### Inline Comment Style
 (Coming Soon)
 
 ### Markdown
@@ -229,3 +257,29 @@ Thanks To:
 * Entire Sketch-City organization
 * Coding for America
 * More More More names here
+
+
+Appendix
+---------
+### Developer Resources
+* [Mastering Markdown](https://guides.github.com/features/mastering-markdown)
+
+
+
+### Errors you may get and what they mean
+```rails aborted!
+Could not load the default credentials
+```
+You either have not set up a key or did not configure it correctly in your .env file
+
+
+```rails aborted!
+Google::Apis::ClientError: accessNotConfigured: Google Sheets API has not been used in project harvey-api before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/sheets.googleapis.com/overview?project=harvey-api then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+```
+
+
+```rails aborted!
+PG::ConnectionBad: could not connect to server: No such file or directory
+	Is the server running locally and accepting
+	connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
+```
