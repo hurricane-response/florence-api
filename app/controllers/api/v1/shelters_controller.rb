@@ -1,5 +1,9 @@
 class Api::V1::SheltersController < ApplicationController
 
+  before_action do
+    request.format = :json
+  end
+
   def index
     @filters = {}
     @shelters = Shelter.all

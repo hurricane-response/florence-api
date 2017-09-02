@@ -1,0 +1,6 @@
+<% columns.each_with_index do |column, index| %>
+  <p>
+    <strong><%= headers[index] %>:</strong>
+    <%= record.send(column) %>
+  </p>
+<% end %>

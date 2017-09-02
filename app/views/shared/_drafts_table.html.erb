@@ -1,0 +1,27 @@
+<table id="data-table">
+  <thead>
+    <tr>
+      <% headers.each do |header| %>
+        <th><%= header %></th>
+      <% end %>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% rows.each do |row| %>
+      <tr>
+        <% columns.each do |column| %>
+          <td><%= truncate((row.info[column.to_s] || row.record && row.record.send(column)).to_s) %></td>
+        <% end %>
+        <td><%= link_to 'Show', row %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+window.onload = function() {
+  $('#data-table').DataTable();
+};
+</script>

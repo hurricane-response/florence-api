@@ -1,0 +1,48 @@
+<%= form_with(model: need, local: true) do |f| %>
+  <% if need.errors.any? %>
+    <div>
+      <h2><%= pluralize(need.errors.count, "error") %> prohibited this need from being saved:</h2>
+
+      <ul>
+        <% need.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <fieldset>
+    <%= f.label :location_name %>
+    <%= f.text_field :location_name %>
+
+    <%= f.label :location_address %>
+    <%= f.text_field :location_address %>
+
+    <%= f.label :contact_for_this_location_name %>
+    <%= f.text_field :contact_for_this_location_name %>
+
+    <%= f.label :contact_for_this_location_phone_number %>
+    <%= f.text_field :contact_for_this_location_phone_number %>
+
+    <%= f.label :are_volunteers_needed %>
+    <%= f.text_field :are_volunteers_needed %>
+
+    <%= f.label :tell_us_about_the_volunteer_needs %>
+    <%= f.text_field :tell_us_about_the_volunteer_needs %>
+
+    <%= f.label :are_supplies_needed %>
+    <%= f.text_field :are_supplies_needed %>
+
+    <%= f.label :tell_us_about_the_supply_needs %>
+    <%= f.text_field :tell_us_about_the_supply_needs %>
+
+    <%= f.label :anything_else_you_would_like_to_tell_us %>
+    <%= f.text_field :anything_else_you_would_like_to_tell_us %>
+
+    <%= f.label :source %>
+    <%= f.text_field :source %>
+
+    <%= f.button :submit %>
+  </fieldset>
+<% end %>

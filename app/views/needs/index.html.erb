@@ -1,0 +1,5 @@
+<h1>Needs</h1>
+
+<%= link_to 'Add New Need', new_need_path, class: "button button-outline" %>
+
+<%= render "shared/table", rows: @needs, headers: @headers, columns: @columns %>
