@@ -198,14 +198,17 @@ Development Process
 * Test it's working!
   * `rails google:import`
   Sample output if successful
-  ```Starting ImportSheltersJob 2017-09-01 23:32:10 -0400
-ImportSheltersJob Complete - {282}
-Starting ImportNeedsJob 2017-09-01 23:32:12 -0400
-ImportNeedsJob Complete - {89}
   ```
+    Starting ImportSheltersJob 2017-09-01 23:32:10 -0400
+    ImportSheltersJob Complete - {282}
+    Starting ImportNeedsJob 2017-09-01 23:32:12 -0400
+    ImportNeedsJob Complete - {89}
+  ```
+
 * Test the API itself (Run API locally)
   * Example `rails server `
-  Screenshot of Success:![Screenshot](/public/images/readme/screenshot_rails_server_run_test.png)
+  Screenshot of Success:
+  ![Screenshot](/public/images/readme/screenshot_rails_server_run_test.png)
 
 
 ### Git and Github use
