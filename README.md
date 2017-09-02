@@ -4,8 +4,8 @@ The Harvey Needs API
 * Imports data from a public google data spreadsheet
 * Each import does a full import of the needs and shelter sheets
 * We serve JSON data here, open and fresh
-* viasocket will post to us when an update is posted to the google spreadsheet
-* We can also trigger an import with `rails google:import`
+* viasocket notifies our api when changes have been made to the source data in Google sheets. The api then does a full refresh of the data from the Google sheet.will post to us when an update is posted to the google spreadsheet
+* An ad-hoc import can be triggered with `rails google:import`
 
 API
 ----
@@ -40,7 +40,10 @@ Shape:
             "longitude": "-95.7505562",
             "latitude": "29.673294",
             "supply_needs": "toiletries, water, juice, gatorade",
-            "source": ""
+            "source": "",
+            "needs": ["Open up for volunteers in the morning", "8/30th", "toiletries", "water","juice","gatorade"],
+            "updatedAt":"2017-09-01T11:26:00-05:00",
+            "cleanPhone":"2814077161"
         },
         {
             "county": "Harris",
@@ -57,7 +60,30 @@ Shape:
             "longitude": "-95.396748",
             "latitude": "29.854114",
             "supply_needs": "trucks to move people to GRB or other shelters. ",
-            "source": ""
+            "source": "",
+            "needs": ["trucks to move people to GRB or other shelters. "],
+            "updatedAt":"2017-08-30T12:57:00-05:00",
+            "cleanPhone":"7136945570"
+        },
+        {
+            "county": "Harris",
+            "shelter": "Gallery Furniture",
+            "address": "6006 N. Freeway",
+            "city": "Houston",
+            "pets": "Yes",
+            "phone": "ring ring ring banannaphone",
+            "accepting": false,
+            "last_updated": "twelve hours before dawn",
+            "updated_by": "bon",
+            "notes": "No answer (info here by Claudia at 8/29 10:48am; At max capacity.)",
+            "volunteer_needs": "",
+            "longitude": "-95.396748",
+            "latitude": "29.854114",
+            "supply_needs": "trucks to move people to GRB or other shelters. ",
+            "source": "",
+            "needs": ["trucks to move people to GRB or other shelters. "],
+            "updatedAt":"baddate",
+            "cleanPhone":"badphone"
         }
     ],
     "meta": {
