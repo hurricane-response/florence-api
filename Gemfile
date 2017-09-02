@@ -19,6 +19,7 @@ gem 'activejob-traffic_control'
 gem 'dotenv-rails'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'geocoder'
+gem 'devise'
 gem 'vacuum'
 gem 'connection_pool'
 

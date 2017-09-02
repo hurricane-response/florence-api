@@ -1,0 +1,36 @@
+new_need:
+  info:
+    record_type: "Need"
+    location_name: "Grace Goodwill"
+    location_address: "1301 Fannin St"
+    are_volunteers_needed: false
+    tell_us_about_the_volunteer_needs: ""
+    are_supplies_needed: true
+    tell_us_about_the_supply_needs: "non-perishable foods cleaning supplies personal care items"
+    anything_else_you_would_like_to_tell_us: ""
+    source: "https://example.com"
+
+update_need:
+  record: katy (Need)
+  info:
+    tell_us_about_the_volunteer_needs: "we need trained medical personel"
+
+new_shelter:
+  info:
+    record_type: "Shelter"
+    shelter: "Toyota Center "
+    address: "1001 Fannin St"
+    city: "Houston"
+    pets: "Yes Crated only"
+    phone: "(832) 555-5555"
+    accepting: false
+    notes: "none"
+    volunteer_needs: "Needs volunteers."
+    supply_needs: "beds, nappies, towels"
+    source: "https://twitter.com/ToyotaCenter/status/902725937762054145"
+    address_name: "Toyota Center 1001 Fannin"
+
+update_shelter:
+  record: nrg (Shelter)
+  info:
+    pets: "No"

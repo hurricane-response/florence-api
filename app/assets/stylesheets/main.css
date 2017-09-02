@@ -1,0 +1,161 @@
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+
+.halp-app {
+  height: 100%;
+}
+
+.halp-map {
+  height: 100%;
+  width: 100%;
+}
+
+.halp-sidebar {
+  position: absolute;
+  z-index: 2;
+  top: 1em;
+  left: 1em;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1em;
+  max-width: 360px;
+  width: 100%;
+  overflow: auto;
+  height: 100%;
+  height: calc(100% - 2em);
+  scroll-behavior: smooth;
+}
+
+@media screen and (max-width: 719px) and (min-aspect-ratio: 1/2) {
+  .halp-sidebar {
+    height: 250px;
+  }
+}
+
+.halp-form form,
+.halp-form fieldset,
+.halp-view .button {
+  margin: 0;
+}
+
+.view .halp-form {
+  display: none;
+}
+
+.halp-view {
+  display: none;
+}
+
+.view .halp-view {
+  display: block;
+}
+
+.halp-list {
+  margin-top: 2em;
+}
+
+#list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#list li {
+  transition: background-color 200ms linear;
+  padding: 1em;
+  border: 1px solid rgba(155, 77, 202, 1);
+
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}
+
+#list li:hover {
+  cursor: pointer;
+  background-color: rgba(155, 77, 202, 0.2);
+}
+
+#list li.active {
+  background-color: rgba(155, 77, 202, 0.8);
+}
+
+#list li.active p,
+#list li.active h3 {
+  color: #FFFFFF;
+}
+
+#list li.active a:not(.button) {
+  color: #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+#list li.active a:not(.button):hover {
+  color: blue;
+  border-bottom: 1px solid blue;
+}
+
+.navbar {
+  margin-bottom: 10px;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #606c76;
+}
+
+.navbar li {
+  float: left;
+  margin-bottom: 0;
+}
+
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li span {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar div.right {
+  float: right;
+}
+
+.navbar li a:hover {
+  background-color: #ab5dda;
+}
+
+.container {
+  max-width: 100%;
+}
+
+.striped {
+  background: #f4f5f6;
+}

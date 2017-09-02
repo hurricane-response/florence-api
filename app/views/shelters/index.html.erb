@@ -1,0 +1,5 @@
+<h1>Shelters</h1>
+
+<%= link_to 'Add New Shelter', new_shelter_path, class: "button button-outline" %>
+
+<%= render "shared/table", rows: @shelters, headers: @headers, columns: @columns %>

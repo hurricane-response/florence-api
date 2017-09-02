@@ -1,0 +1,27 @@
+<h1>Users</h1>
+
+<table id="users-table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Admin?</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.admin? ? "Yes" : "No" %></td>
+        <td><%= link_to "View", user %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+window.onload = function() {
+  $('#shelters-table').DataTable();
+};
+</script>

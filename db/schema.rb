@@ -26,6 +26,19 @@ ActiveRecord::Schema.define(version: 20170902140452) do
     t.boolean "disabled", default: false
   end
 
+  create_table "drafts", force: :cascade do |t|
+    t.jsonb "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "record_type"
+    t.bigint "record_id"
+    t.bigint "accepted_by_id"
+    t.bigint "denied_by_id"
+    t.index ["accepted_by_id"], name: "index_drafts_on_accepted_by_id"
+    t.index ["denied_by_id"], name: "index_drafts_on_denied_by_id"
+    t.index ["record_type", "record_id"], name: "index_drafts_on_record_type_and_record_id"
+  end
+
   create_table "ignored_amazon_product_needs", force: :cascade do |t|
     t.string "need"
     t.datetime "created_at", null: false
@@ -72,4 +85,29 @@ ActiveRecord::Schema.define(version: 20170902140452) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.boolean "admin"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "drafts", "users", column: "accepted_by_id"
+  add_foreign_key "drafts", "users", column: "denied_by_id"
 end

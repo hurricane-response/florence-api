@@ -1,0 +1,57 @@
+<% if @record.persisted? %>
+  <% if @draft.accepted_by_id.nil? && @draft.denied_by_id.nil? %>
+    <h1>View Proposed Changes for <%= @record.class.name %></h1>
+    <h5>Changes in grey rows.</h5>
+  <% else %>
+    <h1>View Draft (already accepted or denied)</h1>
+  <% end %>
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Current Value</th>
+        <th>New Value</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @columns.each_with_index do |column, index| %>
+        <% next if ['id', 'updated_at'].include?(column) %>
+        <%= content_tag :tr, class: (@draft.info[column].nil? || @draft.info[column] == @record.send(column)) ? "" : "striped" do %>
+          <td><%= @headers[index] %></td>
+          <td><%= @record.send(column) %></td>
+          <td><%= @draft.info[column.to_s] || @record.send(column) %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <% if @draft.accepted_by_id.nil? && @draft.denied_by_id.nil? %>
+    <h1>New Entry for <%= @record.class.name %></h1>
+  <% else %>
+    <h1>View Draft (already accepted or denied)</h1>
+  <% end %>
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Field</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @columns.each_with_index do |column, index| %>
+        <% next if ['id', 'updated_at'].include?(column) %>
+        <%= content_tag :tr do %>
+          <td><%= @headers[index] %></td>
+          <td><%= @draft.info[column.to_s] %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if user_signed_in? && current_user.admin? && @draft.accepted_by_id.nil? && @draft.denied_by_id.nil? %>
+  <%= link_to 'Accept', [:accept, @draft], {class: "button", method: :post} %>
+  <%= link_to 'Deny', @draft, {class: "button button-outline", method: :delete} %>
+<% end %>
