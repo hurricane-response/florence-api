@@ -177,6 +177,45 @@ You'll need to set the following ENV variables in a .env file
 4. Get the private key and email from the json file google gets you
 5. Those are the ENV to use
 
+
+Development Process
+-------
+### Git and Github use
+#### Forking a repository for yourself
+##### Initial fork for you work
+* Prequisites
+  * A github account and a repository into which to fork other repoistories
+* Steps
+  *
+(Coming soon)
+
+##### Creating a local instance
+`git clone git@github.com:<YOUR OWN GITHUB REPOSITORY>/harvey-api.git`
+
+##### Keeping your fork in sync
+* `git remote add upstream git@github.com:sketch-city/harvey-api.git`
+* `git pull upstream`
+
+#### Branching
+With your own forked repo we strongly recommend that you create branches for each logical unit for work you do.
+
+#### Pull Requests
+
+##### More Information and Further Reading
+* More information about keeping your fork in sync with the upstream repository may be found at https://help.github.com/articles/syncing-a-fork/
+* More information about branching can be found at https://git-scm.com/book/id/v2/Git-Branching-Branches-in-a-Nutshell
+
+
+
+Documentation Standards
+-------
+### Inline comment style
+(Coming Soon)
+
+### Markdown
+Documentation such as READMEs (e.g., this document) are written in markdown per the [Github standard] (https://guides.github.com/features/mastering-markdown/)
+
+
 Design Choices
 -------------
 
