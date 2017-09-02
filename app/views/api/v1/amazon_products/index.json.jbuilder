@@ -3,5 +3,6 @@ json.products @products do |product|
 end
 
 json.meta do
+  json.filters @filters
   json.result_count @products.count
 end

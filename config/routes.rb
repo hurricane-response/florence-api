@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :drafts, only: [:show, :destroy] do
     post :accept, on: :member
   end
+  resources :amazon_products
 
   root to: "shelters#index"
   namespace :api do

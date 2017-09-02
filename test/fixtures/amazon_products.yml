@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+baby_formula:
+  need: baby formula
+  asin: FAKEBABYASIN
+  amazon_title: Super Great Bebe Formula
+  detail_url: http://www.example.com/amazon/baby
+  priority: true
+  disabled: false
+
+garbage_bags:
+  need: garbage bags
+  asin: FAKEBAGS
+  amazon_title: BIG BAGS
+  detail_url: http://www.example.com/amazon/bags
+  priority: false
+  disabled: false
+
+iphones:
+  need: iphone 6S
+  asin: FAKEBAGS
+  amazon_title: iphones
+  detail_url: http://www.example.com/amazon/iphones
+  priority: false
+  disabled: true

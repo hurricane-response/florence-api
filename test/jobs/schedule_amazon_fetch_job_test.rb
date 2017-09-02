@@ -4,6 +4,7 @@ class ScheduleAmazonFetchJobTest < ActiveJob::TestCase
 
   setup do
     Need.destroy_all
+    AmazonProduct.destroy_all
   end
 
   test "schedules for the correct need" do

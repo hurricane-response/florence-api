@@ -165,6 +165,43 @@ Sample:
 
   * Who needs supplies
 
+### Products API
+
+Shows needs as an Amazon Product, ready for purchase.
+
+Shape:
+
+```
+{
+  "products": [
+    {
+      "need": "pet items",
+      "asin": "B00ME73XUG",
+      "amazon_title": "PET FACTORY 28750 Chicken Dog Roll, 40-Pack",
+      "detail_url":
+        "https://www.amazon.com/FACTORY-28750-Chicken-Roll-40-Pack/dp/B00ME73XUG?psc=1&SubscriptionId=AKIAJ5PESCDQX7KIMQ5Q&tag=oneclickrelie-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=B00ME73XUG",
+      "priority": false
+    }
+  ],
+  "meta": {
+    "result_count": 247
+  }
+}
+```
+
+Filters:
+
+* `need` : Name of need, eg: 'baby'
+* `priority` : `true`. Note: data has to be gathered to make this true
+* `limit`: only return n results
+
+
+Sample:
+
+`/api/v1/products?limit=2&need=baby`
+
+  * Returns 1 result, only for needs with `baby`
+
 
 Getting Started (Dev)
 -------
@@ -204,6 +241,20 @@ You'll need to set the following ENV variables in a .env file
 ![Screenshot](/public/images/readme/screenshot_enable_google_sheets_api.png)
 6. Back in the .env file now, replace the email value and private key values with the values in the JSON
   * Take care to copy the full private key which will span multiple lines.
+7. Get Amazon AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from Amazon's IAM. You'll need to create a PolicyName. You can name it "ProductAdvertisingAPI" with the following policy:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ProductAdvertisingAPI:*",
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 #### Creating a local database
 * Prerequisites

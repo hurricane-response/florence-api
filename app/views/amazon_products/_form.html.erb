@@ -1,0 +1,38 @@
+<%= form_with(model: amazon_product, local: true) do |f| %>
+  <% if amazon_product.errors.any? %>
+    <div>
+      <h2><%= pluralize(amazon_product.errors.count, "error") %> prohibited this amazon_product from being saved:</h2>
+
+      <ul>
+        <% amazon_product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <fieldset>
+    <%= f.label :need %>
+    <%= f.text_field :need, disabled: true %>
+
+    <%= f.label :asin %>
+    <%= f.text_field :asin %>
+
+    <%= f.label :amazon_title %>
+    <%= f.text_field :amazon_title %>
+
+    <%= f.label :detail_url%>
+    <%= f.text_field :detail_url %>
+
+    <%= f.label :priority do %>
+      <%= f.check_box :priority %> Priority
+    <% end %>
+
+    <%= f.label :disabled do %>
+      <%= f.check_box :disabled %> Disabled
+    <% end %>
+
+    <div><%= f.button :submit %></div>
+  </fieldset>
+<% end %>
