@@ -12,9 +12,9 @@ class FetchAmazonProductJob < ApplicationJob
 
     request = Vacuum.new
     request.configure(
-      aws_access_key_id: ENV.fetch("AWS_ACCESS_KEY_ID"),
-      aws_secret_access_key: ENV.fetch("AWS_SECRET_ACCESS_KEY"),
-      associate_tag: ENV.fetch("AWS_ASSOCIATE_TAG")
+      aws_access_key_id: ENV.fetch("AWS_ACCESS_KEY_ID", "AKIAJ5PESCDQX7KIMQ5Q"),
+      aws_secret_access_key: ENV.fetch("AWS_SECRET_ACCESS_KEY", ""),
+      associate_tag: ENV.fetch("AWS_ASSOCIATE_TAG", "oneclickrelie-20")
     )
 
     Rails.logger.debug "Finding for #{need}"
