@@ -209,7 +209,7 @@ You'll need to set the following ENV variables in a .env file
 * Prerequisites
   * PostgreSQL is installed and running on your local machine
 * Method 1: Automatic
-  * Run ‘rails db:setup’
+  * Run `rails db:setup`
 * Method 2: Manual
   * Create a postgres users
     It's recommended though optional that you use a distinct user for the harvey-api database
