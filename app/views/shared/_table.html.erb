@@ -22,6 +22,8 @@
 
 <script>
 window.onload = function() {
-  $('#data-table').DataTable();
+  $('#data-table').DataTable({
+    "order": [[ 1, "desc" ]]
+  });
 };
 </script>
