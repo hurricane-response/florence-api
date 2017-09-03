@@ -1,7 +1,7 @@
 class MuckedHomesController < ApplicationController
 
-  def index
-    @muckedHomes = MuckedHome.all
-  end
-  
+  # def index
+  #   @muckedHomes = MuckedHome.all
+  # end
+
 end

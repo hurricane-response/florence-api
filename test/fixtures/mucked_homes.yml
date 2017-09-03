@@ -1,11 +1,15 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+homeOne:
+  name: "Alan Hong"
+  description: "NRG Pkwy Houston TX 77054"
+  longitude: -95.41109
+  latitude: 29.685072
+  phone: "(555) 555-5555"
+  pin: "1234"
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+homeTwo:
+  name: "Joe Shmoe"
+  description: "123 Main St., Houston TX 77057"
+  longitude: -95.40009
+  latitude: 29.658072
+  phone: ""
+  pin: "0000"

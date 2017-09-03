@@ -1,19 +1,15 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  name: MyString
-  description: MyText
-  type: 
-  phone: MyString
-  pin: MyString
-  lat: MyString
-  lng: MyString
+  name: "John Doe"
+  description: "8181 Fannin St., 77054"
+  phone: "(555)555-5555"
+  pin: "0000"
+  lat: -95.41109
+  lng: 29.685072
 
 two:
-  name: MyString
-  description: MyText
-  type: 
-  phone: MyString
-  pin: MyString
-  lat: MyString
-  lng: MyString
+  name: "Jane Doe"
+  description: "123 Holcombe Blvd., Houston TX 77056"
+  phone: ""
+  pin: "1234"
+  lat: -95.42309
+  lng: 29.674072

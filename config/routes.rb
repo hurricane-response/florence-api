@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
-  get 'volunteers/index'
-
-  get 'mucked_homes/index'
-
   devise_for :users
 
+  resources :volunteers
+  resources :mucked_homes
   resources :users, only: [:index, :show, :update]
   resources :shelters do
     get :drafts, on: :collection

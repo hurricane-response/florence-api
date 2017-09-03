@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20170902222739) do
     t.text "description"
     t.string "phone"
     t.string "pin"
-    t.string "lat"
-    t.string "lng"
+    t.float "latitude"
+    t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(version: 20170902222739) do
     t.text "description"
     t.string "phone"
     t.string "pin"
-    t.string "lat"
-    t.string "lng"
+    t.float "latitude"
+    t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

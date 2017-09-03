@@ -5,8 +5,8 @@ class CreateMuckedHomes < ActiveRecord::Migration[5.1]
       t.text :description
       t.string :phone
       t.string :pin
-      t.string :lat
-      t.string :lng
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps
     end
