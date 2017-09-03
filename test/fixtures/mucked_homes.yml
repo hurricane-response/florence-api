@@ -1,4 +1,4 @@
-homeOne:
+alan:
   name: "Alan Hong"
   description: "NRG Pkwy Houston TX 77054"
   longitude: -95.41109
@@ -6,7 +6,7 @@ homeOne:
   phone: "(555) 555-5555"
   pin: "1234"
 
-homeTwo:
+joe:
   name: "Joe Shmoe"
   description: "123 Main St., Houston TX 77057"
   longitude: -95.40009

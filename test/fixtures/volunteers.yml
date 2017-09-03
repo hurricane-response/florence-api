@@ -1,15 +1,15 @@
-one:
+john:
   name: "John Doe"
   description: "8181 Fannin St., 77054"
   phone: "(555)555-5555"
   pin: "0000"
-  lat: -95.41109
-  lng: 29.685072
+  longitude: -95.41109
+  latitude: 29.685072
 
-two:
+jane:
   name: "Jane Doe"
   description: "123 Holcombe Blvd., Houston TX 77056"
   phone: ""
   pin: "1234"
-  lat: -95.42309
-  lng: 29.674072
+  longitude: -95.42309
+  latitude: 29.674072
