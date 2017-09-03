@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'HTTParty'
+require 'httparty'
 
 class APIImporter
   include HTTParty
