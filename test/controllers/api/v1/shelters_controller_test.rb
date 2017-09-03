@@ -18,4 +18,13 @@ class Api::SheltersControllerTest < ActionDispatch::IntegrationTest
     assert_equal count, json["meta"]["result_count"]
     assert_equal "true", json["meta"]["filters"]["accepting"]
   end
+
+  test "shelters are not returned after they are archived" do
+    archived = Shelter.where(active: false).count
+    active = Shelter.where(active: !false).count
+    count = active - archived
+    get "/api/v1/shelters"
+    json = JSON.parse(response.body)
+    assert_equal count, json["shelters"].length
+  end
 end

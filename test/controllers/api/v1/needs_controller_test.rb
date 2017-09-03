@@ -18,4 +18,13 @@ class Api::NeedsControllerTest < ActionDispatch::IntegrationTest
     assert_equal count, json["meta"]["result_count"]
     assert_equal "true", json["meta"]["filters"]["supplies_needed"]
   end
+
+  test "needs are not returned after they are archived" do
+    archived = Need.where(active: false).count
+    active = Need.where(active: !false).count
+    count = active - archived
+    get "/api/v1/needs"
+    json = JSON.parse(response.body)
+    assert_equal count, json["needs"].length
+  end
 end
