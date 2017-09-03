@@ -277,14 +277,14 @@ You'll need to set the following ENV variables in a .env file
     * Example `createdb -O harvey-api_development harvey-api_development`
 * Run rails migrate to create schema
   * `rails db:migrate`
-* Test it's working by doing an initial import from the Google Sheet
-  * `rails google:import`
+* Import needs and shelters data from the production API:
+  * `rails api:import`
   Sample output if successful
   ```
-    Starting ImportSheltersJob 2017-09-01 23:32:10 -0400
-    ImportSheltersJob Complete - {282}
-    Starting ImportNeedsJob 2017-09-01 23:32:12 -0400
-    ImportNeedsJob Complete - {89}
+    Starting ImportSheltersJob 2017-09-03 18:33:03 +0000
+    ImportSheltersJob Complete - {285}
+    Starting ImportNeedsJob 2017-09-03 18:33:05 +0000
+    ImportNeedsJob Complete - {92}
   ```
 
 * Test the API itself (Run API locally)
@@ -292,7 +292,10 @@ You'll need to set the following ENV variables in a .env file
   Screenshot of Success:
   ![Screenshot](/public/images/readme/screenshot_rails_server_run_test.png)
 
+#### About the data import job
+The `ActiveJob`s and associated Rake task `rails api:import`, which imports data for shelters and needs from the production API into the application database, is intended for use in development and test environments only.
 
+**DO NOT RUN THIS JOB IN PRODUCTION.** Since this job pulls data from the production API, running it in production can only be counter-productive, and would likely be destructive.
 
 Development Process
 -------

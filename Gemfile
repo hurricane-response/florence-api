@@ -22,6 +22,7 @@ gem 'geocoder'
 gem 'devise'
 gem 'vacuum'
 gem 'connection_pool'
+gem "httparty", "~> 0.15.6"
 gem 'redis', '~> 3.2'
 
 group :development, :test do
@@ -29,6 +30,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'pry'
   gem 'vcr'
+  gem "webmock", "~> 3.0"
 end
 
 group :development do

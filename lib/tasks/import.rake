@@ -1,5 +1,4 @@
-namespace :google do
-
+namespace :api do
   desc "Schedule import of records for needs and shelters"
   task :import => :environment do
     ImportSheltersJob.perform_now
