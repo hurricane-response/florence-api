@@ -6,6 +6,7 @@ class Shelter < ApplicationRecord
   UpdateFields = ["accepting", "address", "address_name", "city", "county", "notes", "pets", "phone", "shelter", "source", "supply_needs", "updated_by", "volunteer_needs"]
 
   has_many :drafts, as: :record
+  default_scope { where(active: !false) }
 
   geocoded_by :address
   after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }

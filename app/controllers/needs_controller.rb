@@ -3,7 +3,7 @@ class NeedsController < ApplicationController
   before_action :set_need, only: [:show, :edit, :update, :destroy, :archive]
 
   def index
-    @needs = Need.where(active: !false)
+    @needs = Need.all
   end
 
   def new

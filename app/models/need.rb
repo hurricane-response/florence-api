@@ -9,6 +9,7 @@ class Need < ApplicationRecord
 
   geocoded_by :location_address
   after_validation :geocode, if: ->(obj){ obj.location_address.present? && obj.location_address_changed? }
+  default_scope { where(active: !false) }
 
   def clean_needs
     return [] if tell_us_about_the_supply_needs.blank?

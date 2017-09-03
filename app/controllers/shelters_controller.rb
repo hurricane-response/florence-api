@@ -3,7 +3,7 @@ class SheltersController < ApplicationController
   before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive]
 
   def index
-    @shelters = Shelter.where(active: !false)
+    @shelters = Shelter.all
   end
 
   def new
