@@ -12,9 +12,12 @@ Rails.application.routes.draw do
     post :accept, on: :member
   end
   resources :amazon_products, except: [:new, :create, :destroy]
+  namespace :connect do
+    resources :markers
+  end
 
   root to: "shelters#index"
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
       post "/google-sheet-update" => "hooks#sheet_update"
@@ -22,6 +25,11 @@ Rails.application.routes.draw do
       get "/needs" => 'needs#index'
       get "/shelters" => 'shelters#index'
       get "/products" => 'amazon_products#index'
+
+      namespace :connect do
+        resources :markers, only: [:create, :index, :update]
+        resources :categories, only: [:index]
+      end
     end
   end
 end

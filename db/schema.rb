@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170902140452) do
+ActiveRecord::Schema.define(version: 20170903113333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,23 @@ ActiveRecord::Schema.define(version: 20170902140452) do
     t.datetime "updated_at", null: false
     t.boolean "priority", default: false
     t.boolean "disabled", default: false
+  end
+
+  create_table "connect_markers", force: :cascade do |t|
+    t.string "marker_type", null: false
+    t.string "name", default: "", null: false
+    t.text "description", default: "", null: false
+    t.string "phone", default: "", null: false
+    t.string "category", default: "", null: false
+    t.boolean "resolved", default: false, null: false
+    t.float "latitude", default: 0.0, null: false
+    t.float "longitude", default: 0.0, null: false
+    t.string "address", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_connect_markers_on_category"
+    t.index ["latitude", "longitude"], name: "index_connect_markers_on_latitude_and_longitude"
+    t.index ["resolved"], name: "index_connect_markers_on_unresolved", where: "(resolved IS FALSE)"
   end
 
   create_table "drafts", force: :cascade do |t|
