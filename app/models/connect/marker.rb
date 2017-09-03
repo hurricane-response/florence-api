@@ -1,9 +1,8 @@
 class Connect::Marker < ApplicationRecord
   MARKER_TYPES = %w(have need)
 
-  validates :category, :latitude, :longitude,
-            :marker_type, :name, :phone, presence: true
-  validates :marker_type, inclusion: { in: MARKER_TYPES }
+  validates :category, :name, :phone, presence: true
+  validates :marker_type, inclusion: { in: MARKER_TYPES, allow_blank: false }
   validates :latitude, :longitude, numericality: { other_than: 0 }
 
   reverse_geocoded_by :latitude, :longitude

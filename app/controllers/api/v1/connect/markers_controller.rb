@@ -39,6 +39,7 @@ module Api
         end
 
         def update
+          @marker = ::Connect::Marker.find(params[:id])
           if @marker.update(marker_params)
             render :show, status: :ok, location: @marker
           else
