@@ -1,0 +1,2 @@
+module MuckedHomesHelper
+end
