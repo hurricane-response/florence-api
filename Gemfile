@@ -22,6 +22,7 @@ gem 'geocoder'
 gem 'devise'
 gem 'vacuum'
 gem 'connection_pool'
+gem "httparty", "~> 0.15.6"
 
 group :development, :test do
   gem 'capybara', '~> 2.13'
