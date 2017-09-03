@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :update]
   resources :shelters do
     get :drafts, on: :collection
+    post :archive, on: :member
   end
   resources :needs do
     get :drafts, on: :collection
+    post :archive, on: :member
   end
   resources :drafts, only: [:show, :destroy] do
     post :accept, on: :member
