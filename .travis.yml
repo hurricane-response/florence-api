@@ -3,11 +3,12 @@ rvm:
 - 2.4.1
 addons:
   postgresql: '9.6'
+  chrome: stable
 before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 - cp config/database.yml.travis config/database.yml
 script:
-- bundle exec rails test && bundle exec rails test:system  
+- bundle exec rails test && bundle exec rails test:system
 deploy:
   provider: heroku
   api_key:
