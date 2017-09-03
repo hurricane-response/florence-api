@@ -1,0 +1,2 @@
+module Connect::HavesHelper
+end
