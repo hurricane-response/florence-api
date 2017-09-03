@@ -1,6 +1,6 @@
 class SheltersController < ApplicationController
   before_action :set_headers
-  before_action :set_shelter, only: [:show, :edit, :update, :destroy]
+  before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive]
 
   def index
     @shelters = Shelter.all
@@ -56,6 +56,13 @@ class SheltersController < ApplicationController
   end
 
   def destroy
+  end
+
+  def archive
+    if(user_signed_in? && current_user.admin?)
+      @shelter.update_attributes(active: false)
+      redirect_to shelters_path, notice: "Archived!"
+    end
   end
 
   def drafts
