@@ -11,7 +11,7 @@ class Connect::Marker < ApplicationRecord
   scope :unresolved, -> { where(resolved: false) }
 
   def coordinates_changed?
-    return false if self.latitude.zero? && self.longitude.zero?
+    return false if self.latitude.zero? || self.longitude.zero?
     self.latitude_changed? || self.longitude_changed?
   end
 end
