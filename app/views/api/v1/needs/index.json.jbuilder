@@ -1,5 +1,9 @@
-json.needs @needs do |need|
-  json.partial! need
+json.cache! @needs do
+  json.needs @needs do |need|
+    json.cache! need do
+      json.partial! need
+    end
+  end
 end
 
 json.meta do
