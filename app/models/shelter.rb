@@ -9,4 +9,8 @@ class Shelter < ApplicationRecord
   default_scope { where(active: !false) }
 
   geocoded_by :address
+
+  after_commit do
+    ShelterUpdateNotifierJob.perform_later self
+  end
 end

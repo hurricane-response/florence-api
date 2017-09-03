@@ -1,5 +1,29 @@
 <h1>Shelters</h1>
 
+<script type="text/javascript">
+  App.updatedShelters.subscribe( function(shelters){
+    const record = document.querySelector(".new-record-notification")
+    record.textContent = ""
+
+    if(shelters.length === 0){
+      return;
+    }
+
+    const template = `
+      <a href="/shelters" data-role="clear-and-reload" class="button button-outline"> ${shelters.length} recent shelter updates - Reload</a>
+    `
+    record.insertAdjacentHTML('beforeEnd',template)
+
+    document.querySelector("a[data-role='clear-and-reload']").addEventListener('click', function(event){
+      event.preventDefault()
+      App.updatedShelters.clear();
+      /// TODO: here is where we could replace data in the data table with
+      /// each of the shelters
+      location.reload();
+    })
+  })
+</script>
+
 <%= link_to 'Add New Shelter', new_shelter_path, class: "button button-outline" %>
 
 <%= render "shared/table", rows: @shelters, headers: @headers, columns: @columns %>
