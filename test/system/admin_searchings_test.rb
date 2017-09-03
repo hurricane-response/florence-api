@@ -20,7 +20,7 @@ class AdminSearchingsTest < ApplicationSystemTestCase
     rando_shelter = Shelter.all.sample
     rando_shelter.shelter = SecureRandom.hex(8)
     rando_shelter.save!
-    sleep 3
+    sleep 8
     assert_selector ".new-record-notification", text: "1 RECENT SHELTER UPDATES - RELOAD"
   end
 
@@ -29,7 +29,7 @@ class AdminSearchingsTest < ApplicationSystemTestCase
     rando_shelter = Need.all.sample
     rando_shelter.updated_by = SecureRandom.hex(8)
     rando_shelter.save!
-    sleep 3
+    sleep 8
     assert_selector ".new-record-notification", text: "1 RECENT NEED UPDATES - RELOAD"
   end
 end
