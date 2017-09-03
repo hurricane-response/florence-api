@@ -1,0 +1,15 @@
+alan:
+  name: "Alan Hong"
+  description: "NRG Pkwy Houston TX 77054"
+  longitude: -95.41109
+  latitude: 29.685072
+  phone: "(555) 555-5555"
+  pin: "1234"
+
+joe:
+  name: "Joe Shmoe"
+  description: "123 Main St., Houston TX 77057"
+  longitude: -95.40009
+  latitude: 29.658072
+  phone: ""
+  pin: "0000"
