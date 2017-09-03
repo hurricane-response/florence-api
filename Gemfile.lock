@@ -60,6 +60,8 @@ GEM
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     dalli (2.7.6)
     declarative (0.0.9)
     declarative-option (0.1.0)
@@ -97,6 +99,7 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    hashdiff (0.3.6)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
     httpclient (2.8.3)
@@ -185,6 +188,7 @@ GEM
     retriable (3.1.1)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
+    safe_yaml (1.0.4)
     sass (3.5.1)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -243,6 +247,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webmock (3.0.1)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -277,6 +285,7 @@ DEPENDENCIES
   vacuum
   vcr
   web-console (>= 3.3.0)
+  webmock (~> 3.0)
 
 RUBY VERSION
    ruby 2.4.1p111

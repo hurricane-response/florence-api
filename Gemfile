@@ -37,3 +37,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+# Added at 2017-09-02 21:10:17 -0500 by ted:
+gem "webmock", "~> 3.0"
