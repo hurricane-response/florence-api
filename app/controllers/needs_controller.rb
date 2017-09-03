@@ -1,6 +1,6 @@
 class NeedsController < ApplicationController
   before_action :set_headers
-  before_action :set_need, only: [:show, :edit, :update, :destroy]
+  before_action :set_need, only: [:show, :edit, :update, :destroy, :archive]
 
   def index
     @needs = Need.all
@@ -36,6 +36,16 @@ class NeedsController < ApplicationController
     @need = Need.find(params[:id])
   end
 
+  def destroy
+  end
+
+  def archive
+    if(user_signed_in? && current_user.admin?)
+      @need.update_attributes(active: false)
+      redirect_to needs_path, notice: "Archived!"
+    end
+  end
+
   def edit
   end
 
@@ -57,8 +67,6 @@ class NeedsController < ApplicationController
     end
   end
 
-  def destroy
-  end
 
   def drafts
     @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = 'Need'", Need.name).where(accepted_by_id: nil).where(denied_by_id: nil)
