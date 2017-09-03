@@ -20,4 +20,8 @@ class Need < ApplicationRecord
       .map(&:strip)
       .select(&:present?)
   end
+
+  after_commit do
+    NeedUpdateNotifierJob.perform_later self
+  end
 end

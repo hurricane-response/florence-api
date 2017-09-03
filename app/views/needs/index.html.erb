@@ -1,5 +1,29 @@
 <h1>Needs</h1>
 
+<script type="text/javascript">
+  App.updatedNeeds.subscribe( function(needs){
+    const record = document.querySelector(".new-record-notification")
+    record.textContent = ""
+
+    if(needs.length === 0){
+      return;
+    }
+
+    const template = `
+      <a href="/needs" data-role="clear-and-reload" class="button button-outline"> ${needs.length} recent need updates - Reload</a>
+    `
+    record.insertAdjacentHTML('beforeEnd',template)
+
+    document.querySelector("a[data-role='clear-and-reload']").addEventListener('click', function(event){
+      event.preventDefault()
+      App.updatedNeeds.clear();
+      /// TODO: here is where we could replace data in the data table with
+      /// each of the needs
+      location.reload();
+    })
+  })
+</script>
+
 <%= link_to 'Add New Need', new_need_path, class: "button button-outline" %>
 
 <%= render "shared/table", rows: @needs, headers: @headers, columns: @columns %>
