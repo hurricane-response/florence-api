@@ -1,0 +1,2 @@
+class CharitableOrganization < ApplicationRecord
+end
