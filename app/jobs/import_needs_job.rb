@@ -2,7 +2,7 @@ class ImportNeedsJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    puts "Starting ImportNeedsJob #{Time.now} using API"
+    puts "Starting ImportNeedsJob #{Time.now}"
     needs = APIImporter.needs
     needs.each do |need|
       # needs and cleanPhone are derived fields
