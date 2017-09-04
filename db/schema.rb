@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20170904165336) do
     t.datetime "updated_at", null: false
     t.boolean "active", default: true, null: false
   end
-  
+
   create_table "connect_markers", force: :cascade do |t|
     t.string "marker_type", null: false
     t.string "name", default: "", null: false
