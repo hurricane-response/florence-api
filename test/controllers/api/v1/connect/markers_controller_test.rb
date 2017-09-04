@@ -8,6 +8,7 @@ class Api::V1::Connect::MarkersControllerTest < ActionDispatch::IntegrationTest
     json = JSON.parse(response.body)
     assert_equal count, json["markers"].length
     assert_equal count, json["meta"]["result_count"]
+    assert json["markers"][0].key?("email")
   end
 
   test "can limit the number of markers returned" do

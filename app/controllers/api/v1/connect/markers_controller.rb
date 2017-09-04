@@ -56,10 +56,10 @@ module Api
                         :email,
                         :latitude,
                         :longitude,
+                        :marker_type,
                         :name,
                         :phone,
                         :resolved)
-:marker_type,
         end
       end
     end
