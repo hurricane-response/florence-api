@@ -203,6 +203,55 @@ Sample:
 
   * Returns 1 result, only for needs with `baby`
 
+### Charitable Organizations API
+
+Shape:
+
+```
+{
+  "charitable_organizations": [
+    {
+      "name": "Boys and Girls Country",
+      "services": "Children",
+      "food_bank": false,
+      "donation_website": "https://www.boysandgirlscountry.org/donate",
+      "phone_number": "(281)351-4976",
+      "email": "info@boysandgirlscountry.org",
+      "physical_address": "18806 Roberts Road",
+      "city": "Hockley",
+      "state": "TX",
+      "zip": "77447",
+      "updatedAt": "2017-09-04T00:58:58.088Z"
+    }
+  ],
+
+  "meta": {
+    "result_count": 1,
+    "filters": {
+      "city": "Hockley"
+    }
+  }
+}
+```
+
+Filters:
+
+* `food_bank` : true
+* `name` : the name
+* `services` : the services provided
+* `limit`: only return n results
+* `city`: the organizations in a city
+
+Sample:
+
+`/api/v1/charitable_organizations?services=schools`
+
+  * Filters by services provided
+
+`/api/v1/charitable_organizations?food_bank=true`
+
+  * Organizations acting as food banks
+
 
 Getting Started (Dev)
 -------
