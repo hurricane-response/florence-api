@@ -375,3 +375,22 @@ PG::ConnectionBad: could not connect to server: No such file or directory
 	connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
 ```
 Postgres is not running OR there is a connection problem to the database.
+
+
+# LICENSE
+
+### Software Code
+
+This system's software code is licensed under the GPLv3.
+
+Full license availabe in [LICENSE](LICENSE)
+
+### Data and Content
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img
+alt="Creative Commons License" style="border-width:0"
+src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This
+work is licensed under a <a rel="license"
+href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
