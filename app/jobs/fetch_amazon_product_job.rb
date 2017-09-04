@@ -24,7 +24,8 @@ class FetchAmazonProductJob < ApplicationJob
         'Keywords' => need,
         'Availability' => 'Available',
         'MerchantId' => 'Amazon',
-        'SearchIndex' => 'All'
+        'SearchIndex' => 'All',
+        'MaximumPrice' => 3000
       }
     )
 
@@ -40,7 +41,8 @@ class FetchAmazonProductJob < ApplicationJob
       return
     end
 
-    item = response.dig('ItemSearchResponse', 'Items', 'Item').first
+    item = response.dig('ItemSearchResponse', 'Items', 'Item')
+    item = item.first if item.is_a? Array
 
     amazon_product = AmazonProduct
           .where("need ILIKE ?", "%#{need}%")
