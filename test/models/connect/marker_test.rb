@@ -62,4 +62,10 @@ class Connect::MarkerTest < ActiveSupport::TestCase
     @marker.longitude = 0
     refute @marker.coordinates_changed?, 'lat/lng are invalid'
   end
+
+  test 'invalid with a bad email' do
+    @marker.email = 'nope'
+    refute @marker.valid?, 'saved marker with invalid email'
+    assert_not_nil @marker.errors[:email], 'no validation error for email'
+  end
 end
