@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       get "/needs" => 'needs#index'
       get "/shelters" => 'shelters#index'
       get "/products" => 'amazon_products#index'
+      get "/charitable_organizations" => 'charitable_organizations#index'
     end
   end
 end
