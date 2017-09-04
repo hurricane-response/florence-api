@@ -21,9 +21,7 @@ Rails.application.routes.draw do
   root to: "shelters#index"
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-
-      post "/google-sheet-update" => "hooks#sheet_update"
-
+      
       get "/needs" => 'needs#index'
       get "/shelters" => 'shelters#index'
       get "/products" => 'amazon_products#index'
