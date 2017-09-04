@@ -28,6 +28,22 @@ ActiveRecord::Schema.define(version: 20170904165336) do
     t.string "category_general", default: ""
   end
 
+  create_table "charitable_organizations", force: :cascade do |t|
+    t.string "name"
+    t.string "services"
+    t.boolean "food_bank"
+    t.string "donation_website"
+    t.string "phone_number"
+    t.string "email"
+    t.string "physical_address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "active", default: true, null: false
+  end
+  
   create_table "connect_markers", force: :cascade do |t|
     t.string "marker_type", null: false
     t.string "name", default: "", null: false

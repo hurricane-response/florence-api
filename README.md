@@ -1,13 +1,24 @@
 The Harvey Needs API
 ====================
 
-* Imports data from a public google data spreadsheet
-  * Right now that's https://docs.google.com/spreadsheets/d/14GHRHQ_7cqVrj0B7HCTVE5EbfpNFMbSI9Gi8azQyn-k/edit#gid=0
-* Each import does a full import of the needs and shelter sheets
 * We serve JSON data here, open and fresh
-* viasocket notifies our api when changes have been made to the source data in Google sheets. The api then does a full refresh of the data from the Google sheet.will post to us when an update is posted to the google spreadsheet
-* An ad-hoc import can be triggered with `rails google:import`
-* You can load Amazon Products by seeding your database: `rails db:seed` (or doing a full import `rails amazon:import`)
+* We help client applications help those affeceted by Hurricane Harvey 
+
+Example Clients:
+
+* https://sketch-city.github.io/harvey-needs/
+* https://www.texasrescuemap.com/muckmap
+* https://www.texasrescuemap.com
+* SMS Shelter Finder at http://harveyneeds.org/
+* http://oneclickrelief.com/
+
+Developer Links
+-----
+
+* [CONTRIBUTORS](https://api.harveyneeds.org/contributors.html)
+* [LICENSE](#license)
+* [CODE OF CONDUCT](CODE_OF_CONDUCT.md)
+
 
 API
 ----
@@ -206,6 +217,55 @@ Sample:
 
   * Returns 1 result, only for needs with `baby`
 
+### Charitable Organizations API
+
+Shape:
+
+```
+{
+  "charitable_organizations": [
+    {
+      "name": "Boys and Girls Country",
+      "services": "Children",
+      "food_bank": false,
+      "donation_website": "https://www.boysandgirlscountry.org/donate",
+      "phone_number": "(281)351-4976",
+      "email": "info@boysandgirlscountry.org",
+      "physical_address": "18806 Roberts Road",
+      "city": "Hockley",
+      "state": "TX",
+      "zip": "77447",
+      "updatedAt": "2017-09-04T00:58:58.088Z"
+    }
+  ],
+
+  "meta": {
+    "result_count": 1,
+    "filters": {
+      "city": "Hockley"
+    }
+  }
+}
+```
+
+Filters:
+
+* `food_bank` : true
+* `name` : the name
+* `services` : the services provided
+* `limit`: only return n results
+* `city`: the organizations in a city
+
+Sample:
+
+`/api/v1/charitable_organizations?services=schools`
+
+  * Filters by services provided
+
+`/api/v1/charitable_organizations?food_bank=true`
+
+  * Organizations acting as food banks
+
 
 Getting Started (Dev)
 -------
@@ -235,24 +295,14 @@ User.create! email: "youremail@example.com", password: "yourpassword", admin: tr
 * In the directory on your local box in which you plan to work run: `git clone git@github.com:<YOUR OWN GITHUB REPOSITORY>/harvey-api.git`
 
 #### Setting up your .env file
+
+Note: this is optional; currently only needed to fetch new Amazon products from
+the Amazon Product Advertising API
+
 You'll need to set the following ENV variables in a .env file
 
 1. Make a working copy of .env by runng this command at the terminal: `cp .env.sample .env`
-2. Edit the VARS
-  * Atom users: `atom .env`
-  * vim users: `vim .env`
-  * emacs users: `emacs .env`
-3. Get a server credential from google for
-   https://console.developers.google.com/apis/api/drive.googleapis.com/overview
-   * Screenshot:  ![Screenshot](/public/images/readme/screenshot_create-service-account-key.png)
-
-4. Get the private key and email from the json file google gets you
-5. While still in the Google develop consoler enable the Google Sheets API. Once enabled it should look like this:
-![Screenshot](/public/images/readme/screenshot_enable_google_sheets_api.png)
-6. Back in the .env file now, replace the email value and private key values with the values in the JSON
-  * Take care to copy the full private key which will span multiple lines.
-7. Get Amazon AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from Amazon's IAM. You'll need to create a PolicyName. You can name it "ProductAdvertisingAPI" with the following policy:
-
+2. Get Amazon AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from Amazon's IAM. You'll need to create a PolicyName. You can name it "ProductAdvertisingAPI" with the following policy:
 ```
 {
     "Version": "2012-10-17",
@@ -296,6 +346,7 @@ You'll need to set the following ENV variables in a .env file
   ![Screenshot](/public/images/readme/screenshot_rails_server_run_test.png)
 
 #### About the data import job
+* You can load Amazon Products by seeding your database: `rails db:seed` (or doing a full import `rails amazon:import`)
 The `ActiveJob`s and associated Rake task `rails api:import`, which imports data for shelters and needs from the production API into the application database, is intended for use in development and test environments only.
 
 **DO NOT RUN THIS JOB IN PRODUCTION.** Since this job pulls data from the production API, running it in production can only be counter-productive, and would likely be destructive.
@@ -337,15 +388,19 @@ Documentation such as READMEs (e.g., this document) are written in markdown per 
 Design Choices
 -------------
 
-* one benefit of building our own api is so that we can get rid of using google-sheets eventually.
-* Hosted on Heroku and Amazon RDS
+* Hosted on Heroku with PostGres
+* Uses ActiveJob (currently with sucker_punch)
+* MiniTest with Rails system tests
 
 Thanks To:
 ---------
 
-* Entire Sketch-City organization
-* Coding for America
-* More More More names here
+Source Code Collaborators can be viewed: https://api.harveyneeds.org/contributors.html
+
+But the API wouldn't mean anything without our volunteers:
+
+* [Entire Sketch-City organization](http://sketchcity.org/)
+* [Code for America](https://www.codeforamerica.org/)
 
 
 Appendix
@@ -354,21 +409,7 @@ Appendix
 * [Mastering Markdown](https://guides.github.com/features/mastering-markdown)
 
 
-
 ### Errors you may get and what they mean
-* Could not load default credentials
-Looks like:
-```rails aborted!
-Could not load the default credentials
-```
-You either have not set up a key OR did not configure it correctly in your .env file
-
-* "accessNotConfigured: Google Sheets API"
-Looks like:
-```rails aborted!
-Google::Apis::ClientError: accessNotConfigured: Google Sheets API has not been used in project harvey-api before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/sheets.googleapis.com/overview?project=harvey-api then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
-```
-You set up a key properly in the Google console but you did not enable Google sheets.
 
 * "PG::ConnectionBad"
 Looks like:

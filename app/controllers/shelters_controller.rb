@@ -62,6 +62,8 @@ class SheltersController < ApplicationController
     if(user_signed_in? && current_user.admin?)
       @shelter.update_attributes(active: false)
       redirect_to shelters_path, notice: "Archived!"
+    else
+      redirect_to shelters_path, notice: "You must be an admin to archive."      
     end
   end
 
