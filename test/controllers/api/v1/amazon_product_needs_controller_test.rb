@@ -34,4 +34,41 @@ class Api::AmazonProductsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, json["products"].length
     assert_equal 1, json["meta"]["filters"]["limit"]
   end
+
+  test "categories are returned" do
+    needs(:katy).update(tell_us_about_the_supply_needs: "garbage bags")
+    get "/api/v1/products?limit=1"
+    json = JSON.parse(response.body)
+    product = json["products"].first
+    assert product["category_specific"].present?
+    assert product["category_general"].present?
+  end
+
+  test "categories can be filtered (specific)" do
+    needs(:katy).update(tell_us_about_the_supply_needs: "garbage bags")
+    get "/api/v1/products?category=cleanup"
+    json = JSON.parse(response.body)
+    products = json["products"]
+    assert products.map{|p| p["asin"]}.include? amazon_products(:garbage_bags).asin
+  end
+
+  test "categories can be filtered (general)" do
+    needs(:katy).update(tell_us_about_the_supply_needs: "garbage bags")
+    get "/api/v1/products?category=household"
+    json = JSON.parse(response.body)
+    products = json["products"]
+    assert products.map{|p| p["asin"]}.include? amazon_products(:garbage_bags).asin
+  end
+
+  test "Does not return products without a category" do
+    amazon_products(:baby_formula).update({
+      category_specific: "",
+      category_general: ""
+    })
+    get "/api/v1/products"
+    json = JSON.parse(response.body)
+    products = json["products"]
+    refute products.map{|p| p["asin"]}.include? amazon_products(:baby_formula).asin
+
+  end
 end

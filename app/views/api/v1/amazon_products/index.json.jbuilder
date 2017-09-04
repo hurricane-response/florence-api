@@ -1,5 +1,6 @@
 json.products @products do |product|
-  json.extract! product, :need, :asin, :amazon_title, :detail_url, :priority
+  json.extract! product, :need, :asin, :amazon_title, :detail_url,
+                         :priority, :category_specific, :category_general
 end
 
 json.meta do
