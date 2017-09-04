@@ -1,65 +1,65 @@
 default: &default
   categories:
     - labor:
-      - muck
-      - heavy trash
-      - clean
-      - shop
-      - laundry
-      - cook
-      - sit
+      - muck:
+      - trash:
+      - clean:
+      - shop:
+      - laundry:
+      - cook:
+      - sit:
       - specialized:
-        - Nurse, medical doctor
-        - House repairs
-        - Electrician
-        - Legal advice
-        - Pest / animal control
-        - Counselor
-        - Other
-      - other labor
+        - medical
+        - home_repair
+        - electrician
+        - legal
+        - pest_control
+        - counselor
+        - other_specialized
+      - other_labor:
     - equipment:
       - construction
-      - power tools
+      - power_tools
       - tools
-      - water pump
-      - protective gear
+      - water_pump
+      - protective_gear
       - generator
       - dehumidifier
       - appliances
-      - other
+      - other_equipment
     - supplies:
       - construction
-      - house repairs
-      - cleaning supplies
-      - household items
-      - personal care
-      - baby and child care
+      - home_repair
+      - cleaning_supplies
+      - household_items
+      - personal_care
+      - baby_and_child_care
       - clothes
       - medicine
       - furniture
       - fuel
-      - other
+      - other_supplies
     - transportation:
-      - pickup truck
-      - bus or van
-      - tow truck
-      - boat (motor)
-      - boat (no motor)
-      - other
+      - pickup_truck
+      - bus_or_van
+      - tow_truck
+      - boat_motor
+      - boat_no_motor
+      - other_transportation
     - housing:
-      - number of adults
-      - number of children
-      - number of pets:
-        - dog
-        - cat
-        - other
+      - number_of_adults: 0
+      - number_of_children: 0
+      - number_of_pets:
+                    - dog
+                    - cat
+                    - other
     - food:
-      - ready to eat
-      - baby formula
-      - drinking water
-      - canned food
-      - dry foods
-      - basic staples
+      - ready_to_eat
+      - baby_formula
+      - drinking_water
+      - canned_food
+      - dry_foods
+      - basic_staples
 
 development:
   <<: *default
