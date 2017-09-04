@@ -51,14 +51,15 @@ module Api
 
         def marker_params
           params.require(:marker)
-                .permit(:marker_type,
-                        :name,
+                .permit(:category,
                         :description,
-                        :phone,
-                        :category,
-                        :resolved,
+                        :email,
                         :latitude,
-                        :longitude)
+                        :longitude,
+                        :name,
+                        :phone,
+                        :resolved)
+:marker_type,
         end
       end
     end
