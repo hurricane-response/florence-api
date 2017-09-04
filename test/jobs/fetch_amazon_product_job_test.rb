@@ -33,9 +33,10 @@ class FetchAmazonProductJobTest < ActiveJob::TestCase
     VCR.use_cassette("amazon", :match_requests_on => [:method, amazon_url_matcher])  do
 
       FetchAmazonProductJob.perform_now "trash bags (kitchen and contractor size)"
-      AmazonProduct.pluck(:need).include? "trash bags (kitchen and contractor size)"
+      assert AmazonProduct.pluck(:need).include? "trash bags (kitchen and contractor size)"
       FetchAmazonProductJob.perform_now "baby formula"
-      AmazonProduct.pluck(:need).include? "baby formula"
+      assert AmazonProduct.pluck(:need).include? "baby formula"
+
     end
   end
 

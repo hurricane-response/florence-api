@@ -5,6 +5,8 @@ baby_formula:
   asin: FAKEBABYASIN
   amazon_title: Super Great Bebe Formula
   detail_url: http://www.example.com/amazon/baby
+  category_specific: Grocery
+  category_general: Grocery
   priority: true
   disabled: false
 
@@ -13,6 +15,8 @@ garbage_bags:
   asin: FAKEBAGS
   amazon_title: BIG BAGS
   detail_url: http://www.example.com/amazon/bags
+  category_specific: Cleanup
+  category_general: Household
   priority: false
   disabled: false
 
@@ -21,5 +25,7 @@ iphones:
   asin: FAKEBAGS
   amazon_title: iphones
   detail_url: http://www.example.com/amazon/iphones
+  category_specific: Apple
+  category_general: Electronics
   priority: false
   disabled: true

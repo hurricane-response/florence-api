@@ -192,7 +192,9 @@ Shape:
       "amazon_title": "PET FACTORY 28750 Chicken Dog Roll, 40-Pack",
       "detail_url":
         "https://www.amazon.com/FACTORY-28750-Chicken-Roll-40-Pack/dp/B00ME73XUG?psc=1&SubscriptionId=AKIAJ5PESCDQX7KIMQ5Q&tag=oneclickrelie-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=B00ME73XUG",
-      "priority": false
+      "priority": false,
+      "category_specific": "Rawhide",
+      "category_general": "Pet Supplies"
     }
   ],
   "meta": {
@@ -206,6 +208,7 @@ Filters:
 * `need` : Name of need, eg: 'baby'
 * `priority` : `true`. Note: data has to be gathered to make this true
 * `limit`: only return n results
+* `category`: matching either the category_specific or category_general
 
 
 Sample:
@@ -434,4 +437,3 @@ src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This
 work is licensed under a <a rel="license"
 href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-

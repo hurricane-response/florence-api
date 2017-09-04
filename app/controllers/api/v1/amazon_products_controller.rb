@@ -25,6 +25,13 @@ class Api::V1::AmazonProductsController < ApplicationController
       @products = @products.priority
     end
 
+    if params[:category].present?
+      @filters[:category] = params[:category]
+      @products = @products
+        .where("category_specific ILIKE ?", "%#{params[:category]}%")
+        .or(@products.where("category_general ILIKE ?", "%#{params[:category]}%"))
+    end
+
     if params[:limit].to_i > 0
       @filters[:limit] = params[:limit].to_i
       @products = @products.limit(params[:limit].to_i)

@@ -11,6 +11,7 @@ class AmazonProduct < ApplicationRecord
   validates :asin, presence: true
   validates :detail_url, presence: true
 
-  scope :active, -> { where(disabled: false)}
+  scope :active, -> { where(disabled: false).proper_categories}
   scope :priority, -> { where(priority: true)}
+  scope :proper_categories, -> {where("category_general != ? and category_specific !=?", "", "")}
 end
