@@ -10,12 +10,6 @@ class Api::V1::CharitableOrganizationsController < ApplicationController
     # find all Amazon products we have
     @charitable_organizations = CharitableOrganization.all
 
-      if params[:lat].present? && params[:lon].present?
-        @filters[:lon] = params[:lon]
-        @filters[:lat] = params[:lat]
-        @charitable_organizations = @charitable_organizations.near([params[:lat], params[:lon]], 100)
-      end
-
       if params[:services].present?
         @filters[:services] = params[:services]
         @charitable_organizations = @charitable_organizations.where("services ILIKE ?", "%#{params[:services]}%")
