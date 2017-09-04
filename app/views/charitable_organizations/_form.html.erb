@@ -1,0 +1,30 @@
+<%= simple_form_for(@charitable_organization, local: true) do |f| %>
+    <% if charitable_organization.errors.any? %>
+      <div>
+        <h2><%= pluralize(charitable_organization.errors.count, "error") %> prohibited this charitable organization from being saved:</h2>
+
+        <ul>
+          <% charitable_organization.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <fieldset>
+    <%= f.input :name %>
+    <%= f.input :services %>
+    <%= f.input :food_bank %>
+    <%= f.input :donation_website %>
+    <%= f.input :phone_number %>
+    <%= f.input :email %>
+    <%= f.input :physical_address %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip %>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

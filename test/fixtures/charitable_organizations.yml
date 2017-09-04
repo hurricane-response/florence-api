@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "Charity One"
+  services: "Church"
+  food_bank: false
+  donation_website: "http://one.com"
+  phone_number: "123-123-1234"
+  email: "charity@charity.com"
+  physical_address: "123 main"
+  city: "houston"
+  state: "tx"
+  zip: "77006"
+  active: true
+
+two:
+  name: "Second Charity"
+  services: "Something Else"
+  food_bank: true
+  donation_website: "https://another.com"
+  phone_number: "123-123-1235"
+  email: "321@123.com"
+  physical_address: "312 Main"
+  city: "Houston"
+  state: "tx"
+  zip: "77007"
+  active: false

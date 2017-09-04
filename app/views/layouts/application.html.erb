@@ -35,6 +35,7 @@
             <li><%= link_to "Needs Update Queue", drafts_needs_path %></li>
             <li><%= link_to "Users", users_path %></li>
             <li><%= link_to "AmazonProducts", amazon_products_path %></li>
+            <li><%= link_to "Charitable Organizations", charitable_organizations_path %></li>
           <% end %>
           <div class="right">
             <li><span>Welcome <%= user_signed_in? ? current_user.email : "guest" %>!</span></li>

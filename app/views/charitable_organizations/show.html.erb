@@ -1,0 +1,12 @@
+<h1><%= @charitable_organization.name %></h1>
+
+<%= render "shared/show", record: @charitable_organization, headers: @headers, columns: @columns %>
+
+<%= link_to 'Update', [:edit, @charitable_organization], class: "button button-clear" %> |
+<%= link_to 'Back', charitable_organizations_path, class: "button button-clear" %>
+<% if user_signed_in? && current_user.admin? %> |
+<%= link_to 'Archive', archive_charitable_organization_path(@charitable_organization),
+              method: :post,
+              data: { confirm: 'Are you sure?' },
+              class: "button button-clear" %>
+  <% end %>
