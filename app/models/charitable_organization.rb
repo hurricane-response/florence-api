@@ -7,4 +7,6 @@ class CharitableOrganization < ApplicationRecord
 
   default_scope { where(active: true) }
 
+  has_many :drafts, as: :record
+
 end
