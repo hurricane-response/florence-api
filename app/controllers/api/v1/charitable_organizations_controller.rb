@@ -25,6 +25,11 @@ class Api::V1::CharitableOrganizationsController < ApplicationController
         @charitable_organizations = @charitable_organizations.where(food_bank: true)
       end
 
+      if params[:city].present?
+        @filters[:city] = params[:city]
+        @charitable_organizations = @charitable_organizations.where("city ILIKE ?", "%#{params[:city]}%")
+      end
+
       if params[:limit].to_i > 0
         @charitable_organizations = @charitable_organizations.limit(params[:limit].to_i)
       end
