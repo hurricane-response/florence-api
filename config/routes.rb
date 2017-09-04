@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+
   devise_for :users
 
   resources :users, only: [:index, :show, :update]
+  resources :charitable_organizations do
+    get :drafts, on: :collection
+    post :archive, on: :member
+  end
   resources :shelters do
     get :drafts, on: :collection
     post :archive, on: :member
