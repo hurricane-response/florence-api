@@ -1,0 +1,69 @@
+default: &default
+  categories:
+    - labor:
+      - muck
+      - heavy trash
+      - clean
+      - shop
+      - laundry
+      - cook
+      - sit
+      - specialized:
+        - Nurse, medical doctor
+        - House repairs
+        - Electrician
+        - Legal advice
+        - Pest / animal control
+        - Counselor
+        - Other
+      - other labor
+    - equipment:
+      - construction
+      - power tools
+      - tools
+      - water pump
+      - protective gear
+      - generator
+      - dehumidifier
+      - appliances
+      - other
+    - supplies:
+      - construction
+      - house repairs
+      - cleaning supplies
+      - household items
+      - personal care
+      - baby and child care
+      - clothes
+      - medicine
+      - furniture
+      - fuel
+      - other
+    - transportation:
+      - pickup truck
+      - bus or van
+      - tow truck
+      - boat (motor)
+      - boat (no motor)
+      - other
+    - housing:
+      - number of adults
+      - number of children
+      - number of pets:
+        - dog
+        - cat
+        - other
+    - food:
+      - ready to eat
+      - baby formula
+      - drinking water
+      - canned food
+      - dry foods
+      - basic staples
+
+development:
+  <<: *default
+test:
+  <<: *default
+production:
+  <<: *default

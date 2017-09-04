@@ -1,0 +1,2 @@
+module Connect::NeedsHelper
+end
