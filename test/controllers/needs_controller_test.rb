@@ -76,6 +76,24 @@ class NeedsControllerTest < ActionDispatch::IntegrationTest
     assert_equal(draft_name, draft.info['location_name'])
   end
 
+  test "archives if user admin" do
+    need = needs(:katy)
+    expected_count = Need.count - 1
+    sign_in users(:admin)
+    post archive_need_path(need)
+    assert_response :redirect
+    assert_equal(expected_count, Need.count)
+  end
+
+  test "guests may not archive" do
+    need = needs(:katy)
+    expected_count = Need.count
+    sign_in users(:guest)
+    post archive_need_path(need)
+    assert_response :redirect
+    assert_equal(expected_count, Need.count)
+  end
+
   test "loads drafts" do
     get drafts_needs_path
     assert_response :success

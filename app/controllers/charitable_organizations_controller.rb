@@ -43,6 +43,8 @@ class CharitableOrganizationsController < ApplicationController
     if(user_signed_in? && current_user.admin?)
       @charitable_organization.update_attributes(active: false)
       redirect_to charitable_organizations_path, notice: "Archived!"
+    else
+      redirect_to charitable_organizations_path, notice: "You must be an admin to archive."
     end
   end
 

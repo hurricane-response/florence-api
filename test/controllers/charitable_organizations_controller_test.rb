@@ -80,4 +80,22 @@ class CharitableOrganizationsControllerTest < ActionDispatch::IntegrationTest
     get drafts_charitable_organizations_path
     assert_response :success
   end
+
+  test "archives if user admin" do
+    charitable_organization = charitable_organizations(:one)
+    expected_count = CharitableOrganization.count - 1
+    sign_in users(:admin)
+    post archive_charitable_organization_path(charitable_organization)
+    assert_response :redirect
+    assert_equal(expected_count, CharitableOrganization.count)
+  end
+
+  test "guests may not archive" do
+    charitable_organization = charitable_organizations(:one)
+    expected_count = CharitableOrganization.count
+    sign_in users(:guest)
+    post archive_charitable_organization_path(charitable_organization)
+    assert_response :redirect
+    assert_equal(expected_count, CharitableOrganization.count)
+  end
 end

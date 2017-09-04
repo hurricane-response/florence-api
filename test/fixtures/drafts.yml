@@ -34,3 +34,22 @@ update_shelter:
   record: nrg (Shelter)
   info:
     pets: "No"
+
+new_charitable_organization:
+  info:
+    name: "Hope"
+    services: church
+    food_bank: false
+    donation_website: "http://donation.com"
+    phone_number: "567-234-2342"
+    email: "hi@hi.co"
+    physical_address: "123321 main"
+    city: "humble"
+    state: "tx"
+    zip: "12345"
+    record_type: "CharitableOrganization"
+
+update_charitable_organization:
+  record: one (CharitableOrganization)
+  info:
+    food_bank: true
