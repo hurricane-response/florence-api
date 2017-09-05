@@ -1,17 +1,29 @@
 class PagesController < ApplicationController
 
   def index
-    @pages = Page.all
+    if(user_signed_in? && current_user.admin?)
+      @pages = Page.all
+    else
+      redirect_to root_path
+    end
   end
 
   def edit
-    @page = Page.find(params[:id])
+    if(user_signed_in? && current_user.admin?)
+      @page = Page.find(params[:id])
+    else
+      redirect_to root_path
+    end
   end
 
   def update
-    @page = Page.find(params[:id])
-    if @page.update(page_params)
-      redirect_to root_path, notice: 'Page was successfully updated.'
+    if(user_signed_in? && current_user.admin?)
+      @page = Page.find(params[:id])
+      if @page.update(page_params)
+        redirect_to root_path, notice: 'Page was successfully updated.'
+      end
+    else
+      redirect_to root_path
     end
   end
 
