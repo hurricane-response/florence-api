@@ -9,6 +9,12 @@ have:
   resolved: false
   latitude: 29.7488469
   longitude: -95.4593152
+  data:
+    foo:
+      - 1
+      - 2
+      - 3
+    bar: baz
 
 need:
   marker_type: need

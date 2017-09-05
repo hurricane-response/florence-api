@@ -60,6 +60,9 @@ module Api
                         :name,
                         :phone,
                         :resolved)
+                .tap do |marker|
+                  marker[:data] = params[:marker].require(:data).permit! if params[:marker].key?(:data)
+                end
         end
       end
     end
