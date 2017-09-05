@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SplashControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get splash_index_url
+    get root_path
     assert_response :success
   end
 
