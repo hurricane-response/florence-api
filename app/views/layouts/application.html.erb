@@ -4,6 +4,8 @@
     <title>HarveyApi</title>
     <%= csrf_meta_tags %>
 
+    <!-- Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Google Fonts -->
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
     <!-- CSS Reset -->
@@ -23,33 +25,33 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="navbar">
-        <ul>
-          <li><%= link_to "Shelters", shelters_path %></li>
-          <% if user_signed_in? && current_user.admin? %>
-            <li><%= link_to "Shelters Update Queue", drafts_shelters_path %></li>
-          <% end %>
-          <li><%= link_to "Needs", needs_path %></li>
-          <% if user_signed_in? && current_user.admin? %>
-            <li><%= link_to "Needs Update Queue", drafts_needs_path %></li>
-            <li><%= link_to "Users", users_path %></li>
-            <li><%= link_to "AmazonProducts", amazon_products_path %></li>
-            <li><%= link_to "Charitable Organizations", charitable_organizations_path %></li>
-          <% end %>
-          <div class="right">
-            <li><span>Welcome <%= user_signed_in? ? current_user.email : "guest" %>!</span></li>
-            <% if user_signed_in? %>
-              <li>
-                <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-              </li>
-            <% else %>
-              <li><%= link_to "Login", new_user_session_path %><li>
-                  <li><%= link_to "Sign up", new_user_registration_path %><li>
-                    <% end %>
-          </div>
-        </ul>
+  <div class="navbar">
+    <ul>
+      <li><%= link_to "Shelters", shelters_path %></li>
+      <% if user_signed_in? && current_user.admin? %>
+        <li><%= link_to "Shelters Update Queue", drafts_shelters_path %></li>
+      <% end %>
+      <li><%= link_to "Needs", needs_path %></li>
+      <% if user_signed_in? && current_user.admin? %>
+        <li><%= link_to "Needs Update Queue", drafts_needs_path %></li>
+        <li><%= link_to "Users", users_path %></li>
+        <li><%= link_to "AmazonProducts", amazon_products_path %></li>
+        <li><%= link_to "Charitable Organizations", charitable_organizations_path %></li>
+      <% end %>
+      <div class="right">
+        <li class="welcome-span"><span>Welcome <%= user_signed_in? ? current_user.email : "guest" %>!</span></li>
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+          </li>
+        <% else %>
+          <li><%= link_to "Login", new_user_session_path %><li>
+              <li><%= link_to "Sign up", new_user_registration_path %><li>
+                <% end %>
       </div>
+    </ul>
+  </div>
+    <div class="container">
       <p id="notice"><%= notice %></p>
       <p id="alert"><%= alert %></p>
       <div class="new-record-notification"></div>

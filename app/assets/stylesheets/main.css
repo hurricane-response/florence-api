@@ -159,3 +159,14 @@ body,
 .striped {
   background: #f4f5f6;
 }
+
+.shared-table {
+  overflow: scroll;
+  display: inline-block;
+}
+
+@media (max-width: 40.0rem) {
+  .welcome-span {
+    display: none;
+  }
+}
