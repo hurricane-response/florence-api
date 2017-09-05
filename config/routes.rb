@@ -38,4 +38,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :pages, only: [:index, :edit, :update, :destroy]
 end
