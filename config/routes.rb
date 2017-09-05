@@ -23,10 +23,10 @@ Rails.application.routes.draw do
     resources :markers
   end
 
-  root to: "shelters#index"
+  root to: "splash#index"
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      
+
       get "/needs" => 'needs#index'
       get "/shelters" => 'shelters#index'
       get "/products" => 'amazon_products#index'
