@@ -60,6 +60,126 @@ default: &default
       - canned_food:
       - dry_foods:
       - basic_staples:
+  en:
+    categories: Categories
+    labor: Labor
+    muck: Muck
+    trash: Hauling Heavy Trash
+    clean: Cleaning
+    shop: Shopping
+    laundry: Laundry
+    cook: Cooking
+    sit: Baby Sitting
+    specialized: Specialized
+    medical: Medical
+    home_repair: Home Repair
+    electrician: Electrician
+    legal: Legal
+    pest_control: Pest or Animal Control
+    counselor: Counselor
+    other_specialized: Other Specialized Labor
+    other_labor: Other Labor
+    equipment: Equipment
+    construction: Construction
+    power_tools: Power Tools
+    tools: Tools
+    water_pump: Water Pumps
+    protective_gear: Protective Gear
+    generator: Generators
+    dehumidifier: Dehumidifier
+    appliances: Appliances
+    other_equipment: Other Equipment
+    supplies: Supplies
+    cleaning_supplies: Cleaning Supplies
+    household_items: Household Items
+    personal_care: Personal Care
+    baby_and_child_care: Baby & Child Care
+    clothes: Clothes
+    medicine: Medicine
+    furniture: Furniture
+    fuel: Fuel
+    other_supplies: Other Supplies
+    transportation: Transportation
+    pickup_truck: Pickup Truck
+    bus_or_van: Bus or Van
+    tow_truck: Tow Truck
+    boat_motor: Boat (motor)
+    boat_no_motor: Boat (no motor)
+    other_transportation: Other Transportation
+    housing: Housing
+    number_of_adults: Number of Adults
+    number_of_children: Number of Children
+    number_of_pets: Number of Pets
+    dog: Dog
+    cat: Cat
+    other: Other
+    food: Food
+    ready_to_eat: Ready to Eat
+    baby_formula: Baby Formula
+    drinking_water: Drinking Water
+    canned_food: Canned Food
+    dry_foods: Dry Foods
+    basic_staples: Basic Staples
+  es:
+    categories: Categories
+    labor: Labor
+    muck: Muck
+    trash: Hauling Heavy Trash
+    clean: Cleaning
+    shop: Shopping
+    laundry: Laundry
+    cook: Cooking
+    sit: Baby Sitting
+    specialized: Specialized
+    medical: Medical
+    home_repair: Home Repair
+    electrician: Electrician
+    legal: Legal
+    pest_control: Pest or Animal Control
+    counselor: Counselor
+    other_specialized: Other Specialized Labor
+    other_labor: Other Labor
+    equipment: Equipment
+    construction: Construction
+    power_tools: Power Tools
+    tools: Tools
+    water_pump: Water Pumps
+    protective_gear: Protective Gear
+    generator: Generators
+    dehumidifier: Dehumidifier
+    appliances: Appliances
+    other_equipment: Other Equipment
+    supplies: Supplies
+    cleaning_supplies: Cleaning Supplies
+    household_items: Household Items
+    personal_care: Personal Care
+    baby_and_child_care: Baby & Child Care
+    clothes: Clothes
+    medicine: Medicine
+    furniture: Furniture
+    fuel: Fuel
+    other_supplies: Other Supplies
+    transportation: Transportation
+    pickup_truck: Pickup Truck
+    bus_or_van: Bus or Van
+    tow_truck: Tow Truck
+    boat_motor: Boat (motor)
+    boat_no_motor: Boat (no motor)
+    other_transportation: Other Transportation
+    housing: Housing
+    number_of_adults: Number of Adults
+    number_of_children: Number of Children
+    number_of_pets: Number of Pets
+    dog: Dog
+    cat: Cat
+    other: Other
+    food: Food
+    ready_to_eat: Ready to Eat
+    baby_formula: Baby Formula
+    drinking_water: Drinking Water
+    canned_food: Canned Food
+    dry_foods: Dry Foods
+    basic_staples: Basic Staples
 
 development:
   <<: *default
