@@ -1,4 +1,4 @@
-json.cache! @shelters do
+json.cache! @products do
   json.products @products do |product|
     json.cache! product do
       json.partial! product
