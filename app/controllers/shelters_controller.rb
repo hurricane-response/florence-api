@@ -63,7 +63,7 @@ class SheltersController < ApplicationController
       @shelter.update_attributes(active: false)
       redirect_to shelters_path, notice: "Archived!"
     else
-      redirect_to shelters_path, notice: "You must be an admin to archive."      
+      redirect_to shelters_path, notice: "You must be an admin to archive."
     end
   end
 

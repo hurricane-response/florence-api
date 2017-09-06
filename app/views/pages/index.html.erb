@@ -1,0 +1,5 @@
+<h1>Select Page to edit</h1>
+
+<% @pages.each do |page| %>
+<h4><%= link_to page.key, edit_page_path(page) %></h4>
+<% end %>
