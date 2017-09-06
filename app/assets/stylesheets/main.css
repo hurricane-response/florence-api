@@ -154,6 +154,13 @@ body,
 
 .container {
   max-width: 100%;
+  min-height: 80vh;
+}
+footer {
+  text-align: center;
+  border-top: 1px solid #ccc;
+  padding: 1rem;
+  margin-top: 5vh;
 }
 
 .striped {
