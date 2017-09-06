@@ -1,6 +1,9 @@
-json.products @products do |product|
-  json.extract! product, :need, :asin, :amazon_title, :detail_url,
-                         :priority, :category_specific, :category_general
+json.cache! @shelters do
+  json.products @products do |product|
+    json.cache! product do
+      json.partial! product
+    end
+  end
 end
 
 json.meta do

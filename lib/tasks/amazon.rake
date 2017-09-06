@@ -48,6 +48,8 @@ namespace :amazon do
           puts "Deleting #{product.amazon_title} with a price of #{price}"
           FetchAmazonProductJob.perform_later product.need
           product.destroy
+        else
+          product.update price_in_cents: price.to_i 
         end
       end
 

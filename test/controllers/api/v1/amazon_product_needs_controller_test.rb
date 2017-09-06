@@ -71,4 +71,15 @@ class Api::AmazonProductsControllerTest < ActionDispatch::IntegrationTest
     refute products.map{|p| p["asin"]}.include? amazon_products(:baby_formula).asin
 
   end
+
+  test "Does not return products without a price" do
+    amazon_products(:baby_formula).update({
+      price_in_cents: 0
+    })
+    get "/api/v1/products"
+    json = JSON.parse(response.body)
+    products = json["products"]
+    refute products.map{|p| p["asin"]}.include? amazon_products(:baby_formula).asin
+
+  end
 end

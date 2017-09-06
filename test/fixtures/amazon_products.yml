@@ -9,6 +9,7 @@ baby_formula:
   category_general: Grocery
   priority: true
   disabled: false
+  price_in_cents: 1000
 
 garbage_bags:
   need: garbage bags
@@ -19,6 +20,7 @@ garbage_bags:
   category_general: Household
   priority: false
   disabled: false
+  price_in_cents: 500
 
 iphones:
   need: iphone 6S
@@ -29,3 +31,4 @@ iphones:
   category_general: Electronics
   priority: false
   disabled: true
+  price_in_cents: 100000
