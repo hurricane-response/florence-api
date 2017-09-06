@@ -11,3 +11,6 @@ ignored_json.each do |json|
   iapn.attributes = json
   iapn.save
 end
+
+
+Page.home.first_or_create content: "#Welcome"

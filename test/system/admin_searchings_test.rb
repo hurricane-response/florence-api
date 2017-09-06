@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class AdminSearchingsTest < ApplicationSystemTestCase
   test "Filtering the shelters" do
-    visit root_path
+    visit shelters_path
     fill_in "Search", with: shelters(:nrg).shelter
     assert_selector "#data-table", text: shelters(:nrg).shelter
     refute_selector "#data-table", text: shelters(:lonestar).shelter
@@ -16,7 +16,7 @@ class AdminSearchingsTest < ApplicationSystemTestCase
   end
 
   test "Notifications of shelter updates" do
-    visit root_path
+    visit shelters_path
     sleep 1
     rando_shelter = Shelter.all.sample
     rando_shelter.shelter = SecureRandom.hex(8)

@@ -1,5 +1,6 @@
 class SplashController < ApplicationController
   def index
-    @page = Page.find_by key: "Home"
+    # They might not have created a home key yet
+    @page = Page.home.first_or_initialize
   end
 end

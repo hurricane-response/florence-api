@@ -165,6 +165,10 @@ body,
   display: inline-block;
 }
 
+.page-content {
+  height: 50vh;
+}
+
 @media (max-width: 40.0rem) {
   .welcome-span {
     display: none;

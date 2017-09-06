@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  key: MyString
-  content: MyText
-
-two:
-  key: MyString
-  content: MyText
+home:
+  key: home
+  content: This should show on the homepage!

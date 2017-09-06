@@ -114,8 +114,8 @@ ActiveRecord::Schema.define(version: 20170905201043) do
   end
 
   create_table "pages", force: :cascade do |t|
-    t.string "key", null: false
-    t.text "content", null: false
+    t.string "key", default: "", null: false
+    t.text "content", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

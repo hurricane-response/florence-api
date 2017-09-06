@@ -1,7 +1,7 @@
 <%= form_for @page do |f| %>
 <div class="">
   <%= f.label :content, "#{@page.key} Page Content" %>
-  <%= f.text_area :content %>
+  <%= f.text_area :content, class: "page-content" %>
 </div>
 <%= f.submit %>
 <% end %>

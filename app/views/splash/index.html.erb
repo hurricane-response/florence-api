@@ -1,6 +1,8 @@
 <% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>
 
-<p><%= markdown.render(@page.content).html_safe %></p>
+<article class="page-home">
+  <%= markdown.render(@page.content).html_safe %>
+</article>
 
 <!--
 
