@@ -17,7 +17,7 @@
     <%= f.check_box :accepting %>
 
     <%= f.label :shelter %>
-    <%= f.text_field :shelter %>
+    <%= f.text_field :shelter, :required => true %>
 
     <%= f.label :latitude %>
     <%= f.text_field :latitude %>
@@ -26,7 +26,7 @@
     <%= f.text_field :longitude %>
 
     <%= f.label :address %>
-    <%= f.text_field :address %>
+    <%= f.text_field :address, :required => true %>
 
     <%= f.label :city %>
     <%= f.text_field :city %>
@@ -35,7 +35,7 @@
     <%= f.text_field :source %>
 
     <%= f.label :phone %>
-    <%= f.text_field :phone %>
+    <%= f.text_field :phone, :required => true %>
 
     <%= f.label :pets %>
     <%= f.text_area :pets %>
