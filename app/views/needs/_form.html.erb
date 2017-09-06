@@ -14,22 +14,16 @@
 
   <fieldset>
     <%= f.label :location_name %>
-    <%= f.text_field :location_name %>
-
-    <%= f.label :latitude %>
-    <%= f.text_field :latitude %>
-
-    <%= f.label :longitude %>
-    <%= f.text_field :longitude %>
+    <%= f.text_field :location_name, :required => true %>
 
     <%= f.label :location_address %>
-    <%= f.text_field :location_address %>
+    <%= f.text_field :location_address, :required => true %>
 
     <%= f.label :contact_for_this_location_name %>
     <%= f.text_field :contact_for_this_location_name %>
 
     <%= f.label :contact_for_this_location_phone_number %>
-    <%= f.text_field :contact_for_this_location_phone_number %>
+    <%= f.text_field :contact_for_this_location_phone_number, :required => true %>
 
     <%= f.label :are_volunteers_needed %>
     <%= f.text_field :are_volunteers_needed %>
