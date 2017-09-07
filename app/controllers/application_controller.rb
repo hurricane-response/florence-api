@@ -5,8 +5,12 @@ class ApplicationController < ActionController::Base
     @application_name = ENV.fetch('CANONICAL_NAME', 'Disaster API')
   end
 
+  def admin?
+    user_signed_in? && current_user.admin?
+  end
+
   def authenticate_admin!
-    if !(user_signed_in? && current_user.admin?)
+    if !admin?
       redirect_to request.referrer || root_path, notice: "Admins Only! :|"
     end
   end
