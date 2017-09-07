@@ -1,7 +1,7 @@
 class Connect::Marker < ApplicationRecord
   MARKER_TYPES = %w(have need)
 
-  validates :category, :name, :phone, presence: true
+  validates :category, :device_uuid, :name, :phone, presence: true
   validates :marker_type, inclusion: { in: MARKER_TYPES, allow_blank: false }
   validates :latitude, :longitude, numericality: { other_than: 0 }
   validates :email, format: { with: /@/, allow_nil: true }

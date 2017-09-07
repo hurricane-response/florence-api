@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907032253) do
+ActiveRecord::Schema.define(version: 20170907152426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,9 @@ ActiveRecord::Schema.define(version: 20170907032253) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.jsonb "data", default: {}, null: false
+    t.string "device_uuid", default: "", null: false
     t.index ["category"], name: "index_connect_markers_on_category"
+    t.index ["device_uuid"], name: "index_connect_markers_on_device_uuid"
     t.index ["latitude", "longitude"], name: "index_connect_markers_on_latitude_and_longitude"
     t.index ["resolved"], name: "index_connect_markers_on_unresolved", where: "(resolved IS FALSE)"
   end
