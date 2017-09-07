@@ -1,3 +1,4 @@
+require 'rake'
 require 'test_helper'
 
 class GeoDataRakeTask < ActiveSupport::TestCase
@@ -26,9 +27,8 @@ class GeoDataRakeTask < ActiveSupport::TestCase
     assert(shelter.valid?)
     Rake::Task['shelter:backfill_geo_data'].invoke
 
-    shelter.reload
-    assert_equal(shelter.latitude, stubbed_lat)
-    assert_equal(shelter.longitude, stubbed_lng)
+    assert_equal(shelter.reload.latitude, stubbed_lat)
+    assert_equal(shelter.reload.longitude, stubbed_lng)
   end
 
   test "when the geo data is not missing it does not change that record" do
@@ -38,8 +38,8 @@ class GeoDataRakeTask < ActiveSupport::TestCase
     add_stub(shelter, rand, rand)
     add_stub(shelter_2, rand, rand)
 
-    assert(shelter.latitude)
-    assert(shelter.longitude)
+    assert(shelter.reload.latitude)
+    assert(shelter.reload.longitude)
 
     assert_no_difference ['shelter.updated_at', 'shelter.latitude', 'shelter.longitude'] do
       Rake::Task['shelter:backfill_geo_data'].invoke
