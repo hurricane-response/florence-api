@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 have:
+  device_uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   marker_type: have
   name: ChaiOne
   description: MyText
@@ -17,6 +18,7 @@ have:
     bar: baz
 
 need:
+  device_uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   marker_type: need
   name: Joe Blow
   description: Halp
@@ -27,6 +29,7 @@ need:
   longitude: -95.358611
 
 close_need:
+  device_uuid: yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
   marker_type: need
   name: Joe Close
   description: Halp
@@ -37,6 +40,7 @@ close_need:
   longitude: -95.457776
 
 resolved:
+  device_uuid: yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
   marker_type: need
   name: Resolved
   description: Halp

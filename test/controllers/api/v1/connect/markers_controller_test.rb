@@ -36,7 +36,7 @@ class Api::V1::Connect::MarkersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create marker" do
-    keys = %w(marker_type name description category phone latitude longitude data)
+    keys = %w(marker_type name description category phone latitude longitude data device_uuid)
     attribs = connect_markers(:have).attributes.slice(*keys)
     assert_difference('Connect::Marker.count') do
       post api_v1_connect_markers_path, params: { marker: attribs }

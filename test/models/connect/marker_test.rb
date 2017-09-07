@@ -11,6 +11,14 @@ class Connect::MarkerTest < ActiveSupport::TestCase
     assert @marker.valid?
   end
 
+  test 'invalid without a device uuid' do
+    ['', nil].each do |blank|
+      @marker.device_uuid = blank
+      refute @marker.valid?, 'saved marker without a device uuid'
+      assert_not_nil @marker.errors[:device_uuid], 'no validation error for device uuid present'
+    end
+  end
+
   test 'invalid without a name' do
     @marker.name = nil
     refute @marker.valid?, 'saved marker without a name'
