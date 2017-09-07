@@ -19,12 +19,6 @@
     <%= f.label :shelter %>
     <%= f.text_field :shelter, :required => true %>
 
-    <%= f.label :latitude %>
-    <%= f.text_field :latitude %>
-
-    <%= f.label :longitude %>
-    <%= f.text_field :longitude %>
-
     <%= f.label :address %>
     <%= f.text_field :address, :required => true %>
 
@@ -48,6 +42,23 @@
 
     <%= f.label :notes %>
     <%= f.text_area :notes %>
+
+    <%= f.label :distribution_center %>
+    <%= f.text_field :distribution_center %>
+
+    <%= f.label :food_pantry %>
+    <%= f.text_field :food_pantry %>
+
+    <%= f.label :latitude, "Latitude (optional)" %>
+    <%= f.text_field :latitude %>
+
+    <%= f.label :longitude, "Longitude (optional)" %>
+    <%= f.text_field :longitude %>
+
+    <% if user_signed_in? && current_user.admin? %>
+      <%= f.label :private_notes %>
+      <%= f.text_area :private_notes %>
+    <% end %>
 
     <%= f.button :submit %>
   </fieldset>
