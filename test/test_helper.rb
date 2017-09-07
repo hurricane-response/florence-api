@@ -22,4 +22,6 @@ class ActiveSupport::TestCase
       }
     ]
   )
+
+  Rails.application.load_tasks
 end
