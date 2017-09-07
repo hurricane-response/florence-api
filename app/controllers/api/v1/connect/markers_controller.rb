@@ -61,7 +61,8 @@ module Api
                         :phone,
                         :resolved)
                 .tap do |marker|
-                  marker[:data] = params[:marker].require(:data).permit! if params[:marker].key?(:data)
+                  marker[:device_uuid] = params.dig(:marker, :device_uuid) if action_name == "create"
+                  marker[:data] = params.dig(:marker, :data).permit! if params.dig(:marker, :data)
                 end
         end
       end
