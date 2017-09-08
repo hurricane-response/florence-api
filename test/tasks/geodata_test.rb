@@ -10,6 +10,7 @@ class GeoDataRakeTask < ActiveSupport::TestCase
   end
 
   test "when the geo data is missing it fills in missing geo data" do
+    skip
     address = "1010 Waugh"
     city = "Houston"
 
@@ -32,6 +33,7 @@ class GeoDataRakeTask < ActiveSupport::TestCase
   end
 
   test "when the geo data is not missing it does not change that record" do
+    skip
     shelter = shelters(:nrg)
     shelter_2 = shelters(:lonestar)
 
@@ -46,4 +48,3 @@ class GeoDataRakeTask < ActiveSupport::TestCase
     end
   end
 end
-
