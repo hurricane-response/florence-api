@@ -4,6 +4,8 @@ class SheltersController < ApplicationController
 
   def index
     @shelters = Shelter.all
+    @page = Page.shelters.first_or_initialize
+
   end
 
   def new
@@ -11,7 +13,7 @@ class SheltersController < ApplicationController
   end
 
   def create
-    if(user_signed_in? && current_user.admin?)
+    if(admin?)
       @shelter = Shelter.new(shelter_update_params)
 
       if @shelter.save
@@ -38,7 +40,7 @@ class SheltersController < ApplicationController
   end
 
   def update
-    if(user_signed_in? && current_user.admin?)
+    if(admin?)
       if @shelter.update(shelter_update_params)
         redirect_to @shelter, notice: 'Shelter was successfully updated.'
       else
@@ -59,7 +61,7 @@ class SheltersController < ApplicationController
   end
 
   def archive
-    if(user_signed_in? && current_user.admin?)
+    if(admin?)
       @shelter.update_attributes(active: false)
       redirect_to shelters_path, notice: "Archived!"
     else
@@ -73,17 +75,27 @@ class SheltersController < ApplicationController
 
   private
 
+  # This is the definition of a beautiful hack. 1 part gross, 2 parts simplicity. Does something neat not clever.
   def set_headers
-    @columns = Shelter::ColumnNames
-    @headers = Shelter::HeaderNames
+    if(admin?)
+      @columns = Shelter::ColumnNames + Shelter::PrivateFields
+      @headers = Shelter::HeaderNames + Shelter::PrivateFields.map(&:titleize)
+    else
+      @columns = Shelter::ColumnNames
+      @headers = Shelter::HeaderNames
+    end
   end
 
   def set_shelter
     @shelter = Shelter.find(params[:id])
   end
 
+  # TODO: Test private fields are only updatable by admin
   def shelter_update_params
-    params.require(:shelter).permit(Shelter::UpdateFields).keep_if { |_,v| v.present? }
+    if(admin?)
+      params.require(:shelter).permit(Shelter::UpdateFields + Shelter::PrivateFields).keep_if { |_,v| v.present? }
+    else
+      params.require(:shelter).permit(Shelter::UpdateFields).keep_if { |_,v| v.present? }
+    end
   end
-
 end

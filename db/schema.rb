@@ -158,6 +158,9 @@ ActiveRecord::Schema.define(version: 20170907070934) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
+    t.text "private_notes"
+    t.text "distribution_center"
+    t.text "food_pantry"
   end
 
   create_table "users", force: :cascade do |t|

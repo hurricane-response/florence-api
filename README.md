@@ -297,6 +297,11 @@ User.create! email: "youremail@example.com", password: "yourpassword", admin: tr
 
 #### Setting up your .env file
 
+* GOOGLE_GEOCODER_API_KEY = Geocoding with Google Maps API, get
+  [one](https://console.developers.google.com/flows/enableapi?apiid=geocoding_backend&keyType=SERVER_SIDE)
+* AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY = Product Advertising API, see
+  below
+
 Note: this is optional; currently only needed to fetch new Amazon products from
 the Amazon Product Advertising API
 
