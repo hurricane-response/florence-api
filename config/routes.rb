@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   root to: "splash#index"
+
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
@@ -40,4 +41,28 @@ Rails.application.routes.draw do
   end
 
   resources :pages, only: [:index, :edit, :update, :destroy]
+
+  # HTML Pages v2 Locations
+  get  ":organization/:legacy_table_name", to: "locations#index", as: "locations"
+  post ":organization/:legacy_table_name", to: "locations#create"
+  get  ":organization/:legacy_table_name/new", to: "locations#new", as: "new_location"
+  get  ":organization/:legacy_table_name/drafts", to: "locations#drafts", as: "drafts_locations"
+  get  ":organization/:legacy_table_name/:id/edit", to: "locations#edit", as: "edit_location"
+  post ":organization/:legacy_table_name/:id/archive", to: "locations#archive", as: "archive_location"
+  get  ":organization/:legacy_table_name/:id", to: "locations#show", as: "location"
+  put  ":organization/:legacy_table_name/:id", to: "locations#update"
+  # HTML Pages v2 Location Drafts
+  post ":organization/:legacy_table_name/drafts/:id/accept", to: "location_drafts#accept", as: "accept_location_draft"
+  get  ":organization/:legacy_table_name/drafts/:id", to: "location_drafts#show", as: "location_draft"
+  delete ":organization/:legacy_table_name/drafts/:id", to: "location_drafts#destroy"
+  # HTML Pages v2 Organizations
+  get  ":organization", to: "organizations#show", as: "organization"
+
+  # API JSON v2
+  namespace :api, defaults: { format: :json } do
+    namespace :v2 do
+      get "/:organization/:legacy_table_name" => 'locations#index'
+    end
+  end
+
 end

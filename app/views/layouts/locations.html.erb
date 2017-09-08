@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @application_name %></title>
+    <%= csrf_meta_tags %>
+
+    <!-- Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <!-- CSS Reset -->
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+
+    <!-- Milligram CSS minified -->
+    <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+    <div class="navbar">
+      <ul>
+        <li><%= link_to @organization.titleize, organization_path(organization: @organization) %></li>
+        <% Location::Whitelist.organization_tables(@organization).each do |table| %>
+          <li>
+            <%= link_to table.legacy_table_display_name, locations_path(organization: table.organization, legacy_table_name: table.legacy_table_name) %>
+          </li>
+          <% if user_signed_in? && current_user.admin? %>
+            <li>
+              <%= link_to "#{table.legacy_table_display_name} Queue", drafts_locations_path(organization: table.organization, legacy_table_name: table.legacy_table_name) %>
+            </li>
+          <% end %>
+        <% end %>
+        <div class="right">
+          <li class="welcome-span"><span>Welcome <%= user_signed_in? ? current_user.email : "guest" %>!</span></li>
+          <% if user_signed_in? %>
+            <li>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li><%= link_to "Login", new_user_session_path %></li>
+            <li><%= link_to "Sign up", new_user_registration_path %></li>
+          <% end %>
+        </div>
+      </ul>
+    </div>
+    <div class="container">
+      <p id="notice"><%= notice %></p>
+      <p id="alert"><%= alert %></p>
+      <div class="new-record-notification"></div>
+      <%= yield %>
+    </div>
+
+    <footer>
+      Code is available at <a href="http://github.com/sketch-city/harvey-api">GitHub</a>. Contributors welcome!
+    </footer>
+  </body>
+</html>

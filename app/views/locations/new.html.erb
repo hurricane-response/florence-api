@@ -1,0 +1,8 @@
+<h1>New <%= @legacy_table_display_name.singularize %></h1>
+
+<%= render 'form',
+  path: locations_path(organization: @organization, legacy_table_name: @legacy_table_name),
+  method: 'POST',
+  location: @location,
+  update_fields: @update_fields
+%>

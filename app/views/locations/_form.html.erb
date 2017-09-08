@@ -1,0 +1,29 @@
+<%= form_for(location, url: path, method: method, local: true) do |f| %>
+  <% if location.errors.any? %>
+    <div>
+      <h2><%= pluralize(shelter.errors.count, "error") %> prohibited this shelter from being saved:</h2>
+
+      <ul>
+        <% shelter.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <fieldset>
+    <% update_fields.each do |field| %>
+      <% case field.type %>
+      <% when :boolean %>
+        <%= f.label field.name %>
+        <%= f.check_box field.name %>
+      <% else %>
+        <%= f.label field.name %>
+        <%= f.text_field field.name %>
+      <% end %>
+    <% end %>
+
+    <%= f.button :submit %>
+  </fieldset>
+<% end %>
