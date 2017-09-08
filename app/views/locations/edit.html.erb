@@ -1,0 +1,8 @@
+<h1>Edit <%= @legacy_table_display_name.singularize %></h1>
+
+<%= render 'form',
+  path: location_path(organization: @organization, legacy_table_name: @legacy_table_name, id: @location.id),
+  method: 'PUT',
+  location: @location,
+  update_fields: @update_fields
+%>

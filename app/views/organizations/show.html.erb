@@ -1,0 +1,10 @@
+<h2><%= @organization.titleize %></h2>
+
+<h3>Available Tables</h3>
+<ul>
+  <% @organization_tables.each do |table| %>
+    <li>
+      <%= link_to table.legacy_table_display_name, locations_path(organization: table.organization, legacy_table_name: table.legacy_table_name) %>
+    </li>
+  <% end %>
+</ul>
