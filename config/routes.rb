@@ -42,6 +42,14 @@ Rails.application.routes.draw do
 
   resources :pages, only: [:index, :edit, :update, :destroy]
 
+  # API JSON v2
+  namespace :api, defaults: { format: :json } do
+    namespace :v2 do
+      get "/routes" => 'locations#routes'
+      get "/:organization/:legacy_table_name" => 'locations#index', as: "api_locations"
+      get "/:organization/:legacy_table_name/help" => 'locations#help', as: "api_locations_help"
+    end
+  end
   # HTML Pages v2 Locations
   get  ":organization/:legacy_table_name", to: "locations#index", as: "locations"
   post ":organization/:legacy_table_name", to: "locations#create"
@@ -58,11 +66,5 @@ Rails.application.routes.draw do
   # HTML Pages v2 Organizations
   get  ":organization", to: "organizations#show", as: "organization"
 
-  # API JSON v2
-  namespace :api, defaults: { format: :json } do
-    namespace :v2 do
-      get "/:organization/:legacy_table_name" => 'locations#index'
-    end
-  end
 
 end

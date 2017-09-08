@@ -1,14 +1,18 @@
 class Api::V2::LocationsController < ApplicationController
+  before_action :setup, except: [:routes]
 
   before_action do
     request.format = :json
   end
 
-  def index
+  def setup
     @organization = params[:organization]
     @legacy_table_name = params[:legacy_table_name]
     @location_class ||= Location::Whitelist.find(@organization, @legacy_table_name)
     @locations ||= Location::Whitelist.find(@organization, @legacy_table_name).all
+  end
+
+  def index
 
     @filters = {}
 
@@ -46,6 +50,12 @@ class Api::V2::LocationsController < ApplicationController
           end
         end
       end
+    end
+
+    def help
+    end
+
+    def routes
     end
   end
 end
