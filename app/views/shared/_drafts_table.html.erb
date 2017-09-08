@@ -11,10 +11,19 @@
   <tbody>
     <% rows.each do |row| %>
       <tr>
+        <td>
+            <% if user_signed_in? && current_user.admin? && row.accepted_by_id.nil? && row.denied_by_id.nil? %>
+              <%= link_to 'Accept', [:accept, row], {class: "button", method: :post} %>
+              <%= link_to 'Deny', row, {class: "button button-outline", method: :delete} %>
+            <% end %>
+          </td>
+
+        <td><%= link_to 'Show', row %></td>
+
+
         <% columns.each do |column| %>
           <td><%= truncate((row.info[column.to_s] || row.record && row.record.send(column)).to_s) %></td>
         <% end %>
-        <td><%= link_to 'Show', row %></td>
       </tr>
     <% end %>
   </tbody>
