@@ -25,10 +25,10 @@ class Connect::MarkerTest < ActiveSupport::TestCase
     assert_not_nil @marker.errors[:name], 'no validation error for name present'
   end
 
-  test 'invalid without a category' do
-    @marker.category = nil
-    refute @marker.valid?, 'saved marker without a category'
-    assert_not_nil @marker.errors[:category], 'no validation error for category present'
+  test 'invalid without categories' do
+    @marker.categories = {}
+    refute @marker.valid?, 'saved marker without categories'
+    assert_not_nil @marker.errors[:categories], 'no validation error for categories present'
   end
 
   test 'invalid without a phone' do
@@ -78,7 +78,7 @@ class Connect::MarkerTest < ActiveSupport::TestCase
   end
 
   test 'scope by category' do
-    assert Connect::Marker.by_category('muck').all? { |m| m.category =~ /muck/i }
+    assert Connect::Marker.by_category('labor').all? { |m| m.categories.keys.include?('labor') }
   end
 
   test 'scope by device uuid' do

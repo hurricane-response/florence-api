@@ -4,6 +4,8 @@ module Api
   module V1
     module Connect
       class MarkersController < ApplicationController
+        before_action :check_device_uuid, only: [:create, :update]
+
         def index
           @filters = {}
           @markers = ::Connect::Marker.unresolved.all
@@ -20,7 +22,7 @@ module Api
         end
 
         def update
-          @marker = ::Connect::Marker.find(params[:id])
+          @marker = ::Connect::Marker.find_by!(id: params[:id], device_uuid: device_uuid)
           if @marker.update(marker_params)
             render :show, status: :ok, location: @marker
           else
@@ -29,6 +31,18 @@ module Api
         end
 
         private
+
+        def device_uuid
+          request.headers['HTTP_DISASTERCONNECT_DEVICE_UUID']
+        end
+
+        def missing_device_uuid
+          render(json: { device_uuid: ['Must be set with DisasterConnect-Device-UUID header'] }, status: :forbidden)
+        end
+
+        def check_device_uuid
+          missing_device_uuid if device_uuid.blank?
+        end
 
         def apply_filters
           category_filter
@@ -46,8 +60,8 @@ module Api
 
         def device_uuid_filter
           return unless params[:device_uuid].present?
-          @filters[:device_uuid] = params[:device_uuid]
-          @markers = @markers.by_device_uuid(params[:device_uuid])
+          @filters[:device_uuid] = device_uuid
+          @markers = @markers.by_device_uuid(device_uuid)
         end
 
         def location_filter
@@ -72,8 +86,7 @@ module Api
 
         def marker_params
           params.require(:marker)
-                .permit(:category,
-                        :description,
+                .permit(:description,
                         :email,
                         :latitude,
                         :longitude,
@@ -83,6 +96,7 @@ module Api
                         :resolved)
                 .tap do |marker|
                   marker[:device_uuid] = params.dig(:marker, :device_uuid) if action_name == 'create'
+                  marker[:categories] = params.dig(:marker, :categories).permit! if params.dig(:marker, :categories)
                   marker[:data] = params.dig(:marker, :data).permit! if params.dig(:marker, :data)
                 end
         end
