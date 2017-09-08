@@ -1,6 +1,6 @@
 class Location
   module Whitelist
-    Locations = [HurricaneHarveyRescueDispatchers]
+    Locations = [HHRD::Rescuers, HHRD::Rescuees, HHRD::Pois]
 
     LocationsMap = Locations.each_with_object({}.with_indifferent_access) do |location, obj|
       organization = location.organization

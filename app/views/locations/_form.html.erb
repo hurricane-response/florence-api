@@ -1,8 +1,8 @@
+<blockquote>NOTE: You must fill out the name, address, city, state and zip or the system will be unable to add the lat/lon to record and it will not appear on the map!</blockquote>
 <%= form_for(location, url: path, method: method, local: true) do |f| %>
   <% if location.errors.any? %>
     <div>
       <h2><%= pluralize(shelter.errors.count, "error") %> prohibited this shelter from being saved:</h2>
-
       <ul>
         <% shelter.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -18,6 +18,9 @@
       <% when :boolean %>
         <%= f.label field.name %>
         <%= f.check_box field.name %>
+      <% when :enum %>
+        <%= f.label field.name %>
+        <%= f.select field.name, options_for_select([nil].concat(field.options), location.send(field.name)) %>
       <% else %>
         <%= f.label field.name %>
         <%= f.text_field field.name %>

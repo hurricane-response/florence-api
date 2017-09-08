@@ -86,12 +86,14 @@ class Location < ApplicationRecord
     # type: symbol, valid values are:
     # - :string
     # - :boolean, looks for true/false and yes/no, blanks are preserved as nil
+    # - :enum, looks for true/false and yes/no, blanks are preserved as nil
     # column: string, the name of the column in the google sheet.
     # display: boolean, whether to display the field in the table and show pages, default true
     # updatable: boolean, whether to display the field in the form, default true
     # admin_only: boolean, if true only admins may view the data, if set to true overrides display
-    UpdateField = Struct.new(:name, :type)
-    def legacy_field(name, type: :string, legacy_column: nil, display: true, updatable: true, admin_only: false)
+    # options: fields for enum
+    UpdateField = Struct.new(:name, :type, :options)
+    def legacy_field(name, type: :string, legacy_column: nil, display: true, updatable: true, admin_only: false, options: [])
       legacy_column ||= name.to_s.titleize
 
       # Set information for the table columns
@@ -103,7 +105,7 @@ class Location < ApplicationRecord
 
       # Set which fields can be updated
       if(updatable)
-        @update_fields.push(UpdateField.new(name, type))
+        @update_fields.push(UpdateField.new(name, type, options))
       end
 
       # Set which fields are viewable by admins only
@@ -123,6 +125,8 @@ class Location < ApplicationRecord
         value = case type
                 when :boolean
                   ((value == true) || /(yes|true|t|1|y)/.match?(value.to_s)) ? true : false
+                when :enum
+                  options.include?(value) ? value : nil
                 else
                   value
                 end
