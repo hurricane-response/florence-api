@@ -7,19 +7,6 @@ class Location < ApplicationRecord
   #
   # See below for how to use.
 
-  # Sets up hash for the jsonb field.
-  class HashSerializer
-    def self.dump(hash)
-      hash.to_json
-    end
-
-    def self.load(hash)
-      (hash && JSON.parse(hash.to_s) || {}).with_indifferent_access
-    end
-  end
-
-  serialize :legacy_data, HashSerializer
-
   # Columns included in table and updates by default. They live on the locations table.
   DefaultColumns = %i(name address city state zip phone)
 
@@ -149,6 +136,10 @@ class Location < ApplicationRecord
     # - column: symbol, name of the column to map to on location
     # - legacy_column_name: string, name of the column on the legacy table
     def field(column, legacy_column_name)
+    end
+
+    def legacy_data
+      super.with_indifferent_access
     end
   end
 end

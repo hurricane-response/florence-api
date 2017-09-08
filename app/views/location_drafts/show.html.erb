@@ -17,7 +17,7 @@
     <tbody>
       <% @columns.each_with_index do |column, index| %>
         <% next if ['id', 'updated_at'].include?(column) %>
-        <%= content_tag :tr, class: (@draft.info[column].nil? || @draft.info[column] == @record.send(column)) ? "" : "striped" do %>
+        <%= content_tag :tr, class: (@draft.info[column.to_s].nil? || @draft.info[column.to_s] == @record.send(column)) ? "" : "striped" do %>
           <td><%= @headers[index] %></td>
           <td><%= @record.send(column) %></td>
           <td><%= @draft.info[column.to_s] || @record.send(column) %></td>

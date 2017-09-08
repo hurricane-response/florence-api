@@ -54,7 +54,8 @@ class LocationsController < ApplicationController
       draft = Draft.new(record: @location, info: location_draft_params)
 
       if draft.save
-        redirect_to draft, notice: "#{location_class.legacy_table_display_name} update is pending approval."
+        path = location_draft_path(organization: @organization, legacy_table_name: @legacy_table_name, id: draft.id)
+        redirect_to path, notice: "#{location_class.legacy_table_display_name} update is pending approval."
       else
         render :edit
       end

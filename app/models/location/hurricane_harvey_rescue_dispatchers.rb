@@ -8,10 +8,8 @@ class Location
     )
 
     filter(:coordinates)
-    filter(:limit)
-    filter(:county)
-    filter(:shelter)
-    filter(:accepting, type: :truthy)
+    filter(:dynamically)
+    filter(:booleans, type: :truthy)
 
     legacy_field(:dynamically)
     legacy_field(:defined)
