@@ -76,4 +76,24 @@ class Connect::MarkerTest < ActiveSupport::TestCase
     refute @marker.valid?, 'saved marker with invalid email'
     assert_not_nil @marker.errors[:email], 'no validation error for email'
   end
+
+  test 'scope by category' do
+    assert Connect::Marker.by_category('muck').all? { |m| m.category =~ /muck/i }
+  end
+
+  test 'scope by device uuid' do
+    assert Connect::Marker.by_device_uuid(@marker.device_uuid).all? { |m| m.device_uuid == @marker.device_uuid }
+  end
+
+  test 'scope by type' do
+    assert Connect::Marker.by_type(@marker.marker_type).all? { |m| m.marker_type == @marker.marker_type }
+  end
+
+  test 'scope resolved' do
+    assert Connect::Marker.resolved.all? { |m| m.resolved }
+  end
+
+  test 'scope unresolved' do
+    assert Connect::Marker.unresolved.none? { |m| m.resolved }
+  end
 end

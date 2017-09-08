@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     module Connect
@@ -5,28 +7,7 @@ module Api
         def index
           @filters = {}
           @markers = ::Connect::Marker.unresolved.all
-
-          if params[:lat].present? && params[:lon].present?
-            @filters[:lat] = params[:lat]
-            @filters[:lon] = params[:lon]
-            @filters[:rad] = params.fetch(:rad, 10).to_i
-            @markers = @markers.near([@filters[:lat], @filters[:lon]], @filters[:rad])
-          end
-
-          if params[:category].present?
-            @filters[:category] = params[:category]
-            @markers = @markers.where("category ILIKE ?", "%#{params[:category]}%")
-          end
-
-          if params[:type].present?
-            @filters[:type] = params[:type]
-            @markers = @markers.where(marker_type: params[:type])
-          end
-
-          if params[:limit].to_i > 0
-            @filters[:limit] = params[:limit].to_i
-            @markers = @markers.limit(params[:limit].to_i)
-          end
+          apply_filters
         end
 
         def create
@@ -49,6 +30,46 @@ module Api
 
         private
 
+        def apply_filters
+          category_filter
+          device_uuid_filter
+          location_filter
+          limit_filter
+          type_filter
+        end
+
+        def category_filter
+          return unless params[:category].present?
+          @filters[:category] = params[:category]
+          @markers = @markers.by_category(params[:category])
+        end
+
+        def device_uuid_filter
+          return unless params[:device_uuid].present?
+          @filters[:device_uuid] = params[:device_uuid]
+          @markers = @markers.by_device_uuid(params[:device_uuid])
+        end
+
+        def location_filter
+          return unless params[:lat].present? && params[:lon].present?
+          location = params.values_at(:lat, :lon)
+          @filters[:lat], @filters[:lon] = location
+          @filters[:rad] = params.fetch(:rad, 10).to_i
+          @markers = @markers.near(location, @filters[:rad])
+        end
+
+        def limit_filter
+          return unless params[:limit].to_i.positive?
+          @filters[:limit] = params[:limit].to_i
+          @markers = @markers.limit(params[:limit].to_i)
+        end
+
+        def type_filter
+          return unless params[:type].present?
+          @filters[:type] = params[:type]
+          @markers = @markers.by_type(params[:type])
+        end
+
         def marker_params
           params.require(:marker)
                 .permit(:category,
@@ -61,7 +82,7 @@ module Api
                         :phone,
                         :resolved)
                 .tap do |marker|
-                  marker[:device_uuid] = params.dig(:marker, :device_uuid) if action_name == "create"
+                  marker[:device_uuid] = params.dig(:marker, :device_uuid) if action_name == 'create'
                   marker[:data] = params.dig(:marker, :data).permit! if params.dig(:marker, :data)
                 end
         end

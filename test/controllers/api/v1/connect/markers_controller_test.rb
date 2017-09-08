@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class Api::V1::Connect::MarkersControllerTest < ActionDispatch::IntegrationTest
@@ -33,6 +35,13 @@ class Api::V1::Connect::MarkersControllerTest < ActionDispatch::IntegrationTest
     json = JSON.parse(response.body)
     assert_equal 1, json["markers"].length
     assert_equal 'labor shop', json["markers"][0]["category"]
+  end
+
+  test "can filter markers by device uuid" do
+    filter = { device_uuid: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" }
+    get api_v1_connect_markers_path, params: filter
+    json = JSON.parse(response.body)
+    assert json["markers"].all? { |m| m["device_uuid"] == filter[:device_uuid] }
   end
 
   test "should create marker" do
