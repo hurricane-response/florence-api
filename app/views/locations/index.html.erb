@@ -1,0 +1,60 @@
+<h1><%= @legacy_table_display_name %></h1>
+
+
+<script type="text/javascript">
+  App.updatedShelters.subscribe( function(shelters){
+    const record = document.querySelector(".new-record-notification")
+    record.textContent = ""
+
+    if(shelters.length === 0){
+      return;
+    }
+
+    const template = `
+      <a href="/shelters" data-role="clear-and-reload" class="button button-outline"> ${shelters.length} recent shelter updates - Reload</a>
+    `
+    record.insertAdjacentHTML('beforeEnd',template)
+
+    document.querySelector("a[data-role='clear-and-reload']").addEventListener('click', function(event){
+      event.preventDefault()
+      App.updatedShelters.clear();
+      /// TODO: here is where we could replace data in the data table with
+      /// each of the shelters
+      location.reload();
+    })
+  })
+</script>
+
+<%= link_to "Add New #{@legacy_table_display_name.singularize}", new_location_path(organization: @organization, legacy_table_name: @legacy_table_name), class: "button button-outline" %>
+
+<table id="data-table" class="shared-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Geocoded?</th>
+      <% @headers.each do |header| %>
+        <th><%= header %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @locations.each do |location| %>
+      <tr>
+        <td><%= link_to 'Show', location_path(organization: @organization, legacy_table_name: @legacy_table_name, id: location.id) %> / <%= link_to 'Update', edit_location_path(organization: @organization, legacy_table_name: @legacy_table_name, id: location.id) %></td>
+        <td><%= location.latitude.present? && location.longitude.present? %></td>
+        <% @columns.each do |column| %>
+          <td><%= truncate(location.send(column).to_s) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+window.onload = function() {
+  $('#data-table').DataTable({
+    "order": [[ 1, "desc" ]]
+  });
+};
+</script>

@@ -19,7 +19,7 @@ class DraftsController < ApplicationController
 
     if(@record.save)
       @draft.update(record: @record, accepted_by: current_user)
-      redirect_to @record, notice: "#{@record.class.name} updated"
+      redirect_to [:drafts, @record.class.name.underscore.pluralize.to_sym], notice: "#{@record.class.name} updated"
     else
       flash[:notice] = "Something went wrong."
       render :edit

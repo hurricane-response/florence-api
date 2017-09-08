@@ -1,0 +1,13 @@
+<h1><%= @legacy_table_display_name.singularize %></h1>
+
+<%= render "shared/show", record: @location, headers: @headers, columns: @columns %>
+
+<%= link_to 'Update', edit_location_path(organization: @organization, legacy_table_name: @legacy_table_name, id: @location.id), class: "button button-clear" %> |
+<%= link_to 'Back', locations_path(organization: @organization, legacy_table_name: @legacy_table_name), class: "button button-clear" %>
+<% if user_signed_in? && current_user.admin? %> |
+  <%= link_to 'Archive', archive_location_path(organization: @organization, legacy_table_name: @legacy_table_name, id: @location.id),
+    method: :post,
+    data: { confirm: 'Are you sure?' },
+    class: "button button-clear"
+  %>
+<% end %>
