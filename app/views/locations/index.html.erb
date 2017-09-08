@@ -31,6 +31,7 @@
   <thead>
     <tr>
       <th></th>
+      <th>Geocoded?</th>
       <% @headers.each do |header| %>
         <th><%= header %></th>
       <% end %>
@@ -41,6 +42,7 @@
     <% @locations.each do |location| %>
       <tr>
         <td><%= link_to 'Show', location_path(organization: @organization, legacy_table_name: @legacy_table_name, id: location.id) %> / <%= link_to 'Update', edit_location_path(organization: @organization, legacy_table_name: @legacy_table_name, id: location.id) %></td>
+        <td><%= location.latitude.present? && location.longitude.present? %></td>
         <% @columns.each do |column| %>
           <td><%= truncate(location.send(column).to_s) %></td>
         <% end %>

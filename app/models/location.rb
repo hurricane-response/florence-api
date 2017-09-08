@@ -14,6 +14,20 @@ class Location < ApplicationRecord
   # inheritence.
   self.table_name = "locations"
 
+  geocoded_by :full_address
+  after_validation :geocode, if: ->(obj){ obj.full_address.present? and obj.geocode_address? }
+
+  def full_address
+    [address, city, state, zip].compact.join(', ')
+  end
+
+  def geocode_address?
+    changed = address_changed? || city_changed? || state_changed? || zip_changed?
+    geocodable = [address, city, state, zip].map(&:present?).all?
+
+    changed && geocodable
+  end
+
   class << self
     # columns is used by active record, so we prefix it with table otherwise
     # nothing works
