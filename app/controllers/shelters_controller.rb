@@ -4,6 +4,8 @@ class SheltersController < ApplicationController
 
   def index
     @shelters = Shelter.all
+    @page = Page.shelters.first_or_initialize
+
   end
 
   def new

@@ -3,4 +3,5 @@ class Page < ApplicationRecord
   validates :content, presence: true
 
   scope :home, -> { where(key: "home")}
+  scope :shelters, -> { where(key: "shelters")}
 end
