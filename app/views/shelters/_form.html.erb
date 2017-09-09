@@ -18,7 +18,6 @@
         <label><%= f.check_box :accepting %> Accepting</label>
         <%= f.label :google_place, 'Where is it?' %>
         <%= f.text_field :google_place, :value => f.object.address, :class => 'place-autocomplete', :data => {
-          :name => '#geocode-name',
           :address => '#geocode-address',
           :phone => '#geocode-phone',
           :lat => '#geocode-lat',
