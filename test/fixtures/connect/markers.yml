@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 have:
+  device_uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   marker_type: have
   name: ChaiOne
   description: MyText
   phone: (888) 316-0357
-  category: Labor Specialized Other Developer resources
+  categories:
+    labor:
+      - muck
+      - rake
+    housing:
+      - for 5 people
+    food:
+      - pork cracklins
   resolved: false
   latitude: 29.7488469
   longitude: -95.4593152
@@ -17,31 +25,37 @@ have:
     bar: baz
 
 need:
+  device_uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   marker_type: need
   name: Joe Blow
   description: Halp
   phone: 713-867-5309
-  category: labor shop
+  categories:
+    foo: bar
   resolved: false
   latitude: 29.773700
   longitude: -95.358611
 
 close_need:
+  device_uuid: yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
   marker_type: need
   name: Joe Close
   description: Halp
   phone: 713-867-5309
-  category: Labor Clean
+  categories:
+    foo: bar
   resolved: false
   latitude: 29.750621
   longitude: -95.457776
 
 resolved:
+  device_uuid: yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
   marker_type: need
   name: Resolved
   description: Halp
   phone: 713-867-5309
-  category: Labor Muck
+  categories:
+    foo: bar
   resolved: true
   latitude: 29.776
   longitude: -95.3587
