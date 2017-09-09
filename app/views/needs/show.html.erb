@@ -1,7 +1,5 @@
 <h1>Need <%= @need.id %></h1>
 
-<%= render "shared/show", record: @need, headers: @headers, columns: @columns %>
-
 <%= link_to 'Update', [:edit, @need], class: "button button-clear" %> |
 <%= link_to 'Back', needs_path, class: "button button-clear" %>
 <% if user_signed_in? && current_user.admin? %> |
@@ -10,3 +8,23 @@
               data: { confirm: 'Are you sure?' },
               class: "button button-clear" %>
   <% end %>
+
+
+  <div class="row">
+    <div class="column">
+      <%= render "shared/show", record: @need, headers: @headers, columns: @columns %>
+    </div>
+    <div class="column">
+      <div id="map" style="height: 300px; width: 100%"></div>
+      <script>
+        $(window).ready(function(){
+          simpleMap({
+            selector: "#map",
+            name: "<%= j @need.location_name %>",
+            lat: <%= @need.latitude || 0 %>,
+            lng: <%= @need.longitude || 0 %>
+          })
+        })
+      </script>
+    </div>
+  </div>

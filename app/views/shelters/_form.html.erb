@@ -1,7 +1,3 @@
-<% content_for(:footer_scripts) do %>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_JS_API_KEY'] %>&libraries=places" async defer></script>
-<% end %>
-
 <%= form_with(model: shelter, local: true) do |f| %>
   <% if shelter.errors.any? %>
     <div>
@@ -17,32 +13,47 @@
 
 
   <fieldset>
-    <%= f.label :google_place, 'Where is it?' %>
-    <%= f.text_field :google_place, :class => 'place-autocomplete', :data => {
-      :name => '#geocode-name',
-      :address => '#geocode-address',
-      :phone => '#geocode-phone',
-      :lat => '#geocode-lat',
-      :lng => '#geocode-lng',
-      :placeid => '#geocode-place-id'
-    }, :required => true, :autofocus => true %>
-  </fieldset>
 
-  <fieldset>
-    <%= f.label :accepting %>
-    <%= f.check_box :accepting %>
+    <div class="row">
+      <div class="column">
+        <label><%= f.check_box :accepting %> Accepting</label>
+        <%= f.label :google_place, 'Where is it?' %>
+        <%= f.text_field :google_place, :value => f.object.address, :class => 'place-autocomplete', :data => {
+          :name => '#geocode-name',
+          :address => '#geocode-address',
+          :phone => '#geocode-phone',
+          :lat => '#geocode-lat',
+          :lng => '#geocode-lng',
+          :placeid => '#geocode-place-id',
+          :city => '#geocode-city',
+          :mapselector => '#map'
+        }, :required => true, :autofocus => true %>
 
-    <%= f.label :shelter %>
-    <%= f.text_field :shelter, :required => true, :id => 'geocode-name' %>
+        <%= f.label :shelter %>
+        <%= f.text_field :shelter, :required => true, :id => 'geocode-name' %>
+        <%= f.label :phone %>
+        <%= f.text_field :phone, :required => true, :id => 'geocode-phone' %>
+  </div>
+    <div class="column">
+      <label>Map</label>
+      <div id="map" style="height: 300px; width: 100%"></div>
 
-    <%= f.label :address %>
-    <%= f.text_field :address, :required => true, :id => 'geocode-address' %>
-
+      <% if shelter.latitude && shelter.longitude %>
+      <script>
+        $(window).ready(function(){
+          simpleMap({
+            selector: "#map",
+            name: "<%= j shelter.shelter %>",
+            lat: <%= shelter.latitude %>,
+            lng: <%= shelter.longitude %>
+          })
+        })
+      </script>
+      <% end %>
+  </div>
+  </div>
     <%= f.label :source %>
     <%= f.text_field :source %>
-
-    <%= f.label :phone %>
-    <%= f.text_field :phone, :required => true, :id => 'geocode-phone' %>
 
     <%= f.label :pets %>
     <%= f.text_area :pets %>
@@ -62,20 +73,17 @@
     <%= f.label :food_pantry %>
     <%= f.text_field :food_pantry %>
 
-    <%= f.label :latitude, "Latitude (optional)" %>
-    <%= f.text_field :latitude, :id => 'geocode-lat' %>
-
-    <%= f.label :longitude, "Longitude (optional)" %>
-    <%= f.text_field :longitude, :id => 'geocode-lng' %>
+    <%= f.hidden_field :address, :id => 'geocode-address' %>
+    <%= f.hidden_field :city, :id => 'geocode-city' %>
+    <%= f.hidden_field :latitude, :id => 'geocode-lat' %>
+    <%= f.hidden_field :longitude, :id => 'geocode-lng' %>
 
     <% if user_signed_in? && current_user.admin? %>
       <%= f.label :private_notes %>
       <%= f.text_area :private_notes %>
     <% end %>
 
-    <%= f.label :google_place_id %>
-    <%= f.text_field :google_place_id, :id => 'geocode-place-id' %>
-
+    <%= f.hidden_field :google_place_id, :id => 'geocode-place-id' %>
     <%= f.button :submit %>
   </fieldset>
 <% end %>
