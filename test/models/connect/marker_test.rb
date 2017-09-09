@@ -11,16 +11,24 @@ class Connect::MarkerTest < ActiveSupport::TestCase
     assert @marker.valid?
   end
 
+  test 'invalid without a device uuid' do
+    ['', nil].each do |blank|
+      @marker.device_uuid = blank
+      refute @marker.valid?, 'saved marker without a device uuid'
+      assert_not_nil @marker.errors[:device_uuid], 'no validation error for device uuid present'
+    end
+  end
+
   test 'invalid without a name' do
     @marker.name = nil
     refute @marker.valid?, 'saved marker without a name'
     assert_not_nil @marker.errors[:name], 'no validation error for name present'
   end
 
-  test 'invalid without a category' do
-    @marker.category = nil
-    refute @marker.valid?, 'saved marker without a category'
-    assert_not_nil @marker.errors[:category], 'no validation error for category present'
+  test 'invalid without categories' do
+    @marker.categories = {}
+    refute @marker.valid?, 'saved marker without categories'
+    assert_not_nil @marker.errors[:categories], 'no validation error for categories present'
   end
 
   test 'invalid without a phone' do
@@ -67,5 +75,25 @@ class Connect::MarkerTest < ActiveSupport::TestCase
     @marker.email = 'nope'
     refute @marker.valid?, 'saved marker with invalid email'
     assert_not_nil @marker.errors[:email], 'no validation error for email'
+  end
+
+  test 'scope by category' do
+    assert Connect::Marker.by_category('labor').all? { |m| m.categories.keys.include?('labor') }
+  end
+
+  test 'scope by device uuid' do
+    assert Connect::Marker.by_device_uuid(@marker.device_uuid).all? { |m| m.device_uuid == @marker.device_uuid }
+  end
+
+  test 'scope by type' do
+    assert Connect::Marker.by_type(@marker.marker_type).all? { |m| m.marker_type == @marker.marker_type }
+  end
+
+  test 'scope resolved' do
+    assert Connect::Marker.resolved.all? { |m| m.resolved }
+  end
+
+  test 'scope unresolved' do
+    assert Connect::Marker.unresolved.none? { |m| m.resolved }
   end
 end

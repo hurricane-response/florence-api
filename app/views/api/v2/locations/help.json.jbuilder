@@ -7,6 +7,7 @@ end
 json.fields @location_class.api_help do |field|
   json.name field.name
   json.type field.type
+  json.required field.required
   json.options field.options do |option|
     json.option option
   end

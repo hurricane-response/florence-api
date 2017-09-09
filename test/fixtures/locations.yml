@@ -1,0 +1,71 @@
+rescue_boat:
+  name: "Jonny 5"
+  address: "1001 Fannin"
+  city: "Houston"
+  state: "TX"
+  phone: "555-555-5555"
+  organization: "hurricane-harvey-rescue-dispatchers"
+  legacy_table_name: "rescuers"
+  legacy_data:
+    status: "in route"
+    vehicle_type: "boat"
+    capacity: "10"
+    background_check: true
+    medic: false
+    mechanic: false
+    has_parts: false
+
+rescue_truck:
+  name: "Trucky 5"
+  address: "1101 Fannin"
+  city: "Houston"
+  state: "TX"
+  phone: "555-555-5555"
+  organization: "hurricane-harvey-rescue-dispatchers"
+  legacy_table_name: "rescuers"
+  legacy_data:
+    status: "returning"
+    vehicle_type: "high water vehicle"
+    capacity: "10"
+    background_check: true
+    medic: true
+    mechanic: false
+    has_parts: false
+
+elderly_rescuees:
+  name: "Sam A."
+  address: "1201 Fannin"
+  city: "Houston"
+  state: "TX"
+  phone: "555-555-5555"
+  organization: "hurricane-harvey-rescue-dispatchers"
+  legacy_table_name: "rescuees"
+  legacy_data:
+    apartment_number: "A"
+    status: "Awaiting Rescue"
+    tier: "Tier 1"
+    high_water_vehicle_accessable: true
+    number_of_adults: "0"
+    number_of_elderly: "2"
+    number_of_children: "0"
+    number_of_pets: "0"
+    notes: "Upstairs"
+
+family_rescuees:
+  name: "Barbara A."
+  address: "1301 Fannin"
+  city: "Houston"
+  state: "TX"
+  phone: "555-555-5555"
+  organization: "hurricane-harvey-rescue-dispatchers"
+  legacy_table_name: "rescuees"
+  legacy_data:
+    apartment_number: 
+    status: "Boat in Route"
+    tier: "Tier 2"
+    high_water_vehicle_accessable: false
+    number_of_adults: "2"
+    number_of_elderly: "0"
+    number_of_children: "2"
+    number_of_pets: "1"
+    notes: "on roof"

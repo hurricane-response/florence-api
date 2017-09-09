@@ -110,7 +110,7 @@ class LocationsController < ApplicationController
   end
 
   def location_update_params
-    params.require(location_class.name.gsub('::','').underscore).permit(location_class.update_fields.map(&:name)).keep_if { |_,v| v.present? }
+    format_params.keep_if { |_,v| v.present? }
   end
 
   def location_create_params
@@ -119,5 +119,15 @@ class LocationsController < ApplicationController
 
   def location_draft_params
     location_create_params
+  end
+
+  def format_params
+    key = location_class.name.gsub('::','').underscore
+    location_class.update_fields.each_with_object({}) do |field,obj|
+      value = params[key][field.name]
+      if(value)
+        obj[field.name] = location_class.format_field(field.type, value, field.options)
+      end
+    end
   end
 end
