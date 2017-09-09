@@ -1,4 +1,5 @@
 class Location < ApplicationRecord
+  has_many :drafts, as: :record
   # Inherit from this class to setup locations for an organization's google sheet
   # You need to setup the class methods:
   # - config,
@@ -177,11 +178,11 @@ class Location < ApplicationRecord
       end
       define_method(name.to_s+'=') do |value|
         # TODO support coersion for more types, problematic bc it could raise errors
-        legacy_data[name.to_s] = self.class.format_field(type, value)
+        legacy_data[name.to_s] = self.class.format_field(type, value, options)
       end
     end
 
-    def format_field(type, value)
+    def format_field(type, value, options=[])
       case type
       when :boolean
         ((value == true) || /(yes|true|t|1|y)/.match?(value.to_s)) ? true : false

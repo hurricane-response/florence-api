@@ -126,7 +126,7 @@ class LocationsController < ApplicationController
     location_class.update_fields.each_with_object({}) do |field,obj|
       value = params[key][field.name]
       if(value)
-        obj[field.name] = location_class.format_field(field.type, value)
+        obj[field.name] = location_class.format_field(field.type, value, field.options)
       end
     end
   end
