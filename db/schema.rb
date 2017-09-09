@@ -170,6 +170,8 @@ ActiveRecord::Schema.define(version: 20170909175503) do
     t.boolean "special_needs"
     t.string "private_email"
     t.boolean "allow_pets"
+    t.string "private_sms"
+    t.string "private_volunteer_data_mgr"
   end
 
   create_table "users", force: :cascade do |t|

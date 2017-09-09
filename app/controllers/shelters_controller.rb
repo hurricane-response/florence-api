@@ -1,11 +1,11 @@
 class SheltersController < ApplicationController
-  before_action :set_headers
+  before_action :set_headers, except: [:index]
+  before_action :set_index_headers, only: [:index]
   before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive]
 
   def index
     @shelters = Shelter.all
     @page = Page.shelters.first_or_initialize
-
   end
 
   def new
@@ -78,11 +78,24 @@ class SheltersController < ApplicationController
   # This is the definition of a beautiful hack. 1 part gross, 2 parts simplicity. Does something neat not clever.
   def set_headers
     if(admin?)
-      @columns = Shelter::ColumnNames + Shelter::PrivateFields
-      @headers = Shelter::HeaderNames + Shelter::PrivateFields.map(&:titleize)
+      columns = Shelter::ColumnNames + Shelter::PrivateFields
+      @columns = columns
+      @headers = columns.map(&:titleize)
     else
       @columns = Shelter::ColumnNames
-      @headers = Shelter::HeaderNames
+      @headers = Shelter::ColumnNames.map(&:titleize)
+    end
+  end
+
+  def set_index_headers
+    if(admin?)
+      columns = (Shelter::ColumnNames + Shelter::PrivateFields) - Shelter::IndexHiddenColumnNames
+      @columns = columns
+      @headers = columns.map(&:titleize)
+    else
+      columns = Shelter::ColumnNames - Shelter::IndexHiddenColumnNames
+      @columns = columns
+      @headers = columns.map(&:titleize)
     end
   end
 
