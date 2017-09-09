@@ -21,8 +21,8 @@
         simpleMap({
           selector: "#map",
           name: "<%= j @shelter.shelter %>",
-          lat: <%= @shelter.latitude %>,
-          lng: <%= @shelter.longitude %>
+          lat: <%= @shelter.latitude || 0%>,
+          lng: <%= @shelter.longitude || 0%>
         })
       })
     </script>
