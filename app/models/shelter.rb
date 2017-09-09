@@ -9,6 +9,7 @@ class Shelter < ApplicationRecord
   # columns to hide in index view
   IndexHiddenColumnNames = %w[
     address_name
+    allow_pets
     city
     state
     county
