@@ -23,7 +23,7 @@
         $(_this.opts.fillAddress).val("")
       }
 
-      if (!!place.formatted_phone_number) {
+      if (!!place.formatted_phone_number && $(_this.opts.fillPhone).val().length === 0) {
         $(_this.opts.fillPhone).val(place.formatted_phone_number)
       }
 
