@@ -29,6 +29,11 @@ class Api::V1::SheltersController < ApplicationController
       @shelters = @shelters.where(accepting: true)
     end
 
+    if params[:special_needs].present?
+      @filters[:special_needs] = params[:special_needs]
+      @shelters = @shelters.where(special_needs: true)
+    end
+
     if params[:limit].to_i > 0
       @shelters = @shelters.limit(params[:limit].to_i)
     end
