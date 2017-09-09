@@ -39,7 +39,7 @@
       $(element).closest('form').find('[name="shelter[state]"]').val(state);
       $(element).closest('form').find('[name="shelter[zip]"]').val(zip);
       $(element).closest('form').find('[name="shelter[latitude]"]').val(lat);
-      $(element).closest('form').find('[name="shelter[longitude]"]').val(longitude);
+      $(element).closest('form').find('[name="shelter[longitude]"]').val(lng);
       $(element).closest('form').find('[name="shelter[google_place_id]"]').val(place.place_id);
     });
   };
