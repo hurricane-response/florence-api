@@ -25,8 +25,6 @@
 
       if (!!place.formatted_phone_number) {
         $(_this.opts.fillPhone).val(place.formatted_phone_number)
-      } else {
-        $(_this.opts.fillPhone).val("")
       }
 
       var cityComponent = place.address_components.find(function(c) {
@@ -65,12 +63,6 @@
         $(_this.opts.fillState).val("")
       }
 
-      if (!!place.formatted_phone_number) {
-        $(_this.opts.fillPhone).val(place.formatted_phone_number)
-      } else {
-        $(_this.opts.fillPhone).val("")
-      }
-
       if (!!place.geometry && !!place.geometry.location) {
         $(_this.opts.fillLat).val(place.geometry.location.lat())
         $(_this.opts.fillLng).val(place.geometry.location.lng())
@@ -89,7 +81,14 @@
         callback(place)
       }
     })
-  }
+
+    // don't submit the whole form if the user hits enter on the autocomplete
+    google.maps.event.addDomListener(this.el, 'keydown', function(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+      }
+    });
+  };
 
   $(function() {
     $("input.place-autocomplete").each(function() {
