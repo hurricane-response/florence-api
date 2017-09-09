@@ -17,7 +17,7 @@ class SheltersController < ApplicationController
       @shelter = Shelter.new(shelter_update_params)
 
       if @shelter.save
-        redirect_to @shelter, notice: 'Shelter was successfully created.'
+        redirect_to shelters_path, notice: 'Shelter was successfully created.'
       else
         render :new
       end
@@ -42,7 +42,7 @@ class SheltersController < ApplicationController
   def update
     if(admin?)
       if @shelter.update(shelter_update_params)
-        redirect_to @shelter, notice: 'Shelter was successfully updated.'
+        redirect_to shelters_path, notice: 'Shelter was successfully updated.'
       else
         render :edit
       end
