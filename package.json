@@ -1,5 +1,8 @@
 {
   "name": "harvey-api",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "engines": {
+    "yarn": "0.24.6"
+  }
 }
