@@ -16,14 +16,15 @@
     <%= f.label :location_name %>
     <%= f.text_field :location_name, :required => true %>
 
-    <%= f.label :latitude %>
-    <%= f.text_field :latitude %>
+    <div id="locationField">
+      <label>Address Finder</label>
+      <input id="autocomplete" value="<%= f.object.location_address %>"
+             onFocus="geolocate()" type="text" required="true"></input>
+    </div>
 
-    <%= f.label :longitude %>
-    <%= f.text_field :longitude %>
-
-    <%= f.label :location_address %>
-    <%= f.text_field :location_address, :required => true %>
+    <%= f.hidden_field :latitude, class: "lat" %>
+    <%= f.hidden_field :longitude, class: "lon" %>
+    <%= f.hidden_field :location_address, :required => true, class: "location_address" %>
 
     <%= f.label :contact_for_this_location_name %>
     <%= f.text_field :contact_for_this_location_name %>
