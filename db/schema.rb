@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170909175503) do
+ActiveRecord::Schema.define(version: 20170909193921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20170909175503) do
     t.bigint "record_id"
     t.bigint "accepted_by_id"
     t.bigint "denied_by_id"
+    t.integer "created_by_id"
     t.index ["accepted_by_id"], name: "index_drafts_on_accepted_by_id"
     t.index ["denied_by_id"], name: "index_drafts_on_denied_by_id"
     t.index ["record_type", "record_id"], name: "index_drafts_on_record_type_and_record_id"

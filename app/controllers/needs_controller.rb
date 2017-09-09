@@ -21,7 +21,7 @@ class NeedsController < ApplicationController
         render :new
       end
     else
-      draft = Draft.new(info: need_update_params.merge({record_type: Need.name}))
+      draft = Draft.new(info: need_update_params.merge({record_type: Need.name}), created_by: current_user)
 
       if draft.save
         redirect_to draft, notice: 'Your new need is pending approval.'
@@ -59,7 +59,7 @@ class NeedsController < ApplicationController
         render :edit
       end
     else
-      draft = Draft.new(record: @need, info: need_update_params)
+      draft = Draft.new(record: @need, info: need_update_params, created_by: current_user)
 
       if draft.save
         redirect_to draft, notice: 'Your need update is pending approval.'

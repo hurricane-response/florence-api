@@ -1,6 +1,9 @@
 <table id="data-table">
   <thead>
     <tr>
+      <th></th>
+      <th>User</th>
+      <th></th>
       <% headers.each do |header| %>
         <th><%= header %></th>
       <% end %>
@@ -18,8 +21,13 @@
             <% end %>
           </td>
 
-        <td><%= link_to 'Show', row %></td>
+        <td>
+          <% if  row.created_by %>
+            <%=row.created_by.email%>
+          <%end%>
+        </td>
 
+        <td><%= link_to 'Show', row %></td>
 
         <% columns.each do |column| %>
           <td><%= truncate((row.info[column.to_s] || row.record && row.record.send(column)).to_s) %></td>

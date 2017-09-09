@@ -21,7 +21,7 @@ class CharitableOrganizationsController < ApplicationController
         render :new
       end
     else
-      draft = Draft.new(info: charitable_organization_update_params.merge({record_type: CharitableOrganization.name}))
+      draft = Draft.new(info: charitable_organization_update_params.merge({record_type: CharitableOrganization.name}), created_by: current_user)
 
       if draft.save
         redirect_to draft, notice: 'Your new Charitable Organization is pending approval.'
@@ -59,7 +59,7 @@ class CharitableOrganizationsController < ApplicationController
         render :edit
       end
     else
-      draft = Draft.new(record: @charitable_organization, info: charitable_organization_update_params)
+      draft = Draft.new(record: @charitable_organization, info: charitable_organization_update_params, created_by: current_user)
 
       if draft.save
         redirect_to draft, notice: 'Your Charitable Organization update is pending approval.'

@@ -22,7 +22,7 @@ class SheltersController < ApplicationController
         render :new
       end
     else
-      draft = Draft.new(info: shelter_update_params.merge({record_type: Shelter.name}))
+      draft = Draft.new(info: shelter_update_params.merge({record_type: Shelter.name}), created_by: current_user)
 
       if draft.save
         redirect_to draft, notice: 'Your new shelter is pending approval.'
@@ -47,7 +47,7 @@ class SheltersController < ApplicationController
         render :edit
       end
     else
-      draft = Draft.new(record: @shelter, info: shelter_update_params)
+      draft = Draft.new(record: @shelter, info: shelter_update_params, created_by: current_user)
 
       if draft.save
         redirect_to draft, notice: 'Your shelter update is pending approval.'
