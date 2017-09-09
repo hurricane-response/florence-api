@@ -72,6 +72,9 @@
     <% if user_signed_in? && current_user.admin? %>
       <%= f.label :private_notes %>
       <%= f.text_area :private_notes %>
+
+      <%= f.label :private_email %>
+      <%= f.text_field :private_email %>
     <% end %>
 
     <%= f.button :submit %>

@@ -14,7 +14,7 @@ class Shelter < ApplicationRecord
     food_pantry latitude longitude google_place_id special_needs
   ]
 
-  PrivateFields = ["private_notes"]
+  PrivateFields = %w[private_notes private_email]
 
   has_many :drafts, as: :record
   default_scope { where(active: !false) }
