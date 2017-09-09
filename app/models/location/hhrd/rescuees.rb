@@ -4,7 +4,7 @@ class Location
 
       # Import, Models, HTML Controller, API Controller
       config(
-        legacy_table_name: "rescues",
+        legacy_table_name: "rescuees",
         organization: "hurricane-harvey-rescue-dispatchers"
       )
 
