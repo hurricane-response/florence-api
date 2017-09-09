@@ -13,6 +13,7 @@ new_need:
 update_need:
   record: katy (Need)
   info:
+    record_type: "Need"
     tell_us_about_the_volunteer_needs: "we need trained medical personel"
 
 new_shelter:
@@ -33,6 +34,7 @@ new_shelter:
 update_shelter:
   record: nrg (Shelter)
   info:
+    record_type: "Shelter"
     pets: "No"
 
 new_charitable_organization:
@@ -52,4 +54,28 @@ new_charitable_organization:
 update_charitable_organization:
   record: one (CharitableOrganization)
   info:
+    record_type: "CharitableOrganization"
     food_bank: true
+
+new_rescuee:
+  info:
+    name: "Bobby B."
+    address: "1401 Fannin"
+    city: "Houston"
+    state: "TX"
+    phone: "555-555-5555"
+    organization: "hurricane-harvey-rescue-dispatchers"
+    legacy_table_name: "rescuees"
+    apartment_number: 
+    status: "Boat in Route"
+    tier: "None"
+    high_water_vehicle_accessible: false
+    number_of_adults: "2"
+    number_of_elderly: "0"
+    number_of_children: "2"
+    number_of_pets: "1"
+
+update_rescuee:
+  record: family_rescuees (Location)
+  info:
+    status: "Rescued"
