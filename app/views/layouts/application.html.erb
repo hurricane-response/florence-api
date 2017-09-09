@@ -63,6 +63,11 @@
     <footer>
       Code is available at <a href="http://github.com/sketch-city/harvey-api">GitHub</a>. Contributors welcome!
     </footer>
-    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_GEOCODER_API_KEY']}&libraries=places&callback=window.App.initializeAutocompletes", defer: true, async: true %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_JS_API_KEY'] %>&libraries=places"></script>
+    <% if ENV["GOOGLE_MAPS_JS_API_KEY"].blank? %>
+      <script>
+        console.log("To enable the Google auto-complete, you'll need to set a google maps API key in .env")
+      </script>
+    <% end %>
   </body>
 </html>

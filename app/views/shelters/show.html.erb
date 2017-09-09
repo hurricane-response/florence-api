@@ -10,4 +10,21 @@
               class: "button button-clear" %>
   <% end %>
 
-  <%= render "shared/show", record: @shelter, headers: @headers, columns: @columns %>
+<div class="row">
+  <div class="column">
+    <%= render "shared/show", record: @shelter, headers: @headers, columns: @columns %>
+  </div>
+  <div class="column">
+    <div id="map" style="height: 300px; width: 100%"></div>
+    <script>
+      $(window).ready(function(){
+        simpleMap({
+          selector: "#map",
+          name: "<%= j @shelter.shelter %>",
+          lat: <%= @shelter.latitude || 0%>,
+          lng: <%= @shelter.longitude || 0%>
+        })
+      })
+    </script>
+  </div>
+</div>
