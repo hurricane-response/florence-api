@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170909082743) do
+ActiveRecord::Schema.define(version: 20170909174720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,6 +169,8 @@ ActiveRecord::Schema.define(version: 20170909082743) do
     t.string "google_place_id"
     t.boolean "special_needs"
     t.string "private_email"
+    t.string "private_sms"
+    t.string "private_volunteer_data_mgr"
   end
 
   create_table "users", force: :cascade do |t|
