@@ -2,14 +2,14 @@
   const initializeAutocomplete = function(element) {
     const autocomplete = new google.maps.places.Autocomplete(element, { types: ['geocode'] });
 
-    google.maps.event.addDomListener(element, 'keydown', (e) => {
+    google.maps.event.addDomListener(element, 'keydown', function(e) {
       // don't submit the whole form if the user hits enter on the autocomplete
       if (e.keyCode === 13) {
         e.preventDefault();
       }
     });
 
-    autocomplete.addListener('place_changed', () => {
+    autocomplete.addListener('place_changed', function() {
       const place = autocomplete.getPlace();
       const lat = place.geometry.location.lat();
       const lng = place.geometry.location.lng();
