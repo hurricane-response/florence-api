@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20170909175503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "amazon_products", force: :cascade do |t|
     t.string "need"
