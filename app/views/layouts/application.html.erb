@@ -63,5 +63,9 @@
     <footer>
       Code is available at <a href="http://github.com/sketch-city/harvey-api">GitHub</a>. Contributors welcome!
     </footer>
+
+  <%- if content_for?(:footer_scripts) %>
+    <%= content_for(:footer_scripts) %>
+  <% end %>
   </body>
 </html>

@@ -1,3 +1,7 @@
+<% content_for(:footer_scripts) do %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_JS_API_KEY'] %>&libraries=places" async defer></script>
+<% end %>
+
 <%= form_with(model: shelter, local: true) do |f| %>
   <% if shelter.errors.any? %>
     <div>
@@ -13,23 +17,32 @@
 
 
   <fieldset>
+    <%= f.label :google_place, 'Where is it?' %>
+    <%= f.text_field :google_place, :class => 'place-autocomplete', :data => {
+      :name => '#geocode-name',
+      :address => '#geocode-address',
+      :phone => '#geocode-phone',
+      :lat => '#geocode-lat',
+      :lng => '#geocode-lng',
+      :placeid => '#geocode-place-id'
+    }, :required => true, :autofocus => true %>
+  </fieldset>
+
+  <fieldset>
     <%= f.label :accepting %>
     <%= f.check_box :accepting %>
 
     <%= f.label :shelter %>
-    <%= f.text_field :shelter, :required => true %>
+    <%= f.text_field :shelter, :required => true, :id => 'geocode-name' %>
 
     <%= f.label :address %>
-    <%= f.text_field :address, :required => true %>
-
-    <%= f.label :city %>
-    <%= f.text_field :city %>
+    <%= f.text_field :address, :required => true, :id => 'geocode-address' %>
 
     <%= f.label :source %>
     <%= f.text_field :source %>
 
     <%= f.label :phone %>
-    <%= f.text_field :phone, :required => true %>
+    <%= f.text_field :phone, :required => true, :id => 'geocode-phone' %>
 
     <%= f.label :pets %>
     <%= f.text_area :pets %>
@@ -50,15 +63,18 @@
     <%= f.text_field :food_pantry %>
 
     <%= f.label :latitude, "Latitude (optional)" %>
-    <%= f.text_field :latitude %>
+    <%= f.text_field :latitude, :id => 'geocode-lat' %>
 
     <%= f.label :longitude, "Longitude (optional)" %>
-    <%= f.text_field :longitude %>
+    <%= f.text_field :longitude, :id => 'geocode-lng' %>
 
     <% if user_signed_in? && current_user.admin? %>
       <%= f.label :private_notes %>
       <%= f.text_area :private_notes %>
     <% end %>
+
+    <%= f.label :google_place_id %>
+    <%= f.text_field :google_place_id, :id => 'geocode-place-id' %>
 
     <%= f.button :submit %>
   </fieldset>
