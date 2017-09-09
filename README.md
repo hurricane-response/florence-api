@@ -1,16 +1,10 @@
-The Harvey Needs API
+The Irma API
 ====================
 
 * We serve JSON data here, open and fresh
 * We help client applications help those affeceted by Hurricane Harvey
 
-Example Clients:
-
-* https://sketch-city.github.io/harvey-needs/
-* https://www.texasrescuemap.com/muckmap
-* https://www.texasrescuemap.com
-* SMS Shelter Finder at http://harveyneeds.org/
-* http://oneclickrelief.com/
+* irmashelters.org ([Repo](https://github.com/johnnyqbui/Houston-Shelters))
 
 Developer Links
 -----
