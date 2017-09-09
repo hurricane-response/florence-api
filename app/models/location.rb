@@ -80,7 +80,7 @@ class Location < ApplicationRecord
           @admin_columns ||= []
           @admin_headers ||= []
           @admin_legacy_headers ||= []
-          @api_help ||= DefaultColumns.map { |col| Field.new(col, :string) }.push(Field.new(:latitude, :float)).push(Field.new(:longitude))
+          @api_help ||= DefaultColumns.map { |col| Field.new(col, :string) }.push(Field.new(:latitude, :float)).push(Field.new(:longitude, :float))
         end
 
         # API filters.
