@@ -81,7 +81,14 @@
         callback(place)
       }
     })
-  }
+
+    // don't submit the whole form if the user hits enter on the autocomplete
+    google.maps.event.addDomListener(this.el, 'keydown', function(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+      }
+    });
+  };
 
   $(function() {
     $("input.place-autocomplete").each(function() {
