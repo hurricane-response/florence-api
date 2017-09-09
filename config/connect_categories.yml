@@ -50,6 +50,15 @@ default: &default
       - canned_food:
       - dry_foods:
       - basic_staples:
+  icons:
+    # Category keys that need icons will have their
+    # corresponding icon key listed here
+    - labor: user-md
+    - equipment: wrench
+    - supplies: shopping-basket
+    - transportation: car
+    - housing: bed
+    - food: cutlery
   en:
     categories: Categories
     labor: Labor

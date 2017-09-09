@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907070934) do
+ActiveRecord::Schema.define(version: 20170908152859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20170907070934) do
     t.string "name", default: "", null: false
     t.text "description", default: "", null: false
     t.string "phone", default: "", null: false
-    t.string "category", default: "", null: false
     t.boolean "resolved", default: false, null: false
     t.float "latitude", default: 0.0, null: false
     t.float "longitude", default: 0.0, null: false
@@ -59,7 +58,10 @@ ActiveRecord::Schema.define(version: 20170907070934) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.jsonb "data", default: {}, null: false
-    t.index ["category"], name: "index_connect_markers_on_category"
+    t.string "device_uuid", default: "", null: false
+    t.jsonb "categories", default: {}, null: false
+    t.index ["categories"], name: "index_connect_markers_on_categories", using: :gin
+    t.index ["device_uuid"], name: "index_connect_markers_on_device_uuid"
     t.index ["latitude", "longitude"], name: "index_connect_markers_on_latitude_and_longitude"
     t.index ["resolved"], name: "index_connect_markers_on_unresolved", where: "(resolved IS FALSE)"
   end

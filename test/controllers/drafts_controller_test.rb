@@ -3,15 +3,19 @@ require 'test_helper'
 class DraftsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  def drafts
+    Draft.where("info->'record_type' is not null").all
+  end
+
   test "loads show for all types" do
-    Draft.all.each do |draft|
+    drafts.each do |draft|
       get draft_path(draft)
       assert_response :success
     end
   end
 
   test "accepts drafts for all types" do
-    Draft.all.each do |draft|
+    drafts.each do |draft|
       sign_in(users(:admin))
       post accept_draft_path(draft)
       assert_response :redirect
@@ -30,7 +34,7 @@ class DraftsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "denies drafts for all types" do
-    Draft.all.each do |draft|
+    drafts.each do |draft|
       sign_in(users(:admin))
       delete draft_path(draft)
       assert_response :redirect
