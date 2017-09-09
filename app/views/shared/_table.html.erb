@@ -21,9 +21,10 @@
 </table>
 
 <script>
-window.onload = function() {
-  $('#data-table').DataTable({
-    "order": [[ 1, "desc" ]]
-  });
-};
+ window.onload = function() {
+   $('#data-table').DataTable({
+     "order": [[ 1, "desc" ]],
+     "stateSave": true
+   });
+ };
 </script>
