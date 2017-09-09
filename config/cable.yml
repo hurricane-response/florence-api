@@ -1,7 +1,5 @@
 development:
-  adapter: redis
-  url: redis://127.0.0.1:6379/1
-  channel_prefix: harvey-api_development
+  adapter: async
 
 test:
   adapter: redis

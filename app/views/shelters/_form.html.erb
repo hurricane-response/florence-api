@@ -20,13 +20,21 @@
     <%= f.text_field :shelter, :required => true %>
 
     <%= f.label :address %>
-    <%= f.text_field :address, :required => true %>
+    <%= f.text_field :address, :required => true, class: 'autocomplete-field' %>
 
     <%= f.label :city %>
     <%= f.text_field :city %>
     
     <%= f.label :county %>
     <%= f.text_field :county %>
+
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+
+    <%= f.label :zip %>
+    <%= f.text_field :zip %>
+
+    <%= f.hidden_field :google_place_id %>
 
     <%= f.label :source %>
     <%= f.text_field :source %>

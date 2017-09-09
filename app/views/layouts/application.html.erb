@@ -63,5 +63,6 @@
     <footer>
       Code is available at <a href="http://github.com/sketch-city/harvey-api">GitHub</a>. Contributors welcome!
     </footer>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_GEOCODER_API_KEY']}&libraries=places&callback=window.App.initializeAutocompletes", defer: true, async: true %>
   </body>
 </html>

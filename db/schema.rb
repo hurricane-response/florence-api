@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907070934) do
+ActiveRecord::Schema.define(version: 20170909061551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "amazon_products", force: :cascade do |t|
     t.string "need"
@@ -161,6 +162,9 @@ ActiveRecord::Schema.define(version: 20170907070934) do
     t.text "private_notes"
     t.text "distribution_center"
     t.text "food_pantry"
+    t.string "state"
+    t.string "zip"
+    t.string "google_place_id"
   end
 
   create_table "users", force: :cascade do |t|

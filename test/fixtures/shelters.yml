@@ -2,6 +2,8 @@ nrg:
   shelter: "NRG Center "
   address: "NRG Pkwy Houston TX 77054"
   city: "Houston"
+  state: 'Texas'
+  zip: '77054'
   pets: "Yes Dogs and Cats only"
   phone: "(832) 667-1400"
   accepting: true
@@ -20,6 +22,8 @@ lonestar:
   shelter: "Lone Star College North Harris"
   address: "2700 W W Thorne Dr"
   city: "Houston"
+  state: 'Texas'
+  zip: '77054'
   pets: ""
   phone: "(281) 618-5400"
   accepting: false
