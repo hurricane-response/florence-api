@@ -1,22 +1,22 @@
-<h1>Shelters Update Queue</h2>
+<h1><%= @legacy_table_display_name %> Update Queue</h2>
 
 <table id="data-table">
   <thead>
     <tr>
+      <th></th>
       <% @headers.each do |header| %>
         <th><%= header %></th>
       <% end %>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @drafts.each do |draft| %>
       <tr>
+        <td><%= link_to 'Show', location_draft_path(organization: @organization, legacy_table_name: @legacy_table_name, id: draft.id) %></td>
         <% @columns.each do |column| %>
           <td><%= truncate((draft.info[column.to_s] || @locations[draft.record_id] && @locations[draft.record_id].send(column)).to_s) %></td>
         <% end %>
-        <td><%= link_to 'Show', location_draft_path(organization: @organization, legacy_table_name: @legacy_table_name, id: draft.id) %></td>
       </tr>
     <% end %>
   </tbody>

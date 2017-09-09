@@ -4,7 +4,7 @@ class Location
 
       # Import, Models, HTML Controller, API Controller
       config(
-        legacy_table_name: "pois",
+        legacy_table_name: "point-of-interest",
         organization: "hurricane-harvey-rescue-dispatchers"
       )
 
@@ -19,7 +19,7 @@ class Location
       legacy_field(:rally_point, type: :boolean)
       legacy_field(:launch_point, type: :boolean)
       legacy_field(:diesel_fuel, type: :boolean)
-      legacy_field(:unleadded_fuel, type: :boolean)
+      legacy_field(:unleaded_fuel, type: :boolean)
       legacy_field(:food, type: :boolean)
       legacy_field(:hours)
       legacy_field(:notes)

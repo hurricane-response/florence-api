@@ -14,10 +14,14 @@ class Location
       filter(:number_of_people)
       filter(:notes)
 
+      legacy_field(:apartment_number)
       legacy_field(:status, type: :enum, options: ["Awaiting Rescue", "Boat in Route", "Rescued"])
       legacy_field(:tier, type: :enum, options: ["Tier 1", "Tier 2", "None"])
-      legacy_field(:high_water_vehicle_accessable, type: :boolean)
-      legacy_field(:number_of_people)
+      legacy_field(:high_water_vehicle_accessible, type: :boolean)
+      legacy_field(:number_of_adults)
+      legacy_field(:number_of_elderly)
+      legacy_field(:number_of_children)
+      legacy_field(:number_of_pets)
       legacy_field(:notes)
     end
   end

@@ -14,15 +14,15 @@
 
   <fieldset>
     <% update_fields.each do |field| %>
+      <%= f.label field.name, "#{field.name.to_s.titleize}#{field.required ? ' (required)' : ""}" %>
       <% case field.type %>
       <% when :boolean %>
-        <%= f.label field.name %>
         <%= f.check_box field.name %>
       <% when :enum %>
-        <%= f.label field.name %>
         <%= f.select field.name, options_for_select([nil].concat(field.options), location.send(field.name)) %>
+      <% when :phone %>
+        <%= f.telephone_field field.name %>
       <% else %>
-        <%= f.label field.name %>
         <%= f.text_field field.name %>
       <% end %>
     <% end %>
