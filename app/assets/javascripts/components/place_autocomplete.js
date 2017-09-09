@@ -25,8 +25,6 @@
 
       if (!!place.formatted_phone_number) {
         $(_this.opts.fillPhone).val(place.formatted_phone_number)
-      } else {
-        $(_this.opts.fillPhone).val("")
       }
 
       var cityComponent = place.address_components.find(function(c) {
@@ -63,12 +61,6 @@
         $(_this.opts.fillState).val(stateComponent.long_name)
       } else {
         $(_this.opts.fillState).val("")
-      }
-
-      if (!!place.formatted_phone_number) {
-        $(_this.opts.fillPhone).val(place.formatted_phone_number)
-      } else {
-        $(_this.opts.fillPhone).val("")
       }
 
       if (!!place.geometry && !!place.geometry.location) {
