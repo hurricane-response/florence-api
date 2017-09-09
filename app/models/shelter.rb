@@ -3,7 +3,7 @@ class Shelter < ApplicationRecord
     id accepting address address_name city state county zip
     google_place_id notes pets phone shelter source supply_needs updated_by
     volunteer_needs distribution_center food_pantry updated_at latitude
-    longitude
+    longitude special_needs
   ]
 
   HeaderNames = ColumnNames.map(&:titleize)
@@ -11,7 +11,7 @@ class Shelter < ApplicationRecord
   UpdateFields = %w[
     accepting address address_name city state county zip notes pets phone
     shelter source supply_needs updated_by volunteer_needs distribution_center
-    food_pantry latitude longitude google_place_id
+    food_pantry latitude longitude google_place_id special_needs
   ]
 
   PrivateFields = ["private_notes"]
