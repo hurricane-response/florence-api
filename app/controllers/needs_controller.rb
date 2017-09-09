@@ -59,7 +59,7 @@ class NeedsController < ApplicationController
         render :edit
       end
     else
-      draft = Draft.new(record: @need, info: need_update_params)
+      draft = Draft.new(record: @need, info: need_update_params, created_by: current_user)
 
       if draft.save
         redirect_to draft, notice: 'Your need update is pending approval.'
