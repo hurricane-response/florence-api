@@ -1,7 +1,7 @@
 class Shelter < ApplicationRecord
   ColumnNames = %w[
     id accepting address address_name city state county zip
-    google_place_id notes pets phone shelter source supply_needs updated_by
+    google_place_id notes allow_pets pets phone shelter source supply_needs updated_by
     volunteer_needs distribution_center food_pantry updated_at latitude
     longitude special_needs
   ]
@@ -9,7 +9,7 @@ class Shelter < ApplicationRecord
   HeaderNames = ColumnNames.map(&:titleize)
 
   UpdateFields = %w[
-    accepting address address_name city state county zip notes pets phone
+    accepting address address_name city state county zip notes allow_pets pets phone
     shelter source supply_needs updated_by volunteer_needs distribution_center
     food_pantry latitude longitude google_place_id special_needs
   ]
