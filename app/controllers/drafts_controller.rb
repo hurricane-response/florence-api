@@ -33,7 +33,7 @@ class DraftsController < ApplicationController
     if(@draft.record)
       @record = @draft.record
     else
-      @record = @draft.info["record_type"].constantize.new
+      @record = @draft.record_type.constantize.new
     end
   end
 end
