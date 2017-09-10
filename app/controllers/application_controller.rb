@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
     user_signed_in? && current_user.admin?
   end
 
+  def authenticate_json_api_token!
+    request.headers['Authorization'] == "Bearer #{ENV['JSON_API_KEY']}"
+  end
+
   def authenticate_admin!
     if !admin?
       redirect_to request.referrer || root_path, notice: "Admins Only! :|"

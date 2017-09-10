@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
 
-      get "/needs" => 'needs#index'
+      resources :needs, only: %i[index create]
       get "/shelters" => 'shelters#index'
       get "/products" => 'amazon_products#index'
       get "/charitable_organizations" => 'charitable_organizations#index'

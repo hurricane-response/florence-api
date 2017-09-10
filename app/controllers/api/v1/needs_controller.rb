@@ -34,4 +34,24 @@ class Api::V1::NeedsController < ApplicationController
       end
   end
 
+  def create
+    @message = nil
+    @success = false
+
+    return render status: :forbidden, json: {error: 'invalid auth token'} unless authenticate_json_api_token!
+
+    @need = Need.new(need_update_params)
+
+    if @need.save
+      @success = true
+    else
+      @message = @need.errors.messages
+      @need= nil
+    end
+    return render template: 'api/v1/needs/show'
+  end
+
+  def need_update_params
+    params.require(:need).permit(Need::UpdateFields).keep_if { |_,v| v.present? }
+  end
 end
