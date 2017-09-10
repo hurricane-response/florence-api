@@ -1,12 +1,13 @@
-The Irma Needs API
+The Irma API
 ====================
 
 * We serve JSON data here, open and fresh
 * We help client applications help those affeceted by Hurricane Irma
 
+=======
 Example Clients:
  
-* http://irmaresponse.org/
+* * irmashelters.org ([Repo](https://github.com/johnnyqbui/Houston-Shelters))
 
 Developer Links
 -----
