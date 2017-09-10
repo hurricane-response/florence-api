@@ -1,7 +1,7 @@
 json.extract! shelter, *%i[
   county shelter address city state county zip pets phone accepting updated_by
   notes volunteer_needs longitude latitude supply_needs source google_place_id
-  special_needs
+  special_needs id
 ]
 
 json.needs (shelter.volunteer_needs ||"").split(",") + (shelter.supply_needs || "").split(",")
