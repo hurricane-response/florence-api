@@ -15,6 +15,8 @@
   <fieldset>
     <div class="row">
       <div class="column">
+        <%= f.button :submit %>
+
         <label><%= f.check_box :accepting %> Accepting</label>
         <%= f.label :google_place, 'Where is it?' %>
         <%= f.text_field :google_place, :value => f.object.address, :class => 'place-autocomplete', :data => {
@@ -68,14 +70,14 @@
     <%= f.label :pets %>
     <%= f.text_area :pets %>
 
+    <%= f.label :notes %>
+    <%= f.text_area :notes %>
+
     <%= f.label :supply_needs %>
     <%= f.text_area :supply_needs %>
 
     <%= f.label :volunteer_needs %>
     <%= f.text_area :volunteer_needs %>
-
-    <%= f.label :notes %>
-    <%= f.text_area :notes %>
 
     <%= f.label :distribution_center %>
     <%= f.text_field :distribution_center %>
