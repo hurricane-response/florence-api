@@ -1,3 +1,9 @@
 <h1>Edit <%= @shelter.shelter %></h1>
+<% if user_signed_in? && current_user.admin? %>
+  <%= link_to 'Archive', archive_shelter_path(@shelter),
+  method: :post,
+  data: { confirm: 'Are you sure?' },
+  class: "button button-clear" %>
+<% end %>
 
 <%= render 'form', shelter: @shelter %>
