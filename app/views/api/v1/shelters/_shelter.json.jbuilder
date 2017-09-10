@@ -4,7 +4,8 @@ json.extract! shelter, *%i[
   special_needs id
 ]
 
-json.pets shelter.allow_pets
+json.pets shelter.allow_pets ? 'Yes' : 'No'
+json.pets_notes shelter.pets
 json.needs (shelter.volunteer_needs ||"").split(",") + (shelter.supply_needs || "").split(",")
 
 json.updated_at shelter.updated_at.in_time_zone("Central Time (US & Canada)").rfc3339
