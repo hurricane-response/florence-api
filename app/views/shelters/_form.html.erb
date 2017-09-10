@@ -34,14 +34,14 @@
         }, :required => true, :autofocus => true %>
 
         <%= f.label :shelter %>
-        <%= f.text_field :shelter, :required => true, :id => 'geocode-name' %>
+        <%= f.text_field :shelter, :placeholder => 'Name of Shelter (like Manatee Bay Middle School)', :required => true, :id => 'geocode-name' %>
         <%= f.label :phone %>
-        <%= f.text_field :phone, :required => true, :id => 'geocode-phone' %>
+        <%= f.text_field :phone, :placeholder => '(123) 123-4567', :required => true, :id => 'geocode-phone' %>
 
         <%= f.label :county %>
-        <%= f.text_field :county, :id => 'geocode-county' %>
+        <%= f.text_field :county, :placeholder => 'Name of County (like Manatee)', :id => 'geocode-county' %>
         <%= f.label :zip %>
-        <%= f.text_field :zip, :id => 'geocode-zip' %>
+        <%= f.text_field :zip, :placeholder => '12345', :id => 'geocode-zip' %>
     </div>
     <div class="column">
       <label>Map</label>
@@ -63,28 +63,28 @@
   </div>
 
     <%= f.label :source %>
-    <%= f.text_field :source %>
+    <%= f.text_field :source, :placeholder => 'Source of Information (like Manatee County Emergency Management)' %>
 
     <%= f.label :allow_pets %>
     <%= f.check_box :allow_pets %>
 
     <%= f.label :pets %>
-    <%= f.text_area :pets %>
+    <%= f.text_area :pets, :placeholder => 'Additional details about pets (like crate required or proof of shots)' %>
 
     <%= f.label :notes %>
-    <%= f.text_area :notes %>
+    <%= f.text_area :notes, :placeholder => 'Whatever the shelter wants people to know (like Just Opened, or Nearing Capacity)' %>
 
     <%= f.label :supply_needs %>
-    <%= f.text_area :supply_needs %>
+    <%= f.text_area :supply_needs, :placeholder => 'Supplies needed by the shelter (like Water, Paper Towels, Tissue Paper)' %>
 
     <%= f.label :volunteer_needs %>
-    <%= f.text_area :volunteer_needs %>
+    <%= f.text_area :volunteer_needs, :placeholder => 'Types of volunteers needed if any (like Medical Personnel)' %>
 
     <%= f.label :distribution_center %>
-    <%= f.text_field :distribution_center %>
+    <%= f.text_field :distribution_center, :placeholder => 'Detail about Distribution Center' %>
 
     <%= f.label :food_pantry %>
-    <%= f.text_field :food_pantry %>
+    <%= f.text_field :food_pantry, :placeholder => 'Food Pantries hellping with this shelter' %>
 
     <%= f.label :special_needs %>
     <%= f.check_box :special_needs %>
@@ -96,16 +96,16 @@
 
     <% if user_signed_in? && current_user.admin? %>
       <%= f.label :private_notes %>
-      <%= f.text_area :private_notes %>
+      <%= f.text_area :private_notes, :placeholder => 'Non-published notes (for other admins)' %>
 
       <%= f.label :private_email %>
-      <%= f.text_field :private_email %>
+      <%= f.text_field :private_email, :placeholder => 'Emails of contacts' %>
 
       <%= f.label :private_sms %>
-      <%= f.text_field :private_sms %>
+      <%= f.text_field :private_sms, :placeholder => 'Phone numbers of contacts' %>
 
       <%= f.label :private_volunteer_data_mgr %>
-      <%= f.text_field :private_volunteer_data_mgr %>
+      <%= f.text_field :private_volunteer_data_mgr, :placeholder => 'Name of Volunteer Data Manager' %>
     <% end %>
 
     <%= f.hidden_field :google_place_id, :id => 'geocode-place-id' %>
