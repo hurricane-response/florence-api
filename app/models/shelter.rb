@@ -12,7 +12,6 @@ class Shelter < ApplicationRecord
     allow_pets
     city
     state
-    county
     zip
     google_place_id
     latitude
