@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       get "/products" => 'amazon_products#index'
       get "/charitable_organizations" => 'charitable_organizations#index'
 
+      post "/needs" => 'needs#create'
+
       namespace :connect do
         resources :markers, only: [:create, :index, :update]
         resources :categories, only: [:index]
