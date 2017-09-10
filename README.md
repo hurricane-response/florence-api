@@ -2,14 +2,17 @@ The Irma API
 ====================
 
 * We serve JSON data here, open and fresh
-* We help client applications help those affeceted by Hurricane Harvey
+* We help client applications help those affeceted by Hurricane Irma
 
-* irmashelters.org ([Repo](https://github.com/johnnyqbui/Houston-Shelters))
+=======
+Example Clients:
+ 
+* * irmashelters.org ([Repo](https://github.com/johnnyqbui/Houston-Shelters))
 
 Developer Links
 -----
 
-* [CONTRIBUTORS](https://api.harveyneeds.org/contributors.html)
+* [CONTRIBUTORS](https://github.com/Irma-Response/irma-api/graphs/contributors)
 * [LICENSE](#license)
 * [CODE OF CONDUCT](CODE_OF_CONDUCT.md)
 
@@ -19,11 +22,11 @@ API
 
 ### Overall
 
-* URI: https://api.harveyneeds.org
+* URI: https://irma-api.herokuapp.com
 * Namespaced and versioned: `/api/v1`
 
-* Sample API for list of all shelters: https://api.harveyneeds.org/api/v1/shelters
-* Sample API for list of all shelters accepting people: https://api.harveyneeds.org/api/v1/shelters?accepting=true
+* Sample API for list of all shelters: https://irma-api.herokuapp.com/api/v1/shelters
+* Sample API for list of all shelters accepting people: https://irma-api.herokuapp.com/api/v1/shelters?accepting=true
 
 ### Shelters Endpoint
 
@@ -32,71 +35,86 @@ Shape:
 ```
 {
     "shelters": [
-        {
-            "county": "Fort Bend",
-            "shelter": "Gallery Furniture Grand Parkway",
-            "address": "7227 W. Grand Parkway South",
-            "city": "Richmond",
-            "pets": "Yes, crated and kept by owner's side",
-            "phone": "(281) 407-7161",
-            "accepting": true,
-            "last_updated": "2017-08-30 12:50 PM",
-            "updated_by": "bon",
-            "notes": "No answer (info here by Jane at 8/29/2017 21:17:00)",
-            "volunteer_needs": "Open up for volunteers in the morning, 8/30th",
-            "longitude": "-95.7505562",
-            "latitude": "29.673294",
-            "supply_needs": "toiletries, water, juice, gatorade",
-            "source": "",
-            "needs": ["Open up for volunteers in the morning", "8/30th", "toiletries", "water","juice","gatorade"],
-            "updatedAt":"2017-09-01T11:26:00-05:00",
-            "cleanPhone":"2814077161"
-        },
-        {
-            "county": "Harris",
-            "shelter": "Gallery Furniture",
-            "address": "6006 N. Freeway",
-            "city": "Houston",
-            "pets": "Yes",
-            "phone": "(713) 694-5570",
-            "accepting": false,
-            "last_updated": "2017-08-30 12:57 PM",
-            "updated_by": "bon",
-            "notes": "No answer (info here by Claudia at 8/29 10:48am; At max capacity.)",
-            "volunteer_needs": "",
-            "longitude": "-95.396748",
-            "latitude": "29.854114",
-            "supply_needs": "trucks to move people to GRB or other shelters. ",
-            "source": "",
-            "needs": ["trucks to move people to GRB or other shelters. "],
-            "updatedAt":"2017-08-30T12:57:00-05:00",
-            "cleanPhone":"7136945570"
-        },
-        {
-            "county": "Harris",
-            "shelter": "Gallery Furniture",
-            "address": "6006 N. Freeway",
-            "city": "Houston",
-            "pets": "Yes",
-            "phone": "ring ring ring banannaphone",
-            "accepting": false,
-            "last_updated": "twelve hours before dawn",
-            "updated_by": "bon",
-            "notes": "No answer (info here by Claudia at 8/29 10:48am; At max capacity.)",
-            "volunteer_needs": "",
-            "longitude": "-95.396748",
-            "latitude": "29.854114",
-            "supply_needs": "trucks to move people to GRB or other shelters. ",
-            "source": "",
-            "needs": ["trucks to move people to GRB or other shelters. "],
-            "updatedAt":"baddate",
-            "cleanPhone":"badphone"
-        }
+			{
+				county: "Palm Beach County",
+				shelter: "Dr. Mary Mcleod Bethune Elementary School",
+				address: "1501 Avenue U, West Palm Beach, Palm Beach County, FL, United States",
+				city: "West Palm Beach",
+				state: "Florida",
+				zip: "33404",
+				pets: null,
+				phone: "(561) 882-7600",
+				accepting: true,
+				updated_by: null,
+				notes: null,
+				volunteer_needs: null,
+				longitude: -80.084386,
+				latitude: 26.776181,
+				supply_needs: null,
+				source: null,
+				google_place_id: "ChIJoQqfCZ3V2IgRmoonj7yL5x4",
+				special_needs: false,
+				needs: [ ],
+				updated_at: "2017-09-09T11:44:42-05:00",
+				updatedAt: "2017-09-09T11:44:42-05:00",
+				last_updated: "2017-09-09T11:44:42-05:00",
+				cleanPhone: "5618827600"
+			},
+			{
+				county: "Palm Beach County",
+				shelter: "Palm Beach Gardens High School",
+				address: "4245 Holly Drive, Palm Beach Gardens, FL, United States",
+				city: "Palm Beach Gardens",
+				state: "Florida",
+				zip: "33410",
+				pets: null,
+				phone: "(561) 694-7300",
+				accepting: true,
+				updated_by: null,
+				notes: null,
+				volunteer_needs: null,
+				longitude: -80.1010343,
+				latitude: 26.8250767,
+				supply_needs: null,
+				source: null,
+				google_place_id: "ChIJTyeTJ6sq2YgRT1ojAxBcxk4",
+				special_needs: false,
+				needs: [ ],
+				updated_at: "2017-09-09T11:44:43-05:00",
+				updatedAt: "2017-09-09T11:44:43-05:00",
+				last_updated: "2017-09-09T11:44:43-05:00",
+				cleanPhone: "5616947300"
+			},
+			{
+				county: "Manatee County",
+				shelter: "Buffalo Creek Middle School",
+				address: "7320 69th St E",
+				city: "Palmetto",
+				state: null,
+				zip: "34221",
+				pets: "Yes",
+				phone: "(941) 721-2260",
+				accepting: true,
+				updated_by: null,
+				notes: null,
+				volunteer_needs: null,
+				longitude: -82.4907812,
+				latitude: 27.5756384,
+				supply_needs: null,
+				source: "http://www.mymanatee.org/home/government/departments/public-safety/emergency-management/shelter-list-table.html",
+				google_place_id: "ChIJb4ViKXcjw4gRicDxsEVhf4Q",
+				special_needs: false,
+				needs: [ ],
+				updated_at: "2017-09-09T16:24:41-05:00",
+				updatedAt: "2017-09-09T16:24:41-05:00",
+				last_updated: "2017-09-09T16:24:41-05:00",
+				cleanPhone: "9417212260"
+			}
     ],
     "meta": {
-        "result_count": 5,
+        "result_count": 3,
         "filters": {
-            "shelter": "Gallery"
+            accepting: "true"
         }
     }
 }
@@ -113,13 +131,13 @@ Filters:
 
 
 Sample:
-`/api/v1/shelters?county=fort bend&accepting=true`
+`/api/v1/shelters?accepting=true&county=Alachua+County`
 
-  * Filters by fort bend shelters accepting people
+  * Filters by Alachua County shelters accepting people
 
-`/api/v1/shelters?shelter=Gallery`
+`/api/v1/shelters?shelter=Archer`
 
-  * Filters shelters with Gallery in the name
+  * Filters shelters with Archer in the name
 
 ### Needs API
 
