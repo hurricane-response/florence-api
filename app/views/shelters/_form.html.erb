@@ -18,7 +18,7 @@
         <%= f.button :submit %>
 
         <label><%= f.check_box :accepting %> Accepting</label>
-        <label><%= f.check_box :accepting %> Unofficial (not county-run/FEMA approved)</label>
+        <label><%= f.check_box :unofficial %> Unofficial (not county-run/FEMA approved)</label>
         <%= f.label :google_place, 'Where is it?' %>
         <%= f.text_field :google_place, :value => f.object.address, :class => 'place-autocomplete', :data => {
           :address => '#geocode-address',
