@@ -3,7 +3,7 @@ class Shelter < ApplicationRecord
     id accepting address address_name city state county zip
     google_place_id notes allow_pets pets phone shelter source supply_needs updated_by
     volunteer_needs distribution_center food_pantry updated_at latitude
-    longitude special_needs
+    longitude special_needs unofficial
   ]
 
   # columns to hide in index view
@@ -25,7 +25,7 @@ class Shelter < ApplicationRecord
   UpdateFields = %w[
     accepting address address_name city state county zip notes allow_pets pets phone
     shelter source supply_needs updated_by volunteer_needs distribution_center
-    food_pantry latitude longitude google_place_id special_needs
+    food_pantry latitude longitude google_place_id special_needs unofficial
   ]
 
   PrivateFields = %w[
