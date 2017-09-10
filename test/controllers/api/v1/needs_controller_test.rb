@@ -50,10 +50,7 @@ class Api::NeedsControllerTest < ActionDispatch::IntegrationTest
     need_params = {location_name: name}
     post '/api/v1/needs', headers: headers, as: :json, params: need_params
 
-    assert_response :success
-    json = JSON.parse(response.body)
-    assert_not json['meta']['success']
-
+    assert_response :forbidden
     assert_equal expected_count, Need.count
   end
 end

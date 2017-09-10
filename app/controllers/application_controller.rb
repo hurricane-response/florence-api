@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     user_signed_in? && current_user.admin?
   end
 
-  def json_api_token_auth?
+  def authenticate_json_api_token!
     request.headers['Authorization'] == "Bearer #{ENV['JSON_API_KEY']}"
   end
 

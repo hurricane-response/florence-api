@@ -7,5 +7,5 @@ end
 
 json.meta do
   json.success @success
-  json.msg @msg
+  json.message @message
 end
