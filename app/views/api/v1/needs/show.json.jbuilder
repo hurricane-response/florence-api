@@ -1,6 +1,6 @@
 json.ignore_nil!
-json.need do
-  json.cache! @need do
+json.needs [@need] do |need|
+  json.cache! need do
     json.partial! @need unless @need.nil?
   end
 end
