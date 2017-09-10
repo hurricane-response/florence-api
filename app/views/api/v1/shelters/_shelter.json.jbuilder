@@ -1,9 +1,10 @@
 json.extract! shelter, *%i[
-  county shelter address city state county zip pets phone accepting updated_by
+  county shelter address city state county zip phone accepting updated_by
   notes volunteer_needs longitude latitude supply_needs source google_place_id
   special_needs id
 ]
 
+json.pets shelter.allow_pets
 json.needs (shelter.volunteer_needs ||"").split(",") + (shelter.supply_needs || "").split(",")
 
 json.updated_at shelter.updated_at.in_time_zone("Central Time (US & Canada)").rfc3339
