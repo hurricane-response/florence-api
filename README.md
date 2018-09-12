@@ -1,18 +1,16 @@
-The Irma API
+The Hurricane Florence API
 ====================
 
 * We serve JSON data here, open and fresh
-* We help client applications help those affeceted by Hurricane Irma
+* We help client applications help those affeceted by Hurricane Florence.
 
 =======
 Example Clients:
- 
-* * irmashelters.org ([Repo](https://github.com/johnnyqbui/Houston-Shelters))
 
 Developer Links
 -----
 
-* [CONTRIBUTORS](https://github.com/Irma-Response/irma-api/graphs/contributors)
+* [CONTRIBUTORS](https://github.com/hurricane-response/florence-api/graphs/contributors)
 * [LICENSE](#license)
 * [CODE OF CONDUCT](CODE_OF_CONDUCT.md)
 
@@ -22,11 +20,11 @@ API
 
 ### Overall
 
-* URI: https://irma-api.herokuapp.com
+* URI: https://hurricane-florence-api.herokuapp.com
 * Namespaced and versioned: `/api/v1`
 
-* Sample API for list of all shelters: https://irma-api.herokuapp.com/api/v1/shelters
-* Sample API for list of all shelters accepting people: https://irma-api.herokuapp.com/api/v1/shelters?accepting=true
+* Sample API for list of all shelters: https://hurricane-florence-api.herokuapp.com/api/v1/shelters
+* Sample API for list of all shelters accepting people: https://hurricane-florence-api.herokuapp.com/api/v1/shelters?accepting=true
 
 ### Shelters Endpoint
 
