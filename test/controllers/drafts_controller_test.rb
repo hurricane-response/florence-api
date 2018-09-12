@@ -4,7 +4,7 @@ class DraftsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   def drafts
-    Draft.where("info->'record_type' is not null").all
+    Draft.where("record_type is not null").all
   end
 
   test "loads show for all types" do
