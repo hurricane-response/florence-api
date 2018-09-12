@@ -24,7 +24,7 @@ class LocationsController < ApplicationController
         render :new
       end
     else
-      draft = Draft.new(info: location_draft_params, created_by: current_user)
+      draft = Draft.new(info: location_draft_params, record_type: Location, created_by: current_user)
 
       if draft.save
         path = location_draft_path(organization: @organization, legacy_table_name: @legacy_table_name, id: draft.id)
