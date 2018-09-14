@@ -284,19 +284,12 @@ Getting Started (Dev)
 * Ruby 2.4.1
 * Rails 5.1.
 
-#### User Administration
-In `rails console` you'll want to create an admin user:
-
-```
-User.create! email: "youremail@example.com", password: "yourpassword", admin: true
-```
-
 #### Fork Repository and clone to local machine
 ##### Fork Repository
 * Prequisites
   * A github account and a repository into which to fork other repositories
 * Steps
-  1. Navigate in a browser to https://github.com/sketch-city/harvey-api
+  1. Navigate in a browser to https://github.com/hurricane-response/florence-api
   2. Click the Fork button in the upper right of the screenshot_create-service-account-key
   3. If prompted choose into where you want to form (e.g., if you are a member of multiple github repositories)
   4. You'll now have a forked version - your own version - of the repository.
@@ -356,8 +349,15 @@ You'll need to set the following ENV variables in a .env file
     ImportNeedsJob Complete - {92}
   ```
 
-* Test the API itself (Run API locally)
-  * Example `rails server `
+#### User Administration
+In `rails console` you'll want to create an admin user:
+
+```
+User.create! email: "youremail@example.com", password: "yourpassword", admin: true
+```
+
+#### Test the API itself (Run API locally)
+* Example `rails server `
   Screenshot of Success:
   ![Screenshot](/public/images/readme/screenshot_rails_server_run_test.png)
 
