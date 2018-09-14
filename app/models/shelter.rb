@@ -42,4 +42,17 @@ class Shelter < ApplicationRecord
   after_commit do
     ShelterUpdateNotifierJob.perform_later self
   end
+
+  def self.to_csv
+    attributes = %w[
+      shelter address city state county zip phone updated_at source accepting pets
+    ]
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      self.all.each do |shelter|
+        csv << attributes.map { |attr| shelter.send(attr) }
+      end
+    end
+  end
 end
