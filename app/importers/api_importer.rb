@@ -3,7 +3,7 @@ require 'httparty'
 
 class APIImporter
   include HTTParty
-  base_uri "https://api.harveyneeds.org/api/v1"
+  base_uri "https://hurricane-florence-api.herokuapp.com/api/v1"
   format :json
 
   def self.needs
