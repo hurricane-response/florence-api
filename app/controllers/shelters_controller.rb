@@ -6,6 +6,10 @@ class SheltersController < ApplicationController
   def index
     @shelters = Shelter.all
     @page = Page.shelters.first_or_initialize
+    respond_to do |format|
+      format.html
+      format.csv { send_data @shelters.to_csv, filename: "shelters-#{Date.today}.csv" }
+    end
   end
 
   def new
@@ -71,6 +75,10 @@ class SheltersController < ApplicationController
 
   def drafts
     @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = ?", Shelter.name, Shelter.name).where(accepted_by_id: nil).where(denied_by_id: nil)
+  end
+
+  def csv
+    render :index, format: :csv
   end
 
   def outdated
