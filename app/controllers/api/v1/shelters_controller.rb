@@ -25,8 +25,8 @@ class Api::V1::SheltersController < ApplicationController
     end
 
     if params[:accepting].present?
-      @filters[:accepting] = params[:accepting]
-      @shelters = @shelters.where(accepting: true)
+      @filters[:accepting] = params[:accepting].to_sym
+      @shelters = @shelters.where(accepting: :true)
     end
 
     if params[:special_needs].present?

@@ -1,4 +1,10 @@
 class Shelter < ApplicationRecord
+  enum accepting: {
+    true: 'true',
+    false: 'false',
+    unknown: 'unknown'
+  }
+
   ColumnNames = %w[
     id accepting address address_name city state county zip
     google_place_id notes allow_pets pets phone shelter source supply_needs updated_by

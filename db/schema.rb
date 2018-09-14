@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910045633) do
+ActiveRecord::Schema.define(version: 20180914132709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,39 +142,8 @@ ActiveRecord::Schema.define(version: 20170910045633) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "shelters", force: :cascade do |t|
-    t.string "county"
-    t.string "shelter"
-    t.string "address"
-    t.string "city"
-    t.string "pets"
-    t.string "phone"
-    t.boolean "accepting"
-    t.string "last_updated"
-    t.string "updated_by"
-    t.string "notes"
-    t.string "volunteer_needs"
-    t.float "longitude"
-    t.float "latitude"
-    t.string "supply_needs"
-    t.string "source"
-    t.string "address_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "active", default: true
-    t.text "private_notes"
-    t.text "distribution_center"
-    t.text "food_pantry"
-    t.string "state"
-    t.string "zip"
-    t.string "google_place_id"
-    t.boolean "special_needs"
-    t.string "private_email"
-    t.boolean "allow_pets"
-    t.string "private_sms"
-    t.string "private_volunteer_data_mgr"
-    t.boolean "unofficial"
-  end
+# Could not dump table "shelters" because of following StandardError
+#   Unknown type 'shelter_accepting_value' for column 'accepting'
 
   create_table "users", force: :cascade do |t|
     t.boolean "admin"

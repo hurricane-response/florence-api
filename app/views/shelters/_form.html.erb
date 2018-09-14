@@ -17,7 +17,12 @@
       <div class="column">
         <%= f.button :submit %>
 
-        <label><%= f.check_box :accepting %> Accepting</label>
+        <%= f.label :accepting, "Accepting" %>
+        <div class="radio-group">
+          <%= f.radio_button :accepting, :true %><%= f.label :accepting_true, "Yes" %>
+          <%= f.radio_button :accepting, :false %><%= f.label :accepting_false, "No" %>
+          <%= f.radio_button :accepting, :unknown %><%= f.label :accepting_nil, "Unknown" %>
+        </div>
         <label><%= f.check_box :unofficial %> Unofficial (not county-run/FEMA approved)</label>
         <%= f.label :google_place, 'Where is it?' %>
         <%= f.text_field :google_place, :value => f.object.address, :class => 'place-autocomplete', :data => {
