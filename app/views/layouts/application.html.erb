@@ -29,6 +29,9 @@
     <ul>
       <li><%= link_to "Home", root_path %></li>
       <li><%= link_to "Shelters", shelters_path %></li>
+      <% if user_signed_in? %>
+        <li><%= link_to "Help Call Shelters", outdated_shelters_path %></li>
+      <% end %>
       <% if user_signed_in? && current_user.admin? %>
         <li><%= link_to "Shelters Update Queue", drafts_shelters_path %></li>
       <% end %>

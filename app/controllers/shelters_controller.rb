@@ -73,6 +73,13 @@ class SheltersController < ApplicationController
     @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = ?", Shelter.name, Shelter.name).where(accepted_by_id: nil).where(denied_by_id: nil)
   end
 
+  def outdated
+    @outdated = Shelter.where("updated_at < ?", 4.hours.ago).order('updated_at DESC')
+    columns = Shelter::OutdatedViewColumnNames - Shelter::IndexHiddenColumnNames
+    @columns = columns
+    @headers = columns.map(&:titleize)
+  end
+
   private
 
   # This is the definition of a beautiful hack. 1 part gross, 2 parts simplicity. Does something neat not clever.
