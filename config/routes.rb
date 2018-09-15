@@ -30,7 +30,10 @@ Rails.application.routes.draw do
     namespace :v1 do
 
       resources :needs, only: %i[index create]
+
+      resources :shelters, only: [:index, :outdated]
       get "/shelters" => 'shelters#index'
+      get "/shelters/outdated" => 'shelters#outdated'
       get "/products" => 'amazon_products#index'
       get "/charitable_organizations" => 'charitable_organizations#index'
 

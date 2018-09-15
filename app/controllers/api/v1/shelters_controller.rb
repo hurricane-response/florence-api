@@ -5,43 +5,56 @@ class Api::V1::SheltersController < ApplicationController
   end
 
   def index
-    @filters = {}
-    @shelters = Shelter.all
+    @shelters, @filters = apply_params(Shelter.all, params)
+  end
+
+  def outdated
+    @outdated, @filters = apply_params(
+      Shelter.where("updated_at < ?", 4.hours.ago).order('updated_at DESC'),
+      params
+    )
+  end
+
+  private
+
+  def apply_params(shelters, params)
+    filters = {}
 
     if params[:lat].present? && params[:lon].present?
-      @filters[:lon] = params[:lon]
-      @filters[:lat] = params[:lat]
-      @shelters = @shelters.near([params[:lat], params[:lon]], 100)
+      filters[:lon] = params[:lon]
+      filters[:lat] = params[:lat]
+      shelters = shelters.near([params[:lat], params[:lon]], 100)
     end
 
     if params[:county].present?
-      @filters[:county] = params[:county]
-      @shelters = @shelters.where("county ILIKE ?", "%#{@filters[:county]}%")
+      filters[:county] = params[:county]
+      shelters = shelters.where("county ILIKE ?", "%#{@filters[:county]}%")
     end
 
     if params[:shelter].present?
-      @filters[:shelter] = params[:shelter]
-      @shelters = @shelters.where("shelter ILIKE ?", "%#{@filters[:shelter]}%")
+      filters[:shelter] = params[:shelter]
+      shelters = @shelters.where("shelter ILIKE ?", "%#{@filters[:shelter]}%")
     end
 
     if params[:accepting].present?
-      @filters[:accepting] = params[:accepting]
-      @shelters = @shelters.where(accepting: true)
+      filters[:accepting] = params[:accepting]
+      shelters = @shelters.where(accepting: true)
     end
 
     if params[:special_needs].present?
-      @filters[:special_needs] = params[:special_needs]
-      @shelters = @shelters.where(special_needs: true)
+      filters[:special_needs] = params[:special_needs]
+      shelters = @shelters.where(special_needs: true)
     end
 
     if params[:unofficial].present?
-      @filters[:unofficial] = params[:unofficial]
-      @shelters = @shelters.where(unofficial: true)
+      filters[:unofficial] = params[:unofficial]
+      shelters = shelters.where(unofficial: true)
     end
 
-    if params[:limit].to_i > 0
-      @shelters = @shelters.limit(params[:limit].to_i)
+    if params[:limit].to_i.positive?
+      shelters = shelters.limit(params[:limit].to_i)
     end
+
+    [shelters, filters]
   end
-
 end
