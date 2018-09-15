@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910045633) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20180915035427) do
+=======
+ActiveRecord::Schema.define(version: 20180915042245) do
+>>>>>>> e7a0b85... DB migrations to add the new field and set values according to the old one
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +146,10 @@ ActiveRecord::Schema.define(version: 20170910045633) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
+# Could not dump table "shelters" because of following StandardError
+#   Unknown type 'shelter_accepting_value' for column 'accepting'
+=======
   create_table "shelters", force: :cascade do |t|
     t.string "county"
     t.string "shelter"
@@ -174,7 +182,9 @@ ActiveRecord::Schema.define(version: 20170910045633) do
     t.string "private_sms"
     t.string "private_volunteer_data_mgr"
     t.boolean "unofficial"
+    t.text "accessibility"
   end
+>>>>>>> e7a0b85... DB migrations to add the new field and set values according to the old one
 
   create_table "users", force: :cascade do |t|
     t.boolean "admin"

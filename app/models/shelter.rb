@@ -3,7 +3,7 @@ class Shelter < ApplicationRecord
     id accepting address address_name city state county zip
     google_place_id notes allow_pets pets phone shelter source supply_needs updated_by
     volunteer_needs distribution_center food_pantry updated_at latitude
-    longitude special_needs unofficial
+    longitude accessibility unofficial
   ]
 
   # columns to hide in index view
@@ -17,6 +17,7 @@ class Shelter < ApplicationRecord
     latitude
     longitude
     notes
+    special_needs
   ]
 
   HeaderNames = ColumnNames.map(&:titleize)
@@ -24,7 +25,7 @@ class Shelter < ApplicationRecord
   UpdateFields = %w[
     accepting address address_name city state county zip notes allow_pets pets phone
     shelter source supply_needs updated_by volunteer_needs distribution_center
-    food_pantry latitude longitude google_place_id special_needs unofficial
+    food_pantry latitude longitude google_place_id accessibility unofficial
   ]
 
   PrivateFields = %w[
@@ -39,7 +40,7 @@ class Shelter < ApplicationRecord
     id updated_at updated_by phone accepting address address_name
     city state county zip google_place_id notes allow_pets pets shelter
     source supply_needs volunteer_needs distribution_center food_pantry
-    latitude longitude special_needs unofficial
+    latitude longitude accessibility unofficial
   ]
 
   has_many :drafts, as: :record
@@ -53,7 +54,7 @@ class Shelter < ApplicationRecord
 
   def self.to_csv
     attributes = %w[
-      shelter address city state county zip phone updated_at source accepting pets
+      shelter address city state county zip phone updated_at source accepting pets accessibility
     ]
     CSV.generate(headers: true) do |csv|
       csv << attributes
