@@ -29,6 +29,9 @@
     <ul>
       <li><%= link_to "Home", root_path %></li>
       <li><%= link_to "Shelters", shelters_path %></li>
+      <% if user_signed_in? %>
+        <li><%= link_to "Help Call Shelters", outdated_shelters_path %></li>
+      <% end %>
       <% if user_signed_in? && current_user.admin? %>
         <li><%= link_to "Shelters Update Queue", drafts_shelters_path %></li>
       <% end %>
@@ -61,7 +64,7 @@
     </div>
 
     <footer>
-      Code is available at <a href="http://github.com/sketch-city/harvey-api">GitHub</a>. Contributors welcome!
+      Code is available at <a href="http://github.com/hurricane-response/florence-api">GitHub</a>. Contributors welcome!
     </footer>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_JS_API_KEY'] %>&libraries=places"></script>
     <% if ENV["GOOGLE_MAPS_JS_API_KEY"].blank? %>

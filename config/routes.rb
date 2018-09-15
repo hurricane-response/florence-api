@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   resources :shelters do
     get :drafts, on: :collection
+    get :outdated, on: :collection
     post :archive, on: :member
   end
   resources :needs do
