@@ -1,33 +1,23 @@
 class PagesController < ApplicationController
 
+  before_action :authenticate_admin!
+
   def index
-    if(user_signed_in? && current_user.admin?)
-      @pages = Page.all
-    else
-      redirect_to root_path
-    end
+    @pages = Page.all
   end
 
   def edit
-    if(user_signed_in? && current_user.admin?)
-      @page = Page.find(params[:id])
-    else
-      redirect_to root_path
-    end
+    @page = Page.find(params[:id])
   end
 
   def update
-    if(user_signed_in? && current_user.admin?)
-      @page = Page.find(params[:id])
-      if @page.update(page_params)
-        redirect_to root_path, notice: 'Page was successfully updated.'
-      end
-    else
-      redirect_to root_path
+    @page = Page.find(params[:id])
+    if @page.update(page_params)
+      redirect_to root_path, notice: 'Page was successfully updated.'
     end
   end
 
-  private
+private
 
   def page_params
     params.require(:page).permit(:key, :content)

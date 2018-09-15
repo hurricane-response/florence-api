@@ -11,8 +11,7 @@ class CharitableOrganizationsController < ApplicationController
   end
 
   def create
-
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       @charitable_organization = CharitableOrganization.new(charitable_organization_update_params)
 
       if @charitable_organization.save
@@ -40,7 +39,7 @@ class CharitableOrganizationsController < ApplicationController
   end
 
   def archive
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       @charitable_organization.update_attributes(active: false)
       redirect_to charitable_organizations_path, notice: "Archived!"
     else
@@ -52,7 +51,7 @@ class CharitableOrganizationsController < ApplicationController
   end
 
   def update
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       if @charitable_organization.update(charitable_organization_update_params)
         redirect_to @charitable_organization, notice: 'Charitable Organization was successfully updated.'
       else
@@ -71,7 +70,10 @@ class CharitableOrganizationsController < ApplicationController
 
 
   def drafts
-    @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = 'CharitableOrganization'", CharitableOrganization.name).where(accepted_by_id: nil).where(denied_by_id: nil)
+    @drafts = Draft.includes(:record)
+      .where("record_type = ? OR info->>'record_type' = 'CharitableOrganization'", CharitableOrganization.name)
+      .where(accepted_by_id: nil)
+      .where(denied_by_id: nil)
   end
 
   def set_headers

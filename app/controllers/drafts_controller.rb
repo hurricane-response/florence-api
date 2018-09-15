@@ -26,15 +26,15 @@ class DraftsController < ApplicationController
     end
   end
 
-  private
+private
 
   def set_record
     @draft = Draft.find(params[:id])
-
-    if @draft.record
-      @record = @draft.record
-    else
-      @record = @draft.record_type.constantize.new
-    end
+    @record =
+      if @draft.record
+        @draft.record
+      else
+        @draft.record_type.constantize.new
+      end
   end
 end

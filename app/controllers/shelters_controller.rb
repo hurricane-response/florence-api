@@ -93,7 +93,10 @@ class SheltersController < ApplicationController
   end
 
   def drafts
-    @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = ?", Shelter.name, Shelter.name).where(accepted_by_id: nil).where(denied_by_id: nil)
+    @drafts = Draft.includes(:record)
+      .where("record_type = ? OR info->>'record_type' = ?", Shelter.name, Shelter.name)
+      .where(accepted_by_id: nil)
+      .where(denied_by_id: nil)
   end
 
   def csv

@@ -152,7 +152,7 @@ class Location < ApplicationRecord
       field = Field.new(name, type, options, required)
 
       # Set information for the table columns and api help
-      if(display && !admin_only)
+      if display && !admin_only
         @table_columns.push(name)
         @table_headers.push(name.to_s.titleize)
         @legacy_headers.push(legacy_column)
@@ -160,12 +160,12 @@ class Location < ApplicationRecord
       end
 
       # Set which fields can be updated
-      if(updatable)
+      if updatable
         @update_fields.push(field)
       end
 
       # Set which fields are viewable by admins only
-      if(admin_only)
+      if admin_only
         @admin_columns.push(name)
         @admin_headers.push(name.to_s.titleize)
         @admin_legacy_headers.push(legacy_column)
@@ -176,7 +176,7 @@ class Location < ApplicationRecord
       define_method(name) do
         legacy_data[name.to_s]
       end
-      define_method(name.to_s+'=') do |value|
+      define_method(name.to_s + '=') do |value|
         # TODO support coersion for more types, problematic bc it could raise errors
         legacy_data[name.to_s] = self.class.format_field(type, value, options)
       end

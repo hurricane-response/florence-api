@@ -5,45 +5,45 @@ class Api::V1::NeedsController < ApplicationController
   end
 
   def index
-      @filters = {}
-      @needs =
-        if params[:exporter] == 'all'
-          Need.unscope(:where)
-        else
-          Need.all
-        end
-
-      if params[:lat].present? && params[:lon].present?
-        @filters[:lon] = params[:lon]
-        @filters[:lat] = params[:lat]
-        @needs = @needs.near([params[:lat], params[:lon]], 100)
+    @filters = {}
+    @needs =
+      if params[:exporter] == 'all'
+        Need.unscope(:where)
+      else
+        Need.all
       end
 
-      if params[:location_name].present?
-        @filters[:location_name] = params[:location_name]
-        @needs = @needs.where("location_name ILIKE ?", "%#{params[:location_name]}%")
-      end
+    if params[:lat].present? && params[:lon].present?
+      @filters[:lon] = params[:lon]
+      @filters[:lat] = params[:lat]
+      @needs = @needs.near([params[:lat], params[:lon]], 100)
+    end
 
-      if params[:volunteers_needed].present?
-        @filters[:volunteers_needed] = params[:volunteers_needed]
-        @needs = @needs.where(are_volunteers_needed: true)
-      end
+    if params[:location_name].present?
+      @filters[:location_name] = params[:location_name]
+      @needs = @needs.where("location_name ILIKE ?", "%#{params[:location_name]}%")
+    end
 
-      if params[:supplies_needed].present?
-        @filters[:supplies_needed] = params[:supplies_needed]
-        @needs = @needs.where(are_supplies_needed: true)
-      end
+    if params[:volunteers_needed].present?
+      @filters[:volunteers_needed] = params[:volunteers_needed]
+      @needs = @needs.where(are_volunteers_needed: true)
+    end
 
-      if params[:limit].to_i > 0
-        @needs = @needs.limit(params[:limit].to_i)
-      end
+    if params[:supplies_needed].present?
+      @filters[:supplies_needed] = params[:supplies_needed]
+      @needs = @needs.where(are_supplies_needed: true)
+    end
+
+    if params[:limit].to_i > 0
+      @needs = @needs.limit(params[:limit].to_i)
+    end
   end
 
   def create
     @message = nil
     @success = false
 
-    return render status: :forbidden, json: {error: 'invalid auth token'} unless authenticate_json_api_token!
+    return render status: :forbidden, json: { error: 'invalid auth token' } unless authenticate_json_api_token!
 
     @need = Need.new(need_update_params)
 

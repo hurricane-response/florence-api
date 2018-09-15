@@ -9,11 +9,11 @@ class LocationsController < ApplicationController
   end
 
   def new
-    @location = location_class.new()
+    @location = location_class.new
   end
 
   def create
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       @location = location_class.new(location_create_params)
 
       if @location.save
@@ -43,7 +43,7 @@ class LocationsController < ApplicationController
   end
 
   def update
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       if @location.update(location_update_params)
         path = location_path(organization: @organization, legacy_table_name: @legacy_table_name, id: @location.id)
         redirect_to path, notice: "#{location_class.legacy_table_display_name} was successfully updated."
@@ -65,7 +65,7 @@ class LocationsController < ApplicationController
   def archive
     path = locations_path(organization: @organization, legacy_table_name: @legacy_table_name)
 
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       @location.update_attributes(active: false)
       redirect_to path, notice: "Archived!"
     else
@@ -82,7 +82,7 @@ class LocationsController < ApplicationController
     @locations = location_class.where(id: @drafts.map(&:record_id)).index_by(&:id)
   end
 
-  private
+private
 
   def setup
     @organization = params[:organization]

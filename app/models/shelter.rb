@@ -54,6 +54,12 @@ class Shelter < ApplicationRecord
     latitude longitude accessibility unofficial
   ].freeze
 
+  HeaderNames = ColumnNames.map(&:titleize).freeze
+
+  CSV_Attributes = %w[
+    shelter address city state county zip phone updated_at source accepting pets
+  ].freeze
+
   has_many :drafts, as: :record
 
   after_commit on: [:create, :update] do
@@ -64,16 +70,11 @@ class Shelter < ApplicationRecord
   scope :inactive, -> { unscope(:where).where(active: false) }
 
   def self.to_csv
-    attributes = %w[
-
-      shelter address city state county zip phone updated_at source accepting pets accessibility
-
-    ]
     CSV.generate(headers: true) do |csv|
-      csv << attributes
+      csv << CSV_Attributes
 
       self.all.each do |shelter|
-        csv << attributes.map { |attr| shelter.send(attr) }
+        csv << CSV_Attributes.map { |attr| shelter.send(attr) }
       end
     end
   end

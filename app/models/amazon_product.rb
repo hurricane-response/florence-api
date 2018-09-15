@@ -11,8 +11,8 @@ class AmazonProduct < ApplicationRecord
   validates :asin, presence: true
   validates :detail_url, presence: true
 
-  scope :active, -> { where(disabled: false).proper_categories.proper_pricing}
-  scope :priority, -> { where(priority: true)}
-  scope :proper_categories, -> {where("category_general != ? and category_specific !=?", "", "")}
-  scope :proper_pricing, -> { where("price_in_cents > 0")}
+  scope :active, -> { where(disabled: false).proper_categories.proper_pricing }
+  scope :priority, -> { where(priority: true) }
+  scope :proper_categories, -> { where("category_general != ? and category_specific !=?", "", "") }
+  scope :proper_pricing, -> { where("price_in_cents > 0") }
 end
