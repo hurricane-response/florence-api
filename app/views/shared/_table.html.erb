@@ -30,11 +30,23 @@
   </tbody>
 </table>
 
+<% unless reverse_chron %>
 <script>
- window.onload = function() {
-   $('#data-table').DataTable({
-     "order": [[ 1, "desc" ]],
-     "stateSave": true
-   });
- };
+  window.onload = function() {
+    document.dataTable = $('#data-table').DataTable({
+      "order": [[ 1, "desc" ]],
+      "stateSave": true
+    });
+  };
 </script>
+<% else %>
+<script>
+  window.onload = function() {
+    document.dataTable = $('#data-table').DataTable({
+      "order": [[ 2, "asc" ]],
+      "stateSave": true
+    });
+    document.dataTable.order.fixed({ pre: [[ 2, "asc" ]] }).draw();
+  };
+</script>
+<% end %>

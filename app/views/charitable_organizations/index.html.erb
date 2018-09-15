@@ -2,4 +2,4 @@
 
 <%= link_to 'Add New Charitable Organization', new_charitable_organization_path, class: "button button-outline" %>
 
-<%= render "shared/table", rows: @charitable_organizations, headers: @headers, columns: @columns %>
+<%= render "shared/table", rows: @charitable_organizations, headers: @headers, columns: @columns, reverse_chron: false %>
