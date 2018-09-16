@@ -11,7 +11,7 @@ class ConvertAcceptingToEnum < ActiveRecord::Migration[5.1]
             WHEN TRUE THEN 'yes'::shelter_accepting_value
             WHEN FALSE THEN 'no'::shelter_accepting_value
             ELSE 'unknown'::shelter_accepting_value
-      END
+      END;
     DDL
   end
 
@@ -23,7 +23,7 @@ class ConvertAcceptingToEnum < ActiveRecord::Migration[5.1]
             WHEN 'yes'::shelter_accepting_value THEN TRUE
             WHEN 'no'::shelter_accepting_value THEN FALSE
             ELSE NULL
-      END
+      END;
 
       DROP TYPE shelter_accepting_value;
     DDL
