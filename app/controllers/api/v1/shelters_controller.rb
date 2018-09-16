@@ -5,19 +5,16 @@ class Api::V1::SheltersController < ApplicationController
   end
 
   def index
-    @shelters, @filters = apply_params(Shelter.all, params)
+    @shelters, @filters = apply_params(Shelter.all)
   end
 
   def outdated
-    @outdated, @filters = apply_params(
-      Shelter.where("updated_at < ?", 4.hours.ago).order('updated_at DESC'),
-      params
-    )
+    @outdated, @filters = apply_params(Shelter.outdated.order('updated_at DESC'))
   end
 
   private
 
-  def apply_params(shelters, params)
+  def apply_params(shelters)
     filters = {}
 
     if params[:lat].present? && params[:lon].present?
@@ -33,17 +30,17 @@ class Api::V1::SheltersController < ApplicationController
 
     if params[:shelter].present?
       filters[:shelter] = params[:shelter]
-      shelters = @shelters.where("shelter ILIKE ?", "%#{@filters[:shelter]}%")
+      shelters = shelters.where("shelter ILIKE ?", "%#{@filters[:shelter]}%")
     end
 
     if params[:accepting].present?
       filters[:accepting] = params[:accepting]
-      shelters = @shelters.where(accepting: true)
+      shelters = shelters.where(accepting: true)
     end
 
     if params[:special_needs].present?
       filters[:special_needs] = params[:special_needs]
-      shelters = @shelters.where(special_needs: true)
+      shelters = shelters.where(special_needs: true)
     end
 
     if params[:unofficial].present?

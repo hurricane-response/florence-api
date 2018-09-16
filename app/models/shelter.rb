@@ -48,6 +48,8 @@ class Shelter < ApplicationRecord
     ShelterUpdateNotifierJob.perform_later self
   end
 
+  scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
+
   def self.to_csv
     attributes = %w[
       shelter address city county state zip phone updated_at source accepting pets
