@@ -23,5 +23,6 @@ module HarveyApi
     end
 
     config.active_job.queue_adapter = :sucker_punch
+    config.active_record.schema_format = :sql
   end
 end
