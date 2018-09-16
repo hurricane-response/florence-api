@@ -23,7 +23,7 @@ new_shelter:
     city: "Houston"
     pets: "Yes Crated only"
     phone: "(832) 555-5555"
-    accepting: false
+    accepting: "no"
     notes: "none"
     volunteer_needs: "Needs volunteers."
     supply_needs: "beds, nappies, towels"
