@@ -82,7 +82,7 @@ class SheltersController < ApplicationController
   end
 
   def outdated
-    @outdated = Shelter.where("updated_at < ?", 4.hours.ago).order('updated_at DESC')
+    @outdated = Shelter.outdated.order('updated_at DESC')
     columns = Shelter::OutdatedViewColumnNames - Shelter::IndexHiddenColumnNames
     @columns = columns
     @headers = columns.map(&:titleize)
