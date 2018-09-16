@@ -1,3 +1,10 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+div.radio-group > label {
+  display:inline-block;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  *display:inline; /*For IE7*/
+  *zoom:1;
+}
