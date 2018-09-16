@@ -357,11 +357,11 @@ Run `rails db:setup`
 ##### Method 2: Manual
 
 * Create a postgres users
-  It's recommended though optional that you use a distinct user for the florence-api database
-  * Example `createuser florence-api_development -P`
+  It's recommended though optional that you use a distinct user for the harvey-api database
+  * Example `createuser harvey-api_development -P`
   The `-P` flag will prompt you to create a password for the new user
 * Create the database (with the owner of the database set to user just created in the last step)
-  * Example `createdb -O florence-api_development florence-api_development`
+  * Example `createdb -O harvey-api_development harvey-api_development`
 
 ##### Ensuring you have the latest schema
 
