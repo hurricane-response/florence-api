@@ -6,7 +6,7 @@ nrg:
   zip: '77054'
   pets: "Yes Dogs and Cats only"
   phone: "(832) 667-1400"
-  accepting: "true"
+  accepting: "yes"
   last_updated: "2017-08-30 10:25 PM"
   updated_by: "Lynn"
   notes: "Will be taking 10000. Working with Baker-Ripley (NOT the Red Cross). See Houston Chronicle article link in the comment."
@@ -26,7 +26,7 @@ lonestar:
   zip: '77054'
   pets: ""
   phone: "(281) 618-5400"
-  accepting: "false"
+  accepting: "no"
   last_updated: "2017-08-29 03:27 PM"
   updated_by: "Doostee"
   notes: " Shelter at capacity. "

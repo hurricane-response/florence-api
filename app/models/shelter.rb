@@ -1,7 +1,7 @@
 class Shelter < ApplicationRecord
   enum accepting: {
-    true: 'true',
-    false: 'false',
+    yes: 'yes',
+    no: 'no',
     unknown: 'unknown'
   }
 
