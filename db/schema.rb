@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910045633) do
+ActiveRecord::Schema.define(version: 20180915035427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
 
   create_table "amazon_products", force: :cascade do |t|
     t.string "need"
@@ -170,10 +169,11 @@ ActiveRecord::Schema.define(version: 20170910045633) do
     t.string "google_place_id"
     t.boolean "special_needs"
     t.string "private_email"
-    t.boolean "allow_pets"
     t.string "private_sms"
     t.string "private_volunteer_data_mgr"
+    t.boolean "allow_pets"
     t.boolean "unofficial"
+    t.text "accessibility"
   end
 
   create_table "users", force: :cascade do |t|

@@ -43,6 +43,11 @@ class Api::V1::SheltersController < ApplicationController
       shelters = shelters.where(special_needs: true)
     end
 
+    if params[:accessibility].present?
+      @filters[:accessibility] = params[:accessibility]
+      @shelters = @shelters.where("accessibility ILIKE ?", "%#{@filters[:accessibility]}%")
+    end
+
     if params[:unofficial].present?
       filters[:unofficial] = params[:unofficial]
       shelters = shelters.where(unofficial: true)
