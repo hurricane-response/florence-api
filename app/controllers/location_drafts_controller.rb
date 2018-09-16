@@ -42,12 +42,7 @@ private
   end
 
   def next_draft
-    @next_draft ||= Draft.
-      where("info->>'organization' = ?", @organization).
-      where("info->>'legacy_table_name' = ?", @legacy_table_name).
-      where(accepted_by_id: nil).
-      where(denied_by_id: nil).
-      first
+    @next_draft ||= Draft.actionable_by_legacy_table(@organization, @legacy_table_name).first
   end
 
   def redirect_after_update(msg)

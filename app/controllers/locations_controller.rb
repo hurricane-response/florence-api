@@ -74,11 +74,7 @@ class LocationsController < ApplicationController
   end
 
   def drafts
-    @drafts = Draft.includes(:record).
-      where("info->>'organization' = ?", @organization).
-      where("info->>'legacy_table_name' = ?", @legacy_table_name).
-      where(accepted_by_id: nil).
-      where(denied_by_id: nil)
+    @drafts = Draft.actionable_by_legacy_table(@organization, @legacy_table_name)
     @locations = location_class.where(id: @drafts.map(&:record_id)).index_by(&:id)
   end
 

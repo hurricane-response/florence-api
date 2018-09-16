@@ -67,10 +67,7 @@ class NeedsController < ApplicationController
 
 
   def drafts
-    @drafts = Draft.includes(:record)
-      .where("record_type = ? OR info->>'record_type' = 'Need'", Need.name)
-      .where(accepted_by_id: nil)
-      .where(denied_by_id: nil)
+    @drafts = Draft.actionable_by_type(Need.name)
   end
 
   def set_headers
