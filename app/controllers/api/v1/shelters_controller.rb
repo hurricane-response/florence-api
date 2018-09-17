@@ -25,12 +25,12 @@ class Api::V1::SheltersController < ApplicationController
 
     if params[:county].present?
       filters[:county] = params[:county]
-      shelters = shelters.where("county ILIKE ?", "%#{@filters[:county]}%")
+      shelters = shelters.where("county ILIKE ?", "%#{filters[:county]}%")
     end
 
     if params[:shelter].present?
       filters[:shelter] = params[:shelter]
-      shelters = shelters.where("shelter ILIKE ?", "%#{@filters[:shelter]}%")
+      shelters = shelters.where("shelter ILIKE ?", "%#{filters[:shelter]}%")
     end
 
     if params[:accepting].present?
@@ -44,8 +44,8 @@ class Api::V1::SheltersController < ApplicationController
             else
               :yes
             end
-      @filters[:accepting] = val
-      @shelters = @shelters.where(accepting: val)
+      filters[:accepting] = val
+      shelters = shelters.where(accepting: val)
     end
 
     if params[:special_needs].present?
@@ -54,8 +54,8 @@ class Api::V1::SheltersController < ApplicationController
     end
 
     if params[:accessibility].present?
-      @filters[:accessibility] = params[:accessibility]
-      @shelters = @shelters.where("accessibility ILIKE ?", "%#{@filters[:accessibility]}%")
+      filters[:accessibility] = params[:accessibility]
+      shelters = shelters.where("accessibility ILIKE ?", "%#{filters[:accessibility]}%")
     end
 
     if params[:unofficial].present?
