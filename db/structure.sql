@@ -453,7 +453,8 @@ CREATE TABLE shelters (
     allow_pets boolean,
     private_sms character varying,
     private_volunteer_data_mgr character varying,
-    unofficial boolean
+    unofficial boolean,
+    accessibility text
 );
 
 
@@ -878,6 +879,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170909175503'),
 ('20170909193921'),
 ('20170910045633'),
-('20180914132709');
+('20180914132709'),
+('20180915035427');
 
 
