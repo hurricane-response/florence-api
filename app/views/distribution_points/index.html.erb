@@ -1,0 +1,31 @@
+<%= render @page %>
+<h1>DistributionPoints</h1>
+
+<script type="text/javascript">
+  App.updatedDistributionPoints.subscribe( function(distribution_points){
+    const record = document.querySelector(".new-record-notification")
+    record.textContent = ""
+
+    if(distribution_points.length === 0){
+      return;
+    }
+
+    const template = `
+      <a href="/distribution_points" data-role="clear-and-reload" class="button button-outline"> ${distribution_points.length} recent distribution_point updates - Reload</a>
+    `
+    record.insertAdjacentHTML('beforeEnd',template)
+
+    document.querySelector("a[data-role='clear-and-reload']").addEventListener('click', function(event){
+      event.preventDefault()
+      App.updatedDistributionPoints.clear();
+      /// TODO: here is where we could replace data in the data table with
+      /// each of the distribution_points
+      location.reload();
+    })
+  })
+</script>
+
+<%= link_to 'Add New Distribution Point', new_distribution_point_path, class: "button button-outline" %>
+<%= link_to 'Download as CSV', distribution_points_path(format: :csv), class: "button button-outline" %>
+
+<%= render "shared/table", rows: @distribution_points, headers: @headers, columns: @columns, reverse_chron: false %>

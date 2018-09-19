@@ -7,6 +7,11 @@ Rails.application.routes.draw do
     get :drafts, on: :collection
     post :archive, on: :member
   end
+  resources :distribution_points do
+    get :drafts, on: :collection
+    get :outdated, on: :collection
+    get :archive, on: :member
+  end
   resources :shelters do
     get :drafts, on: :collection
     get :outdated, on: :collection

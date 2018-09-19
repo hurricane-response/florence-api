@@ -1,0 +1,82 @@
+<%= form_with(model: distribution_point, local: true) do |f| %>
+  <% if distribution_point.errors.any? %>
+    <div>
+      <h2><%= pluralize(distribution_point.errors.count, "error") %> prohibited this distribution_point from being saved:</h2>
+
+      <ul>
+        <% distribution_point.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <fieldset>
+    <div class="row">
+      <div class="column">
+        <%= f.button :submit %>
+
+        <label><%= f.check_box :active %> Active</label>
+        <%= f.label :google_place, 'Where is it?' %>
+        <%= f.text_field :google_place, :value => f.object.address, :class => 'place-autocomplete', :data => {
+          :address => '#geocode-address',
+          :phone => '#geocode-phone',
+          :lat => '#geocode-lat',
+          :lng => '#geocode-lng',
+          :placeid => '#geocode-place-id',
+          :city => '#geocode-city',
+          :county => '#geocode-county',
+          :zip => '#geocode-zip',
+          :state => '#geocode-state',
+          :mapselector => '#map'
+        }, :required => true, :autofocus => true %>
+
+        <%= f.label :distribution_point %>
+        <%= f.text_field :distribution_point, :placeholder => 'Name of Distribution Point (like Manatee Bay Fire Department)', :required => true, :id => 'geocode-name' %>
+        <%= f.label :phone %>
+        <%= f.text_field :phone, :placeholder => '(123) 123-4567', :required => true, :id => 'geocode-phone' %>
+
+        <%= f.label :county %>
+        <%= f.text_field :county, :placeholder => 'Name of County (like Manatee)', :id => 'geocode-county' %>
+        <%= f.label :state %>
+        <%= f.text_field :state, :placeholder => 'Abbreviation of State (like NC)', :id => 'geocode-state' %>
+        <%= f.label :zip %>
+        <%= f.text_field :zip, :placeholder => '12345', :id => 'geocode-zip' %>
+    </div>
+    <div class="column">
+      <label>Map</label>
+      <div id="map" style="height: 300px; width: 100%"></div>
+
+      <% if distribution_point.latitude && distribution_point.longitude %>
+      <script>
+        $(window).ready(function(){
+          simpleMap({
+            selector: "#map",
+            name: "<%= j distribution_point.distribution_point %>",
+            lat: <%= distribution_point.latitude %>,
+            lng: <%= distribution_point.longitude %>
+          })
+        })
+      </script>
+      <% end %>
+    </div>
+  </div>
+
+    <%= f.label :source %>
+    <%= f.text_field :source, :placeholder => 'Source of Information (like Manatee County Emergency Management)' %>
+
+    <%= f.label :notes %>
+    <%= f.text_area :notes, :placeholder => 'Whatever the distribution point wants people to know (like Just Opened, or Minimal Supply)' %>
+
+    <%= f.hidden_field :address, :id => 'geocode-address' %>
+    <%= f.hidden_field :city, :id => 'geocode-city' %>
+    <%= f.hidden_field :latitude, :id => 'geocode-lat' %>
+    <%= f.hidden_field :longitude, :id => 'geocode-lng' %>
+
+    <% end %>
+
+    <%= f.hidden_field :google_place_id, :id => 'geocode-place-id' %>
+    <p><%= f.button :submit %></p>
+  </fieldset>
+<% end %>
