@@ -29,7 +29,7 @@ class Api::SheltersControllerTest < ActionDispatch::IntegrationTest
 
   test "shelters are not returned after they are archived" do
     archived = Shelter.where(active: false).count
-    active = Shelter.where(active: !false).count
+    active = Shelter.where(active: true).count
     count = active - archived
     get "/api/v1/shelters"
     json = JSON.parse(response.body)

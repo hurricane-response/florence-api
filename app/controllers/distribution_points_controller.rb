@@ -78,7 +78,7 @@ class DistributionPointsController < ApplicationController
 
   def archive
     if admin?
-      @distribution_point.update_attributes(archived: true)
+      @distribution_point.update_attributes(active: false)
       redirect_to distribution_points_path, notice: "Archived!"
     else
       redirect_to distribution_points_path, notice: "You must be an admin to archive."

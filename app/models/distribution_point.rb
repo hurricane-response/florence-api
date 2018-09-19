@@ -1,4 +1,6 @@
 class DistributionPoint < ApplicationRecord
+  default_scope { where(active: true) }
+
   ColumnNames = %w[
     id active facility_name phone address city county state zip updated_by updated_at
     source latitude longitude google_place_id
@@ -6,7 +8,7 @@ class DistributionPoint < ApplicationRecord
 
   # columns to hide in index view
   IndexHiddenColumnNames = %w[
-    archived
+    active
     google_place_id
     latitude
     longitude
@@ -30,7 +32,6 @@ class DistributionPoint < ApplicationRecord
 
   has_many :drafts, as: :record
 
-  default_scope { where(archived: !true) }
 
   geocoded_by :address
 
