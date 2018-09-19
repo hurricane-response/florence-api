@@ -1,8 +1,8 @@
 class DistributionPoint < ApplicationRecord
   ColumnNames = %w[
-    id active facility_name address city county state zip updated_by updated_at
+    id active facility_name phone address city county state zip updated_by updated_at
     source latitude longitude google_place_id
-  ]
+  ].freeze
 
   # columns to hide in index view
   IndexHiddenColumnNames = %w[
@@ -11,24 +11,25 @@ class DistributionPoint < ApplicationRecord
     latitude
     longitude
     notes
-  ]
+  ].freeze
 
-  HeaderNames = ColumnNames.map(&:titleize)
+  HeaderNames = ColumnNames.map(&:titleize).freeze
 
   UpdateFields = %w[
-    active facility_name address city county state zip notes source updated_by
+    active facility_name phone address city county state zip notes source updated_by
     distribution_center latitude longitude google_place_id
-  ]
+  ].freeze
 
-  PrivateFields = %w[]
+  PrivateFields = %w[].freeze
 
   # columns for the outdated shelter records report view
   OutdatedViewColumnNames = %w[
-    id updated_at active facility_name address city county state updated_by 
+    id updated_at active facility_name phone address city county state updated_by
     latitude longitude google_place_id
-  ]
+  ].freeze
 
   has_many :drafts, as: :record
+
   default_scope { where(archived: !true) }
 
   geocoded_by :address
