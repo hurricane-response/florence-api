@@ -31,7 +31,7 @@ class DistributionPointsController < ApplicationController
   # POST /distribution_points
   # POST /distribution_points.json
   def create
-    if(admin?)
+    if admin?
       @distribution_point = DistributionPoint.new(distribution_point_params)
 
       if @distribution_point.save
@@ -54,7 +54,7 @@ class DistributionPointsController < ApplicationController
   # PATCH/PUT /distribution_points/1
   # PATCH/PUT /distribution_points/1.json
   def update
-    if(admin?)
+    if admin?
       if @distribution_point.update(distribution_point_params)
         redirect_to distribution_points_path, notice: 'Distribution Point was successfully updated.'
       else
@@ -77,7 +77,7 @@ class DistributionPointsController < ApplicationController
   end
 
   def archive
-    if(admin?)
+    if admin?
       @distribution_point.update_attributes(archived: true)
       redirect_to distribution_points_path, notice: "Archived!"
     else
@@ -94,35 +94,31 @@ class DistributionPointsController < ApplicationController
   end
 
   def outdated
-    @outdated = DistributionPoint.outdated.order('updated_at DESC')
-    columns = DistributionPoint::OutdatedViewColumnNames - DistributionPoint::IndexHiddenColumnNames
-    @columns = columns
-    @headers = columns.map(&:titleize)
+    @distribution_points = DistributionPoint.outdated.order('updated_at DESC')
+    @columns = DistributionPoint::OutdatedViewColumnNames - DistributionPoint::IndexHiddenColumnNames
+    @headers = @columns.map(&:titleize)
   end
 
   private
   # This is the definition of a beautiful hack. 1 part gross, 2 parts simplicity. Does something neat not clever.
   def set_headers
-    if(admin?)
-      columns = DistributionPoint::ColumnNames + DistributionPoint::PrivateFields
-      @columns = columns
-      @headers = columns.map(&:titleize)
-    else
-      @columns = DistributionPoint::ColumnNames
-      @headers = DistributionPoint::ColumnNames.map(&:titleize)
-    end
+    @columns =
+      if admin?
+        DistributionPoint::ColumnNames + DistributionPoint::PrivateFields
+      else
+        DistributionPoint::ColumnNames
+      end
+    @headers = @columns.map(&:titleize)
   end
 
   def set_index_headers
-    if(admin?)
-      columns = (DistributionPoint::ColumnNames + DistributionPoint::PrivateFields) - DistributionPoint::IndexHiddenColumnNames
-      @columns = columns
-      @headers = columns.map(&:titleize)
-    else
-      columns = DistributionPoint::ColumnNames - DistributionPoint::IndexHiddenColumnNames
-      @columns = columns
-      @headers = columns.map(&:titleize)
-    end
+    @columns =
+      if admin?
+        (DistributionPoint::ColumnNames + DistributionPoint::PrivateFields) - DistributionPoint::IndexHiddenColumnNames
+      else
+        DistributionPoint::ColumnNames - DistributionPoint::IndexHiddenColumnNames
+      end
+    @headers = @columns.map(&:titleize)
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -132,7 +128,7 @@ class DistributionPointsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def distribution_point_params
-    if (admin?)
+    if admin?
       params.require(:distribution_point).permit(DistributionPoint::UpdateFields + DistributionPoint::PrivateFields).keep_if { |_,v| v.present? }
     else
       params.require(:distribution_point).permit(DistributionPoint::UpdateFields).keep_if { |_,v| v.present? }

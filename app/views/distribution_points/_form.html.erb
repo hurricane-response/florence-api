@@ -32,8 +32,8 @@
           :mapselector => '#map'
         }, :required => true, :autofocus => true %>
 
-        <%= f.label :distribution_point %>
-        <%= f.text_field :distribution_point, :placeholder => 'Name of Distribution Point (like Manatee Bay Fire Department)', :required => true, :id => 'geocode-name' %>
+        <%= f.label :facility_name %>
+        <%= f.text_field :facility_name, :placeholder => 'Name of Distribution Point (like Manatee Bay Fire Department)', :required => true, :id => 'geocode-name' %>
         <%= f.label :phone %>
         <%= f.text_field :phone, :placeholder => '(123) 123-4567', :required => true, :id => 'geocode-phone' %>
 
@@ -53,7 +53,7 @@
         $(window).ready(function(){
           simpleMap({
             selector: "#map",
-            name: "<%= j distribution_point.distribution_point %>",
+            name: "<%= j distribution_point.facility_name %>",
             lat: <%= distribution_point.latitude %>,
             lng: <%= distribution_point.longitude %>
           })
@@ -73,8 +73,6 @@
     <%= f.hidden_field :city, :id => 'geocode-city' %>
     <%= f.hidden_field :latitude, :id => 'geocode-lat' %>
     <%= f.hidden_field :longitude, :id => 'geocode-lng' %>
-
-    <% end %>
 
     <%= f.hidden_field :google_place_id, :id => 'geocode-place-id' %>
     <p><%= f.button :submit %></p>
