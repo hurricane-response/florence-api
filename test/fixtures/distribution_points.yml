@@ -1,17 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  facility_name: MyString
   address: MyString
   city: MyString
   county: MyString
   state: MyString
+  zip: '25982'
   active: false
 
 two:
-  name: MyString
+  facility_name: MyString
   address: MyString
   city: MyString
   county: MyString
   state: MyString
+  zip: '25982'
   active: false

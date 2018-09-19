@@ -17,7 +17,7 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create distribution_point" do
     assert_difference('DistributionPoint.count') do
-      post distribution_points_url, params: { distribution_point: { active: @distribution_point.active, address: @distribution_point.address, city: @distribution_point.city, county: @distribution_point.county, name: @distribution_point.name, state: @distribution_point.state } }
+      post distribution_points_url, params: { distribution_point: { active: @distribution_point.active, address: @distribution_point.address, city: @distribution_point.city, county: @distribution_point.county, facility_name: @distribution_point.facility_name, state: @distribution_point.state, zip: @distribution_point.zip } }
     end
 
     assert_redirected_to distribution_point_url(DistributionPoint.last)
@@ -34,7 +34,7 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update distribution_point" do
-    patch distribution_point_url(@distribution_point), params: { distribution_point: { active: @distribution_point.active, address: @distribution_point.address, city: @distribution_point.city, county: @distribution_point.county, name: @distribution_point.name, state: @distribution_point.state } }
+    patch distribution_point_url(@distribution_point), params: { distribution_point: { active: @distribution_point.active, address: @distribution_point.address, city: @distribution_point.city, county: @distribution_point.county, facility_name: @distribution_point.facility_name, state: @distribution_point.state, zip: @distribution_point.zip } }
     assert_redirected_to distribution_point_url(@distribution_point)
   end
 
