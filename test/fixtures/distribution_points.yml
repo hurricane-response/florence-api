@@ -1,19 +1,47 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  facility_name: MyString
-  address: MyString
-  city: MyString
-  county: MyString
-  state: MyString
-  zip: '25982'
-  active: false
+nrg:
+  facility_name: "NRG Center"
+  address: "NRG Pkwy Houston TX 77054"
+  city: "Houston"
+  county: "Harris"
+  state: 'Texas'
+  zip: '77054'
+  phone: "(832) 667-1400"
+  active: true
+  longitude: -95.41109
+  latitude: 29.685072
 
-two:
-  facility_name: MyString
-  address: MyString
-  city: MyString
-  county: MyString
-  state: MyString
-  zip: '25982'
+lonestar:
+  facility_name: "Lone Star College"
+  address: "2700 W W Thorne Dr"
+  city: "Houston"
+  county: "Harris"
+  state: 'Texas'
+  zip: '77054'
+  phone: "(281) 618-5400"
+  active: true
+  longitude: -95.3797033
+  latitude: 30.0071377
+
+library:
+  facility_name: "Brandywine Hundred Library"
+  address: "1300 Foulk Rd"
+  city: "Wilmington"
+  county: "New Castle County"
+  state: "Delaware"
+  zip: "19803"
+  phone: "(302) 477-3150"
+  active: true
+  longitude: -75.5243731,15
+  latitude: 39.7955341
+
+test:
+  facility_name: "Test Center"
+  address: "123 Testing Rd"
+  city: "Nowhere"
+  county: "No Place"
+  state: "New Jersey"
   active: false
+  longitude: -95.3797033
+  latitude: 30.0071377

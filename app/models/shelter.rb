@@ -1,4 +1,6 @@
 class Shelter < ApplicationRecord
+  default_scope { where(active: true) }
+
   enum accepting: {
     yes: 'yes',
     no: 'no',
@@ -10,7 +12,7 @@ class Shelter < ApplicationRecord
     google_place_id notes allow_pets pets phone shelter source supply_needs updated_by
     volunteer_needs distribution_center food_pantry updated_at latitude
     longitude accessibility unofficial
-  ]
+  ].freeze
 
   # columns to hide in index view
   IndexHiddenColumnNames = %w[
@@ -21,22 +23,22 @@ class Shelter < ApplicationRecord
     longitude
     notes
     special_needs
-  ]
+  ].freeze
 
-  HeaderNames = ColumnNames.map(&:titleize)
+  HeaderNames = ColumnNames.map(&:titleize).freeze
 
   UpdateFields = %w[
     accepting address address_name city county state zip notes allow_pets pets phone
     shelter source supply_needs updated_by volunteer_needs distribution_center
     food_pantry latitude longitude google_place_id accessibility unofficial
-  ]
+  ].freeze
 
   PrivateFields = %w[
     private_notes
     private_email
     private_sms
     private_volunteer_data_mgr
-  ]
+  ].freeze
 
   # columns for the outdated shelter records report view
   OutdatedViewColumnNames = %w[
@@ -44,10 +46,9 @@ class Shelter < ApplicationRecord
     city county state zip google_place_id notes allow_pets pets shelter
     source supply_needs volunteer_needs distribution_center food_pantry
     latitude longitude accessibility unofficial
-  ]
+  ].freeze
 
   has_many :drafts, as: :record
-  default_scope { where(active: !false) }
 
   geocoded_by :address
 

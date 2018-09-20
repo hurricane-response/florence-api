@@ -38,7 +38,6 @@ module FilterByParams
             when :boolean
               m.where(f[:field] => true)
             when :callback
-              print "wtf"
               f[:fn].call(m, filters[f[:param]], filters)
             else
               m
@@ -49,7 +48,6 @@ module FilterByParams
         end
 
         list = list.limit(params[:limit].to_i) if params[:limit].to_i.positive?
-        print "#{list.length} found"
 
         [list, filters]
       end

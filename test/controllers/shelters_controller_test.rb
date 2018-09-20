@@ -26,8 +26,8 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:admin)
     post shelters_path, params: { shelter: { shelter: name }}
     assert_response :redirect
-    assert_equal(expected_count, Shelter.count)
-    assert_equal(name, Shelter.last.shelter)
+    assert_equal expected_count, Shelter.count
+    assert_equal name, Shelter.last.shelter
   end
 
   test "creates new draft if user is guest creating a shelter" do
@@ -37,9 +37,9 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:guest)
     post shelters_path, params: { shelter: { shelter: name }}
     assert_response :redirect
-    assert_equal(expected_shelters, Shelter.count)
-    assert_equal(expected_drafts, Draft.count)
-    assert_equal(name, Draft.last.info["shelter"])
+    assert_equal expected_shelters, Shelter.count
+    assert_equal expected_drafts, Draft.count
+    assert_equal name, Draft.last.info["shelter"]
   end
 
   test "loads edit" do
@@ -51,12 +51,14 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     shelter = shelters(:nrg)
     name = "Some random name you should never name a shelter"
     expected_count = Shelter.count
+    expected_drafts = Draft.count
     sign_in users(:admin)
     put shelter_path(shelter), params: { shelter: { shelter: name }}
     shelter.reload
     assert_response :redirect
-    assert_equal(expected_count, Shelter.count)
-    assert_equal(name, shelter.shelter)
+    assert_equal expected_count, Shelter.count
+    assert_equal expected_drafts, Draft.count
+    assert_equal name, shelter.shelter
   end
 
   test "creates new draft if user is guest updating a shelter" do
@@ -70,10 +72,10 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     shelter.reload
     draft = shelter.drafts.last
     assert_response :redirect
-    assert_equal(expected_shelters, Shelter.count)
-    assert_equal(expected_drafts, Draft.count)
-    assert_equal(shelter_name, shelter.shelter)
-    assert_equal(draft_name, draft.info['shelter'])
+    assert_equal expected_shelters, Shelter.count
+    assert_equal expected_drafts, Draft.count
+    assert_equal shelter_name, shelter.shelter
+    assert_equal draft_name, draft.info['shelter']
   end
 
   test "archives if user admin" do
@@ -82,7 +84,7 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:admin)
     post archive_shelter_path(shelter)
     assert_response :redirect
-    assert_equal(expected_count, Shelter.count)
+    assert_equal expected_count, Shelter.count
   end
 
   test "guests may not archive" do
@@ -91,7 +93,7 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:guest)
     post archive_shelter_path(shelter)
     assert_response :redirect
-    assert_equal(expected_count, Shelter.count)
+    assert_equal expected_count, Shelter.count
   end
 
   test "loads drafts" do
