@@ -187,6 +187,51 @@ ALTER SEQUENCE connect_markers_id_seq OWNED BY connect_markers.id;
 
 
 --
+-- Name: distribution_points; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE distribution_points (
+    id bigint NOT NULL,
+    facility_name character varying,
+    address character varying,
+    city character varying,
+    county character varying,
+    state character varying,
+    zip character varying,
+    phone character varying,
+    updated_by character varying,
+    notes character varying,
+    source character varying,
+    longitude character varying,
+    latitude character varying,
+    google_place_id character varying,
+    active boolean,
+    archived boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: distribution_points_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE distribution_points_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: distribution_points_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE distribution_points_id_seq OWNED BY distribution_points.id;
+
+
+--
 -- Name: drafts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -580,6 +625,13 @@ ALTER TABLE ONLY connect_markers ALTER COLUMN id SET DEFAULT nextval('connect_ma
 
 
 --
+-- Name: distribution_points id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY distribution_points ALTER COLUMN id SET DEFAULT nextval('distribution_points_id_seq'::regclass);
+
+
+--
 -- Name: drafts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -672,6 +724,14 @@ ALTER TABLE ONLY charitable_organizations
 
 ALTER TABLE ONLY connect_markers
     ADD CONSTRAINT connect_markers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: distribution_points distribution_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY distribution_points
+    ADD CONSTRAINT distribution_points_pkey PRIMARY KEY (id);
 
 
 --
@@ -880,6 +940,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170909193921'),
 ('20170910045633'),
 ('20180914132709'),
-('20180915035427');
+('20180915035427'),
+('20180919043949');
 
 

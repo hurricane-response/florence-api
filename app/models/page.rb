@@ -4,4 +4,5 @@ class Page < ApplicationRecord
 
   scope :home, -> { where(key: "home")}
   scope :shelters, -> { where(key: "shelters")}
+  scope :distribution_points, -> { where(key: "distribution_points")}
 end

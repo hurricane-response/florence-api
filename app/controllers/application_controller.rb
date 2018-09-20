@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
     @application_name = ENV.fetch('CANONICAL_NAME', 'Disaster API')
   end
 
+  helper_method :admin?
+
   def admin?
     user_signed_in? && current_user.admin?
   end

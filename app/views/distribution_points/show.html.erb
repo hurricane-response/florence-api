@@ -1,0 +1,30 @@
+<h1><%= @distribution_point.facility_name %></h1>
+
+
+<%= link_to 'Update', [:edit, @distribution_point], class: "button button-clear" %> |
+<%= link_to 'Back', distribution_points_path, class: "button button-clear" %>
+<% if user_signed_in? && current_user.admin? %> |
+<%= link_to 'Archive', archive_distribution_point_path(@distribution_point),
+              method: :post,
+              data: { confirm: 'Are you sure?' },
+              class: "button button-clear" %>
+  <% end %>
+
+<div class="row">
+  <div class="column">
+    <%= render "shared/show", record: @distribution_point, headers: @headers, columns: @columns %>
+  </div>
+  <div class="column">
+    <div id="map" style="height: 300px; width: 100%"></div>
+    <script>
+      $(window).ready(function(){
+        simpleMap({
+          selector: "#map",
+          name: "<%= j @distribution_point.facility_name %>",
+          lat: <%= @distribution_point.latitude || 0%>,
+          lng: <%= @distribution_point.longitude || 0%>
+        })
+      })
+    </script>
+  </div>
+</div>

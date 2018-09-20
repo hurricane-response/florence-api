@@ -7,6 +7,11 @@ Rails.application.routes.draw do
     get :drafts, on: :collection
     post :archive, on: :member
   end
+  resources :distribution_points do
+    get :drafts, on: :collection
+    get :outdated, on: :collection
+    post :archive, on: :member
+  end
   resources :shelters do
     get :drafts, on: :collection
     get :outdated, on: :collection
@@ -34,6 +39,8 @@ Rails.application.routes.draw do
       resources :shelters, only: [:index, :outdated]
       get "/shelters" => 'shelters#index'
       get "/shelters/outdated" => 'shelters#outdated'
+      get "/distribution_points" => 'distribution_points#index'
+      get "/distribution_points/outdated" => 'distribution_points#outdated'
       get "/products" => 'amazon_products#index'
       get "/charitable_organizations" => 'charitable_organizations#index'
 

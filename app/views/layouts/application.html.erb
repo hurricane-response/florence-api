@@ -35,6 +35,13 @@
       <% if user_signed_in? && current_user.admin? %>
         <li><%= link_to "Shelters Update Queue", drafts_shelters_path %></li>
       <% end %>
+      <li><%= link_to "Distribution Points", distribution_points_path %></li>
+      <% if user_signed_in? %>
+        <li><%= link_to "Outdated Distribution Point Records", outdated_distribution_points_path %></li>
+      <% end %>
+      <% if user_signed_in? && current_user.admin? %>
+        <li><%= link_to "Distribution Points Update Queue", drafts_distribution_points_path %></li>
+      <% end %>
       <li><%= link_to "Needs", needs_path %></li>
       <% if user_signed_in? && current_user.admin? %>
         <li><%= link_to "Needs Update Queue", drafts_needs_path %></li>
