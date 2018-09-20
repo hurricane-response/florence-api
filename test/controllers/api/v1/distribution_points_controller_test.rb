@@ -20,8 +20,8 @@ class Api::DistributionPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'distribution points are not returned after they are archived' do
-    archived = DistributionPoint.where(active: false).count
-    active = DistributionPoint.where(active: true).count
+    archived = DistributionPoint.where(archived: true).count
+    active = DistributionPoint.where(archived: false).count
     count = active - archived
     get '/api/v1/distribution_points'
     json = JSON.parse(response.body)

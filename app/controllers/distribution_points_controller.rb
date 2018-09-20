@@ -66,7 +66,7 @@ class DistributionPointsController < ApplicationController
 
   def archive
     if admin?
-      @distribution_point.update_attributes(active: false)
+      @distribution_point.update_attributes(archived: true)
       redirect_to distribution_points_path, notice: 'Archived!'
     else
       redirect_to distribution_points_path, notice: 'You must be an admin to archive.'
@@ -75,15 +75,15 @@ class DistributionPointsController < ApplicationController
 
   def unarchive
     if admin?
-      @distribution_point.update_attributes(active: true)
-      redirect_to distribution_points_path, notice: 'Reactivated!'
+      @distribution_point.update_attributes(archived: false)
+      redirect_to distribution_points_path, notice: 'Unarchived!'
     else
       redirect_to distribution_points_path, notice: 'You must be an admin to unarchive.'
     end
   end
 
   def archived
-    @distribution_points = DistributionPoint.inactive.all
+    @distribution_points = DistributionPoint.archived.all
     @page = Page.distribution_points.first_or_initialize
     respond_to do |format|
       format.html

@@ -15,6 +15,7 @@ class CreateDistributionPoints < ActiveRecord::Migration[5.1]
       t.float :latitude
       t.string :google_place_id
       t.boolean :active, default: true
+      t.boolean :archived, default: false
 
       t.timestamps
     end
