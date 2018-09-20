@@ -133,6 +133,60 @@ Sample:
 
   * Filters shelters with Archer in the name
 
+### Distribution Points API
+
+Shape:
+
+```
+{
+    "distribution_points": [{
+        "active": true,
+        "facility_name": "Aurora Volunteer Fire Department",
+        "address": "99 NC-33, Aurora, NC 27806, USA",
+        "city": "Aurora",
+        "county": "Beaufort County",
+        "state": "North Carolina",
+        "zip": "27806",
+        "created_at": "2018-09-20T01:17:51.163Z",
+        "updated_at": "2018-09-19T20:17:51-05:00",
+        "updated_by": null,
+        "source": "CEDR",
+        "notes": null,
+        "longitude": -76.7805402,
+        "latitude": 35.300329,
+        "google_place_id": "ChIJvwUAsqBJr4kRCyHLlSGkWLo",
+        "id": 1,
+        "updatedAt": "2018-09-19T20:17:51-05:00",
+        "last_updated": "2018-09-19T20:17:51-05:00"
+    }],
+    "meta": {
+        "result_count": 1,
+        "filters": {
+            "active": "true"
+        }
+    }
+}
+```
+
+
+Filters:
+
+* `active` : true
+* `county` : the county
+* `name` : the facility name
+* `lat` and `lon` : specify the lat / lon. We'll order by the lat/lon and return results within a 100 mile radius
+* `limit`: only return n results
+
+Sample:
+
+`/api/v1/distribution_points?active=true`
+
+  * Filters out non-active distribution points
+
+`/api/v1/distribution_points?name=Aurora`
+
+  * Filters by facility name
+
 ### Needs API
 
 Shape:
