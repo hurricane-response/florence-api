@@ -1,7 +1,7 @@
 class DistributionPointsController < ApplicationController
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
-  before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive]
+  before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
 
   def index
     @distribution_points = DistributionPoint.all
@@ -67,9 +67,27 @@ class DistributionPointsController < ApplicationController
   def archive
     if admin?
       @distribution_point.update_attributes(active: false)
-      redirect_to distribution_points_path, notice: "Archived!"
+      redirect_to distribution_points_path, notice: 'Archived!'
     else
-      redirect_to distribution_points_path, notice: "You must be an admin to archive."
+      redirect_to distribution_points_path, notice: 'You must be an admin to archive.'
+    end
+  end
+
+  def unarchive
+    if admin?
+      @distribution_point.update_attributes(active: true)
+      redirect_to distribution_points_path, notice: 'Reactivated!'
+    else
+      redirect_to distribution_points_path, notice: 'You must be an admin to unarchive.'
+    end
+  end
+
+  def archived
+    @distribution_points = DistributionPoint.inactive.all
+    @page = Page.distribution_points.first_or_initialize
+    respond_to do |format|
+      format.html
+      format.csv { send_data @distribution_points.to_csv, filename: "archived-distribution_points-#{Date.today}.csv" }
     end
   end
 
@@ -103,7 +121,7 @@ private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_distribution_point
-    @distribution_point = DistributionPoint.find(params[:id])
+    @distribution_point = DistributionPoint.unscope(:where).find(params[:id])
   end
 
   # TODO: Test private fields are only updatable by admin

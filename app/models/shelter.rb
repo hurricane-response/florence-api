@@ -58,6 +58,7 @@ class Shelter < ApplicationRecord
   end
 
   scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
+  scope :inactive, -> { unscope(:where).where(active: false) }
 
   geocoded_by :address
 

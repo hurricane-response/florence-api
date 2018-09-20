@@ -99,4 +99,32 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_equal expected_count, DistributionPoint.count
   end
+
+  test "reactivates if user admin" do
+    pod = distribution_points(:test)
+    expected_count = DistributionPoint.count + 1
+    sign_in users(:admin)
+    delete unarchive_distribution_point_path(pod)
+    assert_response :redirect
+    assert_equal expected_count, DistributionPoint.count
+  end
+
+  test "guests may not reactivate" do
+    pod = distribution_points(:test)
+    expected_count = DistributionPoint.count
+    sign_in users(:guest)
+    delete unarchive_distribution_point_path(pod)
+    assert_response :redirect
+    assert_equal expected_count, DistributionPoint.count
+  end
+
+  test "should get archived index" do
+    get archived_distribution_points_url
+    assert_response :success
+  end
+
+  test "loads drafts" do
+    get drafts_distribution_points_path
+    assert_response :success
+  end
 end

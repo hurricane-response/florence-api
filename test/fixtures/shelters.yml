@@ -36,3 +36,24 @@ lonestar:
   supply_needs: " Juice boxes for kids towels travel-sized toiletries – shampoo toothpaste toothbrushes pet kennels leashes packaged snacks and ext. cords/power strips"
   source: "https://t.co/REjWR4UR7Q"
   address_name: "Lone Star College North Harris 2700 W W Thorne Dr Houston TX"
+
+inactive:
+  county: "New Castle County"
+  shelter: "YMCA"
+  address: "123 fake road"
+  city: "Newark"
+  state: 'Delaware'
+  zip: '19711'
+  pets: ""
+  phone: "(302) 555-0123"
+  accepting: "no"
+  last_updated: "2017-08-29 03:27 PM"
+  updated_by: "Doostee"
+  notes: " Shelter at capacity. "
+  volunteer_needs: "Volunteers needed. Here 8/30 4:30pm."
+  longitude: -95.3797033
+  latitude: 30.0071377
+  supply_needs: " Juice boxes for kids towels travel-sized toiletries – shampoo toothpaste toothbrushes pet kennels leashes packaged snacks and ext. cords/power strips"
+  source: "https://t.co/REjWR4UR7Q"
+  address_name: "Lone Star College North Harris 2700 W W Thorne Dr Houston TX"
+  active: false
