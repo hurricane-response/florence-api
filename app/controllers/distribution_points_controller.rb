@@ -109,6 +109,9 @@ private
   # TODO: Test private fields are only updatable by admin
   def distribution_point_params
     @columns = (admin? ? DistributionPoint::AdminUpdateFields : DistributionPoint::UpdateFields)
-    params.require(:distribution_point).permit(@columns).keep_if { |_, v| v.present? }
+    params.require(:distribution_point).permit(@columns).delete_if do |k, v|
+      # Make sure the required name field is not deleted
+      k == 'facility_name' && v.blank?
+    end
   end
 end

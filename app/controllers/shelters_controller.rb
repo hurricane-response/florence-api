@@ -108,6 +108,9 @@ private
   # TODO: Test private fields are only updatable by admin
   def shelter_update_params
     @columns = (admin? ? Shelter::AdminUpdateFields : Shelter::UpdateFields)
-    params.require(:shelter).permit(@columns).keep_if { |_, v| v.present? }
+    params.require(:shelter).permit(@columns).delete_if do |k, v|
+      # Make sure the required name field is not deleted
+      k == 'shelter' && v.blank?
+    end
   end
 end
