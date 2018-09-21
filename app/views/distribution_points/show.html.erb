@@ -4,14 +4,14 @@
 <%= link_to 'Update', [:edit, @distribution_point], class: 'button button-clear' %> |
 <%= link_to 'Back', distribution_points_path, class: 'button button-clear' %>
 <% if admin? %> |
-  <% if @distribution_point.active %>
-    <%= link_to 'Archive', archive_distribution_point_path(@distribution_point),
-                  method: :post,
+  <% if @distribution_point.archived %>
+    <%= link_to 'Unarchive', unarchive_distribution_point_path(@distribution_point),
+                  method: :delete,
                   data: { confirm: 'Are you sure?' },
                   class: 'button button-clear' %>
   <% else %>
-    <%= link_to 'Reactivate', unarchive_distribution_point_path(@distribution_point),
-                  method: :delete,
+    <%= link_to 'Archive', archive_distribution_point_path(@distribution_point),
+                  method: :post,
                   data: { confirm: 'Are you sure?' },
                   class: 'button button-clear' %>
   <% end %>
