@@ -3,8 +3,6 @@ class DistributionPointsController < ApplicationController
   before_action :set_index_headers, only: [:index]
   before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive]
 
-  # GET /distribution_points
-  # GET /distribution_points.json
   def index
     @distribution_points = DistributionPoint.all
     @page = Page.distribution_points.first_or_initialize
@@ -14,22 +12,10 @@ class DistributionPointsController < ApplicationController
     end
   end
 
-  # GET /distribution_points/new
   def new
     @distribution_point = DistributionPoint.new
   end
 
-  # GET /distribution_points/1
-  # GET /distribution_points/1.json
-  def show
-  end
-
-  # GET /distribution_points/1/edit
-  def edit
-  end
-
-  # POST /distribution_points
-  # POST /distribution_points.json
   def create
     if admin?
       @distribution_point = DistributionPoint.new(distribution_point_params)
@@ -51,8 +37,12 @@ class DistributionPointsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /distribution_points/1
-  # PATCH/PUT /distribution_points/1.json
+  def show
+  end
+
+  def edit
+  end
+
   def update
     if admin?
       if @distribution_point.update(distribution_point_params)
@@ -71,8 +61,6 @@ class DistributionPointsController < ApplicationController
     end
   end
 
-  # DELETE /distribution_points/1
-  # DELETE /distribution_points/1.json
   def destroy
   end
 
@@ -99,25 +87,17 @@ class DistributionPointsController < ApplicationController
     @headers = @columns.map(&:titleize)
   end
 
-  private
+private
+
   # This is the definition of a beautiful hack. 1 part gross, 2 parts simplicity. Does something neat not clever.
   def set_headers
-    @columns =
-      if admin?
-        DistributionPoint::ColumnNames + DistributionPoint::PrivateFields
-      else
-        DistributionPoint::ColumnNames
-      end
+    @columns = (admin? ? DistributionPoint::AdminColumnNames : DistributionPoint::ColumnNames)
     @headers = @columns.map(&:titleize)
   end
 
   def set_index_headers
-    @columns =
-      if admin?
-        (DistributionPoint::ColumnNames + DistributionPoint::PrivateFields) - DistributionPoint::IndexHiddenColumnNames
-      else
-        DistributionPoint::ColumnNames - DistributionPoint::IndexHiddenColumnNames
-      end
+    @columns = (admin? ? DistributionPoint::AdminColumnNames : DistributionPoint::ColumnNames)
+    @columns -= DistributionPoint::IndexHiddenColumnNames
     @headers = @columns.map(&:titleize)
   end
 
@@ -126,12 +106,12 @@ class DistributionPointsController < ApplicationController
     @distribution_point = DistributionPoint.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # TODO: Test private fields are only updatable by admin
   def distribution_point_params
-    if admin?
-      params.require(:distribution_point).permit(DistributionPoint::UpdateFields + DistributionPoint::PrivateFields).keep_if { |_,v| v.present? }
-    else
-      params.require(:distribution_point).permit(DistributionPoint::UpdateFields).keep_if { |_,v| v.present? }
+    @columns = (admin? ? DistributionPoint::AdminUpdateFields : DistributionPoint::UpdateFields)
+    params.require(:distribution_point).permit(@columns).delete_if do |k, v|
+      # Make sure the required name field is not deleted
+      k == 'facility_name' && v.blank?
     end
   end
 end

@@ -40,6 +40,9 @@ class Shelter < ApplicationRecord
     private_volunteer_data_mgr
   ].freeze
 
+  AdminColumnNames = (ColumnNames + PrivateFields).freeze
+  AdminUpdateFields = (UpdateFields + PrivateFields).freeze
+
   # columns for the outdated shelter records report view
   OutdatedViewColumnNames = %w[
     id updated_at updated_by phone accepting address address_name
@@ -50,13 +53,13 @@ class Shelter < ApplicationRecord
 
   has_many :drafts, as: :record
 
-  geocoded_by :address
-
   after_commit do
     ShelterUpdateNotifierJob.perform_later self
   end
 
   scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
+
+  geocoded_by :address
 
   def self.to_csv
     attributes = %w[

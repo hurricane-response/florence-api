@@ -24,6 +24,9 @@ class DistributionPoint < ApplicationRecord
 
   PrivateFields = %w[].freeze
 
+  AdminColumnNames = (ColumnNames + PrivateFields).freeze
+  AdminUpdateFields = (UpdateFields + PrivateFields).freeze
+
   # columns for the outdated shelter records report view
   OutdatedViewColumnNames = %w[
     id updated_at active facility_name phone address city county state updated_by
@@ -32,14 +35,13 @@ class DistributionPoint < ApplicationRecord
 
   has_many :drafts, as: :record
 
-
-  geocoded_by :address
-
   after_commit do
     DistributionPointUpdateNotifierJob.perform_later self
   end
 
   scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
+
+  geocoded_by :address
 
   def self.to_csv
     attributes = %w[

@@ -17,7 +17,7 @@ class SheltersController < ApplicationController
   end
 
   def create
-    if(admin?)
+    if admin?
       @shelter = Shelter.new(shelter_update_params)
 
       if @shelter.save
@@ -44,7 +44,7 @@ class SheltersController < ApplicationController
   end
 
   def update
-    if(admin?)
+    if admin?
       if @shelter.update(shelter_update_params)
         redirect_to shelters_path, notice: 'Shelter was successfully updated.'
       else
@@ -65,7 +65,7 @@ class SheltersController < ApplicationController
   end
 
   def archive
-    if(admin?)
+    if admin?
       @shelter.update_attributes(active: false)
       redirect_to shelters_path, notice: "Archived!"
     else
@@ -83,35 +83,22 @@ class SheltersController < ApplicationController
 
   def outdated
     @outdated = Shelter.outdated.order('updated_at DESC')
-    columns = Shelter::OutdatedViewColumnNames - Shelter::IndexHiddenColumnNames
-    @columns = columns
-    @headers = columns.map(&:titleize)
+    @columns = Shelter::OutdatedViewColumnNames - Shelter::IndexHiddenColumnNames
+    @headers = @columns.map(&:titleize)
   end
 
-  private
+private
 
   # This is the definition of a beautiful hack. 1 part gross, 2 parts simplicity. Does something neat not clever.
   def set_headers
-    if(admin?)
-      columns = Shelter::ColumnNames + Shelter::PrivateFields
-      @columns = columns
-      @headers = columns.map(&:titleize)
-    else
-      @columns = Shelter::ColumnNames
-      @headers = Shelter::ColumnNames.map(&:titleize)
-    end
+    @columns = (admin? ? Shelter::AdminColumnNames : Shelter::ColumnNames)
+    @headers = @columns.map(&:titleize)
   end
 
   def set_index_headers
-    if(admin?)
-      columns = (Shelter::ColumnNames + Shelter::PrivateFields) - Shelter::IndexHiddenColumnNames
-      @columns = columns
-      @headers = columns.map(&:titleize)
-    else
-      columns = Shelter::ColumnNames - Shelter::IndexHiddenColumnNames
-      @columns = columns
-      @headers = columns.map(&:titleize)
-    end
+    @columns = (admin? ? Shelter::AdminColumnNames : Shelter::ColumnNames)
+    @columns -= Shelter::IndexHiddenColumnNames
+    @headers = @columns.map(&:titleize)
   end
 
   def set_shelter
@@ -120,10 +107,10 @@ class SheltersController < ApplicationController
 
   # TODO: Test private fields are only updatable by admin
   def shelter_update_params
-    if(admin?)
-      params.require(:shelter).permit(Shelter::UpdateFields + Shelter::PrivateFields).keep_if { |_,v| v.present? }
-    else
-      params.require(:shelter).permit(Shelter::UpdateFields).keep_if { |_,v| v.present? }
+    @columns = (admin? ? Shelter::AdminUpdateFields : Shelter::UpdateFields)
+    params.require(:shelter).permit(@columns).delete_if do |k, v|
+      # Make sure the required name field is not deleted
+      k == 'shelter' && v.blank?
     end
   end
 end
