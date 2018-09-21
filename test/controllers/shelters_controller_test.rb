@@ -96,6 +96,29 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     assert_equal expected_count, Shelter.count
   end
 
+  test "reactivates if user admin" do
+    shelter = shelters(:inactive)
+    expected_count = Shelter.count + 1
+    sign_in users(:admin)
+    delete unarchive_shelter_path(shelter)
+    assert_response :redirect
+    assert_equal expected_count, Shelter.count
+  end
+
+  test "guests may not reactive" do
+    shelter = shelters(:inactive)
+    expected_count = Shelter.count
+    sign_in users(:guest)
+    delete unarchive_shelter_path(shelter)
+    assert_response :redirect
+    assert_equal expected_count, Shelter.count
+  end
+
+  test "should get archived index" do
+    get archived_shelters_url
+    assert_response :success
+  end
+
   test "loads drafts" do
     get drafts_shelters_path
     assert_response :success

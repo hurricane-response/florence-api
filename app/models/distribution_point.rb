@@ -1,9 +1,9 @@
 class DistributionPoint < ApplicationRecord
-  default_scope { where(active: true) }
+  default_scope { where(archived: false) }
 
   ColumnNames = %w[
     id active facility_name phone address city county state zip updated_by updated_at
-    source latitude longitude google_place_id
+    source latitude longitude google_place_id archived
   ].freeze
 
   # columns to hide in index view
@@ -22,7 +22,7 @@ class DistributionPoint < ApplicationRecord
     distribution_center latitude longitude google_place_id
   ].freeze
 
-  PrivateFields = %w[].freeze
+  PrivateFields = %w[archived].freeze
 
   AdminColumnNames = (ColumnNames + PrivateFields).freeze
   AdminUpdateFields = (UpdateFields + PrivateFields).freeze
@@ -40,6 +40,7 @@ class DistributionPoint < ApplicationRecord
   end
 
   scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
+  scope :archived, -> { unscope(:where).where(archived: true) }
 
   geocoded_by :address
 

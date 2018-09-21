@@ -3,28 +3,43 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users, only: [:index, :show, :update]
+
   resources :charitable_organizations do
     get :drafts, on: :collection
     post :archive, on: :member
   end
+
   resources :distribution_points do
     get :drafts, on: :collection
     get :outdated, on: :collection
+
+    # archived distribution points
+    get :archived, on: :collection
     post :archive, on: :member
+    delete :unarchive, on: :member
   end
+
   resources :shelters do
     get :drafts, on: :collection
     get :outdated, on: :collection
+
+    # archived shelters
+    get :archived, on: :collection
     post :archive, on: :member
+    delete :unarchive, on: :member
   end
+
   resources :needs do
     get :drafts, on: :collection
     post :archive, on: :member
   end
+
   resources :drafts, only: [:show, :destroy] do
     post :accept, on: :member
   end
+
   resources :amazon_products, except: [:new, :create, :destroy]
+
   namespace :connect do
     resources :markers
   end

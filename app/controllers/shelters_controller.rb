@@ -1,7 +1,7 @@
 class SheltersController < ApplicationController
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
-  before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive]
+  before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
 
   def index
     @shelters = Shelter.all
@@ -64,12 +64,30 @@ class SheltersController < ApplicationController
   def destroy
   end
 
+  def archived
+    @shelters = Shelter.inactive.all
+    @page = Page.shelters.first_or_initialize
+    respond_to do |format|
+      format.html
+      format.csv { send_data @shelters.to_csv, filename: "archived-shelters-#{Date.today}.csv" }
+    end
+  end
+
   def archive
     if admin?
       @shelter.update_attributes(active: false)
-      redirect_to shelters_path, notice: "Archived!"
+      redirect_to shelters_path, notice: 'Archived!'
     else
-      redirect_to shelters_path, notice: "You must be an admin to archive."
+      redirect_to shelters_path, notice: 'You must be an admin to archive.'
+    end
+  end
+
+  def unarchive
+    if admin?
+      @shelter.update_attributes(active: true)
+      redirect_to shelters_path, notice: 'Reactivated!'
+    else
+      redirect_to shelters_path, notice: 'You must be an admin to unarchive.'
     end
   end
 
@@ -102,7 +120,7 @@ private
   end
 
   def set_shelter
-    @shelter = Shelter.find(params[:id])
+    @shelter = Shelter.unscope(:where).find(params[:id])
   end
 
   # TODO: Test private fields are only updatable by admin

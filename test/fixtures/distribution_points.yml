@@ -45,3 +45,4 @@ test:
   active: false
   longitude: -95.3797033
   latitude: 30.0071377
+  archived: true

@@ -1,9 +1,16 @@
 <h1>Edit <%= @distribution_point.facility_name %></h1>
 <% if admin? %>
-  <%= link_to 'Archive', archive_distribution_point_path(@distribution_point),
-  method: :post,
-  data: { confirm: 'Are you sure?' },
-  class: 'button button-clear' %>
+  <% if @distribution_point.active %>
+    <%= link_to 'Archive', archive_distribution_point_path(@distribution_point),
+                  method: :post,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button button-clear' %>
+  <% else %>
+    <%= link_to 'Reactivate', unarchive_distribution_point_path(@distribution_point),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button button-clear' %>
+  <% end %>
 <% end %>
 
 <%= render 'form', distribution_point: @distribution_point %>

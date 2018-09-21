@@ -1,18 +1,25 @@
 <h1><%= @shelter.shelter %></h1>
 
 
-<%= link_to 'Update', [:edit, @shelter], class: "button button-clear" %> |
-<%= link_to 'Back', shelters_path, class: "button button-clear" %>
-<% if user_signed_in? && current_user.admin? %> |
-<%= link_to 'Archive', archive_shelter_path(@shelter),
-              method: :post,
-              data: { confirm: 'Are you sure?' },
-              class: "button button-clear" %>
+<%= link_to 'Update', [:edit, @shelter], class: 'button button-clear' %> |
+<%= link_to 'Back', shelters_path, class: 'button button-clear' %>
+<% if admin? %> |
+  <% if @shelter.active %>
+    <%= link_to 'Archive', archive_shelter_path(@shelter),
+                  method: :post,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button button-clear' %>
+  <% else %>
+    <%= link_to 'Reactivate', unarchive_shelter_path(@shelter),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button button-clear' %>
   <% end %>
+<% end %>
 
 <div class="row">
   <div class="column">
-    <%= render "shared/show", record: @shelter, headers: @headers, columns: @columns %>
+    <%= render 'shared/show', record: @shelter, headers: @headers, columns: @columns %>
   </div>
   <div class="column">
     <div id="map" style="height: 300px; width: 100%"></div>
@@ -21,8 +28,8 @@
         simpleMap({
           selector: "#map",
           name: "<%= j @shelter.shelter %>",
-          lat: <%= @shelter.latitude || 0%>,
-          lng: <%= @shelter.longitude || 0%>
+          lat: <%= @shelter.latitude || 0 %>,
+          lng: <%= @shelter.longitude || 0 %>
         })
       })
     </script>
