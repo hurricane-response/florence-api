@@ -1,8 +1,12 @@
 <h1><%= @distribution_point.facility_name %></h1>
 
 
-<%= link_to 'Update', [:edit, @distribution_point], class: 'button button-clear' %> |
-<%= link_to 'Back', distribution_points_path, class: 'button button-clear' %>
+<% if @distribution_point.archived %>
+  <%= link_to 'Back', archived_distribution_points_path, class: 'button button-clear' %>
+<% else %>
+  <%= link_to 'Update', [:edit, @distribution_point], class: 'button button-clear' %> |
+  <%= link_to 'Back', distribution_points_path, class: 'button button-clear' %>
+<% end %>
 <% if admin? %> |
   <% if @distribution_point.archived %>
     <%= link_to 'Unarchive', unarchive_distribution_point_path(@distribution_point),

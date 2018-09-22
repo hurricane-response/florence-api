@@ -1,8 +1,11 @@
 <h1><%= @shelter.shelter %></h1>
 
-
-<%= link_to 'Update', [:edit, @shelter], class: 'button button-clear' %> |
-<%= link_to 'Back', shelters_path, class: 'button button-clear' %>
+<% if @shelter.active %>
+  <%= link_to 'Update', [:edit, @shelter], class: 'button button-clear' %> |
+  <%= link_to 'Back', shelters_path, class: 'button button-clear' %>
+<% else %>
+  <%= link_to 'Back', archived_shelters_path, class: 'button button-clear' %>
+<% end %>
 <% if admin? %> |
   <% if @shelter.active %>
     <%= link_to 'Archive', archive_shelter_path(@shelter),
