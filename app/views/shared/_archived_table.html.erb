@@ -1,0 +1,54 @@
+<table id="data-table" class="shared-table">
+  <thead>
+    <tr>
+      <th></th>
+      <% headers.each do |header| %>
+        <th><%= header %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% rows.each do |row| %>
+      <tr>
+        <td><%= link_to 'Show', row %> / <%= link_to 'Unarchive', [:unarchive, row],
+                                                     method: :delete,
+                                                     data: { confirm: 'Are you sure?' } %></td>
+        <% columns.each do |column| %>
+          <% value = row.send(column) %>
+          <% if value.acts_like?(:time) %>
+            <td data-order="<%= value.to_i %>">
+              <span title="<%= value %>"><%= time_ago_in_words(value) %> ago</span>
+            </td>
+          <% else %>
+            <td>
+              <%= truncate(value.to_s) %>
+            </td>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% unless reverse_chron %>
+<script>
+  window.onload = function() {
+    document.dataTable = $('#data-table').DataTable({
+      "order": [[ 1, "desc" ]],
+      "stateSave": true
+    });
+  };
+</script>
+<% else %>
+<script>
+  window.onload = function() {
+    document.dataTable = $('#data-table').DataTable({
+      "order": [[ 2, "asc" ]],
+      "stateSave": true
+    });
+    document.dataTable.order.fixed({ pre: [[ 2, "asc" ]] }).draw();
+  };
+</script>
+<% end %>
