@@ -6,8 +6,8 @@ class DistributionPointsController < ApplicationController
   before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :mark_current]
 
   def index
+    @page = Page.distribution_points
     @distribution_points = DistributionPoint.all
-    @page = Page.distribution_points.first_or_initialize
 
     respond_to do |format|
       format.html
@@ -16,6 +16,7 @@ class DistributionPointsController < ApplicationController
   end
 
   def new
+    @page = Page.new_distribution_point
     @distribution_point = DistributionPoint.new
   end
 
@@ -73,8 +74,8 @@ class DistributionPointsController < ApplicationController
   end
 
   def archived
+    @page = Page.archived_distribution_points
     @distribution_points = DistributionPoint.archived.all
-    @page = Page.distribution_points.first_or_initialize
 
     respond_to do |format|
       format.html
@@ -93,7 +94,8 @@ class DistributionPointsController < ApplicationController
   end
 
   def drafts
-    @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = ?", DistributionPoint.name, DistributionPoint.name).where(accepted_by_id: nil).where(denied_by_id: nil)
+    @page = Page.distribution_point_drafts
+    @drafts = Draft.actionable_by_type(DistributionPoint.name)
   end
 
   def csv
@@ -101,6 +103,7 @@ class DistributionPointsController < ApplicationController
   end
 
   def outdated
+    @page = Page.outdated_distribution_points
     @distribution_points = DistributionPoint.outdated.order('updated_at DESC')
     @columns = DistributionPoint::OutdatedViewColumnNames - DistributionPoint::IndexHiddenColumnNames
     @headers = @columns.map(&:titleize)

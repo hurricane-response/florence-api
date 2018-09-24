@@ -1,5 +1,4 @@
-<%= render @page %>
-<h1>Archived Distribution Points</h1>
+<%= content_for :page { render @page } %>
 
 <script type="text/javascript">
   App.updatedDistributionPoints.subscribe( function(distribution_points){

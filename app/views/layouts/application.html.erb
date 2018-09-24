@@ -32,6 +32,15 @@
     <div class="new-record-notification"></div>
     <%= yield %>
   </div>
+    <div class="container">
+      <p id="notice"><%= notice %></p>
+      <p id="alert"><%= alert %></p>
+      <div class="new-record-notification"></div>
+      <% if content_for :page %>
+        <%= yield :page %>
+      <% end %>
+      <%= yield %>
+    </div>
 
     <footer>
       Code is available at <a href="http://github.com/hurricane-response/florence-api">GitHub</a>. Contributors welcome!

@@ -1,4 +1,5 @@
 <h1>Edit <%= @shelter.shelter %></h1>
+
 <% if admin? %>
   <% if @shelter.active %>
     <%= link_to 'Archive', archive_shelter_path(@shelter),

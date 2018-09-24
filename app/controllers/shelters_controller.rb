@@ -6,8 +6,8 @@ class SheltersController < ApplicationController
   before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :mark_current]
 
   def index
+    @page = Page.shelters
     @shelters = Shelter.all
-    @page = Page.shelters.first_or_initialize
 
     respond_to do |format|
       format.html
@@ -16,6 +16,7 @@ class SheltersController < ApplicationController
   end
 
   def new
+    @page = Page.new_shelter
     @shelter = Shelter.new
   end
 
@@ -73,8 +74,8 @@ class SheltersController < ApplicationController
   end
 
   def archived
+    @page = Page.archived_shelters
     @shelters = Shelter.inactive.all
-    @page = Page.shelters.first_or_initialize
 
     respond_to do |format|
       format.html
@@ -93,6 +94,7 @@ class SheltersController < ApplicationController
   end
 
   def drafts
+    @page = Page.shelter_drafts
     @drafts = Draft.actionable_by_type(Shelter.name)
   end
 
@@ -101,7 +103,9 @@ class SheltersController < ApplicationController
   end
 
   def outdated
+    @page = Page.outdated_shelters
     @shelters = Shelter.outdated.order('updated_at DESC')
+
     @columns = Shelter::OutdatedViewColumnNames - Shelter::IndexHiddenColumnNames
     @headers = @columns.map(&:titleize)
   end

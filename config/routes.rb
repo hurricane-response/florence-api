@@ -46,6 +46,8 @@ Rails.application.routes.draw do
 
   resources :amazon_products, except: [:new, :create, :destroy]
 
+  resources :pages
+
   namespace :connect do
     resources :markers
   end
@@ -72,18 +74,14 @@ Rails.application.routes.draw do
         resources :categories, only: [:index]
       end
     end
-  end
 
-  resources :pages, only: [:index, :edit, :update, :destroy]
-
-  # API JSON v2
-  namespace :api, defaults: { format: :json } do
     namespace :v2 do
       get "/routes" => 'locations#routes'
       get "/:organization/:legacy_table_name" => 'locations#index', as: "api_locations"
       get "/:organization/:legacy_table_name/help" => 'locations#help', as: "api_locations_help"
     end
   end
+
   # HTML Pages v2 Locations
   get  ":organization/:legacy_table_name", to: "locations#index", as: "locations"
   post ":organization/:legacy_table_name", to: "locations#create"
@@ -99,6 +97,4 @@ Rails.application.routes.draw do
   delete ":organization/:legacy_table_name/drafts/:id", to: "location_drafts#destroy"
   # HTML Pages v2 Organizations
   get  ":organization", to: "organizations#show", as: "organization"
-
-
 end

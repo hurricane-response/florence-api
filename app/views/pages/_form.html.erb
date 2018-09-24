@@ -1,7 +1,19 @@
 <%= form_for @page do |f| %>
-<div class="">
-  <%= f.label :content, "#{@page.key} Page Content" %>
-  <%= f.text_area :content, class: "page-content" %>
-</div>
-<%= f.submit %>
+  <div class="">
+    <% if @page.new_record? %>
+      <%= f.label :key, 'Page Key' %>
+      <%= f.text_field :key, class: 'page-content' %>
+      <%= f.label :content, 'Page Content' %>
+    <% else %>
+      <%= f.label :content, "`#{@page.key}` Page Content" %>
+    <% end %>
+    <%= f.text_area :content, class: 'page-content' %>
+  </div>
+  <%= f.submit %>
+  <% unless @page.new_record? %>
+    <%= link_to 'Delete Page', page_path(@page),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button button-clear' %>
+  <% end %>
 <% end %>
