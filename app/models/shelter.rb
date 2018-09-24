@@ -54,8 +54,6 @@ class Shelter < ApplicationRecord
     latitude longitude accessibility unofficial
   ].freeze
 
-  HeaderNames = ColumnNames.map(&:titleize).freeze
-
   CSV_Attributes = %w[
     shelter address city state county zip phone updated_at source accepting pets
   ].freeze
