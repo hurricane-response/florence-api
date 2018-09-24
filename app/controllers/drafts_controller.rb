@@ -3,22 +3,19 @@ class DraftsController < ApplicationController
   before_action :set_record
 
   def show
+    @record = @draft.build_record
     @columns = @record.class::ColumnNames
     @headers = @record.class::HeaderNames
   end
 
   def destroy
-    @draft.update(denied_by: current_user)
-    redirect_to @draft.record || root_path, notice: "#{@record.class.name} update was denied."
+    @draft.deny(current_user)
+    redirect_to (@draft.record || root_path), notice: "#{@draft.record.class.name} update was denied."
   end
 
   def accept
-    info = @draft.info.delete_if { |k,_| "record_type" == k }
-
-    @record.assign_attributes(info)
-
-    if(@record.save)
-      @draft.update(record: @record, accepted_by: current_user)
+    if @draft.accept(current_user)
+      @record = @draft.record
       redirect_to [:drafts, @record.class.name.underscore.pluralize.to_sym], notice: "#{@record.class.name} updated"
     else
       flash[:notice] = "Something went wrong."
@@ -30,11 +27,5 @@ private
 
   def set_record
     @draft = Draft.find(params[:id])
-    @record =
-      if @draft.record
-        @draft.record
-      else
-        @draft.record_type.constantize.new
-      end
   end
 end

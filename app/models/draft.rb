@@ -13,4 +13,26 @@ class Draft < ApplicationRecord
     actionable.includes(:record)
               .where("info->>'organization' = ? AND info->>'legacy_table_name' = ?", org, table)
   end
+
+  def build_record
+    record_info = info.delete_if { |k,_| k == 'record_type' }
+    if record
+      record.assign_attributes(record_info)
+    else
+      # Gotcha: Must have self.record or record will not initialize properly
+      self.record = record_type.constantize.new(record_info)
+    end
+    record
+  end
+
+  def deny(user)
+    update(denied_by: user)
+  end
+
+  def accept(user)
+    build_record
+    if record.save
+      update(record: record, accepted_by: user)
+    end
+  end
 end
