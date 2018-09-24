@@ -21,23 +21,20 @@ class SheltersController < ApplicationController
   end
 
   def create
-    if admin?
-      @shelter = Shelter.new(shelter_update_params)
+    draft_params = shelter_update_params
+    draft = Draft.create(record_type: Shelter, info: draft_params, created_by: current_user)
 
-      if @shelter.save
+    if draft
+      if admin? && draft.accept(current_user)
+        @shelter = draft.record
         redirect_to shelters_path, notice: 'Shelter was successfully created.'
       else
-        render :new
+        redirect_to draft, notice: 'Your new shelter is pending approval.'
       end
     else
-      draft = Draft.new(info: shelter_update_params, created_by: current_user, record_type: Shelter)
-
-      if draft.save
-        redirect_to draft, notice: 'Your new shelter is pending approval.'
-      else
-        @shelter = Shelter.new(shelter_update_params)
-        render :new
-      end
+      flash[:notice] = "Something went wrong."
+      @shelter = Shelter.new(draft_params)
+      render :new
     end
   end
 
@@ -48,20 +45,18 @@ class SheltersController < ApplicationController
   end
 
   def update
-    if admin?
-      if @shelter.update(shelter_update_params)
+    draft_params = shelter_update_params
+    draft = Draft.create(record: @shelter, info: shelter_update_params, created_by: current_user)
+
+    if draft
+      if admin? && draft.accept(current_user)
         redirect_to shelters_path, notice: 'Shelter was successfully updated.'
       else
-        render :edit
+        redirect_to draft, notice: 'Your shelter update is pending approval.'
       end
     else
-      draft = Draft.new(record: @shelter, info: shelter_update_params, created_by: current_user)
-
-      if draft.save
-        redirect_to draft, notice: 'Your shelter update is pending approval.'
-      else
-        render :edit
-      end
+      flash[:notice] = "Something went wrong."
+      render :edit
     end
   end
 
