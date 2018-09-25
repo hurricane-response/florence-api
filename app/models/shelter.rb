@@ -2,7 +2,7 @@ class Shelter < ApplicationRecord
   include Geocodable
   include Trashable
 
-  default_scope { where(active: true) }
+  default_scope { where(archived: false) }
 
   enum accepting: {
     yes: 'yes',
@@ -65,7 +65,7 @@ class Shelter < ApplicationRecord
   end
 
   scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
-  scope :inactive, -> { unscope(:where).where(active: false) }
+  scope :archived, -> { unscope(:where).where(archived: true) }
 
   def self.to_csv
     CSV.generate(headers: true) do |csv|

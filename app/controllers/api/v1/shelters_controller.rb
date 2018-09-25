@@ -10,7 +10,7 @@ class Api::V1::SheltersController < ApplicationController
     { type: :text, param: :county, field: 'county' },
     { type: :text, param: :name, field: 'shelter' },
     { type: :text, param: :shelter, field: 'shelter' },
-    { type: :boolean, param: :active, field: 'active' },
+    { type: :boolean, param: :archived, field: 'archived' },
     { type: :boolean, param: :special_needs, field: 'special_needs' },
     { type: :text, param: :accessibility, field: 'accessibility' },
     { type: :boolean, param: :unofficial, field: 'unofficial' },

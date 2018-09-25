@@ -1,5 +1,5 @@
 class Need < ApplicationRecord
-  default_scope { where(active: true) }
+  default_scope { where(archived: false) }
 
   ColumnNames = %w[
     id location_name location_address
@@ -23,6 +23,12 @@ class Need < ApplicationRecord
 
   geocoded_by :location_address
 
+  after_commit do
+    NeedUpdateNotifierJob.perform_later self
+  end
+
+  scope :archived, -> { unscope(:where).where(archived: true) }
+
   def clean_needs
     return [] if tell_us_about_the_supply_needs.blank?
     tell_us_about_the_supply_needs
@@ -32,9 +38,5 @@ class Need < ApplicationRecord
       .reject{ |n| n =~ /^open/i }
       .map(&:strip)
       .select(&:present?)
-  end
-
-  after_commit do
-    NeedUpdateNotifierJob.perform_later self
   end
 end

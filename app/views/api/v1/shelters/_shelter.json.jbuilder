@@ -1,7 +1,7 @@
 json.extract! shelter, *%i[
   county shelter address city state county zip phone accepting updated_by
   notes volunteer_needs longitude latitude supply_needs source google_place_id
-  special_needs id active
+  special_needs id archived
 ]
 
 json.pets shelter.allow_pets ? 'Yes' : 'No'

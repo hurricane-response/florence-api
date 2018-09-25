@@ -1,11 +1,10 @@
 class AmazonProduct < ApplicationRecord
 
-  ColumnNames = ["need", "asin", "amazon_title", "detail_url", "priority", "disabled"]
+  ColumnNames = %w[need asin amazon_title detail_url priority disabled].freeze
 
   HeaderNames = ColumnNames.map(&:titleize)
 
-  UpdateFields = ["need", "asin", "amazon_title", "detail_url", "priority", "disabled"]
-
+  UpdateFields = %w[need asin amazon_title detail_url priority disabled].freeze
 
   validates :need, presence: true
   validates :asin, presence: true

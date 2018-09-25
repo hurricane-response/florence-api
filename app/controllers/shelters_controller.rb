@@ -70,7 +70,7 @@ class SheltersController < ApplicationController
 
   def archived
     @page = Page.archived_shelters
-    @shelters = Shelter.inactive.all
+    @shelters = Shelter.archived.all
 
     respond_to do |format|
       format.html
@@ -79,12 +79,12 @@ class SheltersController < ApplicationController
   end
 
   def archive
-    @shelter.update_attributes(active: false)
+    @shelter.update_attributes(archived: false)
     redirect_to shelters_path, notice: 'Archived!'
   end
 
   def unarchive
-    @shelter.update_attributes(active: true)
+    @shelter.update_attributes(archived: true)
     redirect_to archived_shelters_path, notice: 'Reactivated!'
   end
 

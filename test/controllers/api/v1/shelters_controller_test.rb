@@ -4,36 +4,36 @@ class Api::SheltersControllerTest < ActionDispatch::IntegrationTest
 
   test "index returns all shelters" do
     count = Shelter.count
-    get "/api/v1/shelters"
+    get '/api/v1/shelters'
     json = JSON.parse(response.body)
-    assert_equal count, json["shelters"].length
-    assert_equal count, json["meta"]["result_count"]
+    assert_equal count, json['shelters'].length
+    assert_equal count, json['meta']['result_count']
   end
 
   test "filters are returned" do
     count = Shelter.where(accepting: :yes).count
-    get "/api/v1/shelters?accepting=yes"
+    get '/api/v1/shelters?accepting=yes'
     json = JSON.parse(response.body)
-    assert_equal count, json["shelters"].length
-    assert_equal count, json["meta"]["result_count"]
-    assert_equal "yes", json["meta"]["filters"]["accepting"]
+    assert_equal count, json['shelters'].length
+    assert_equal count, json['meta']['result_count']
+    assert_equal 'yes', json['meta']['filters']['accepting']
   end
   test "accepting filter supports true as well as yes" do
     count = Shelter.where(accepting: :yes).count
-    get "/api/v1/shelters?accepting=true"
+    get '/api/v1/shelters?accepting=true'
     json = JSON.parse(response.body)
-    assert_equal count, json["shelters"].length
-    assert_equal count, json["meta"]["result_count"]
-    assert_equal "yes", json["meta"]["filters"]["accepting"]
+    assert_equal count, json['shelters'].length
+    assert_equal count, json['meta']['result_count']
+    assert_equal 'yes', json['meta']['filters']['accepting']
   end
 
   test "shelters are not returned after they are archived" do
-    archived = Shelter.where(active: false).count
-    active = Shelter.where(active: true).count
+    archived = Shelter.where(archived: true).count
+    active = Shelter.count
     count = active - archived
-    get "/api/v1/shelters"
+    get '/api/v1/shelters'
     json = JSON.parse(response.body)
-    assert_equal count, json["shelters"].length
+    assert_equal count, json['shelters'].length
   end
 
   test "geo returns valid geojson" do

@@ -397,7 +397,7 @@ CREATE TABLE public.needs (
     source character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true
+    archived boolean DEFAULT false
 );
 
 
@@ -485,7 +485,7 @@ CREATE TABLE public.shelters (
     address_name character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    active boolean DEFAULT true,
+    archived boolean DEFAULT false,
     private_notes text,
     distribution_center text,
     food_pantry text,
@@ -1013,6 +1013,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180914132709'),
 ('20180915035427'),
 ('20180919043949'),
+('20180925062606'),
 ('20181013222410');
-
-

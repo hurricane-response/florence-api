@@ -59,17 +59,17 @@ class NeedsController < ApplicationController
 
   def archived
     @page = Page.archived_needs
-    @needs = Need.inactive.all
+    @needs = Need.archived.all
   end
 
   def archive
-    @need.update_attributes(active: false)
+    @need.update_attributes(archived: false)
     redirect_to needs_path, notice: 'Archived!'
   end
 
   def unarchive
     if admin?
-      @need.update_attributes(active: true)
+      @need.update_attributes(archived: false)
       redirect_to needs_path, notice: 'Reactivated!'
     else
       redirect_to needs_path, notice: 'You must be an admin to unarchive.'
