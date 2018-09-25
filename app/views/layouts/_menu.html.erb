@@ -1,0 +1,33 @@
+<nav class="navbar">
+  <ul>
+  <% @main_menu.each do |topic| %>
+    <% if topic[:submenu] %>
+    <li class="dropdown">
+      <% if topic[:path] %>
+      <%= link_to topic[:text], topic[:path] %>
+      <% else %>
+      <span><%= topic[:text] %></span>
+      <% end %>
+      <ul class="dropdown-content">
+      <% topic[:submenu].each do |page| %>
+        <li><%= link_to page[:text], page[:path] %></li>
+      <% end %>
+      </ul>
+    </li>
+    <% else %>
+    <li><%= link_to topic[:text], topic[:path] %></li>
+    <% end %>
+  <% end %>
+  </ul>
+  <ul class="right">
+  <% if user_signed_in? %>
+    <li class="welcome-span"><span>Welcome <%= current_user.email %>!</span></li>
+    <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+  <% else %>
+    <li class="welcome-span"><span>Welcome guest!</span></li>
+    <li><%= link_to "Login", new_user_session_path %><li>
+    <li><%= link_to "Sign up", new_user_registration_path %><li>
+  <% end %>
+  </ul>
+</nav>
+
