@@ -7,10 +7,10 @@ class Api::V1::NeedsController < ApplicationController
 
   filterable_params [
     { type: :geocoords },
-    { type: :text, param: :name, field: 'location_name' },
-    { type: :text, param: :location_name, field: 'location_name' },
-    { type: :boolean, param: :volunteers_needed, field: 'are_volunteers_needed' },
-    { type: :boolean, param: :supplies_needed, field: 'are_supplies_needed' },
+    { type: :text, param: :name, field: :location_name },
+    { type: :text, param: :location_name },
+    { type: :boolean, param: :volunteers_needed, field: :are_volunteers_needed },
+    { type: :boolean, param: :supplies_needed, field: :are_supplies_needed },
   ]
 
   def index

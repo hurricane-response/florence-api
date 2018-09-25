@@ -6,10 +6,10 @@ class Api::V1::CharitableOrganizationsController < ApplicationController
   end
 
   filterable_params [
-    { type: :text, param: :services, field: 'services' },
-    { type: :text, param: :name, field: 'name' },
-    { type: :boolean, param: :food_bank, field: 'food_bank' },
-    { type: :text, param: :city, field: 'city' },
+    { type: :text, param: :services },
+    { type: :text, param: :name },
+    { type: :boolean, param: :food_bank },
+    { type: :text, param: :city },
   ]
 
   def index
