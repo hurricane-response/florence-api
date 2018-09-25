@@ -111,45 +111,9 @@ body,
   border-bottom: 1px solid blue;
 }
 
-.navbar {
-  margin-bottom: 10px;
-}
 
-.navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #606c76;
-}
-
-.navbar li {
-  float: left;
-  margin-bottom: 0;
-}
-
-.navbar li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.navbar li span {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.navbar div.right {
+.right {
   float: right;
-}
-
-.navbar li a:hover {
-  background-color: #ab5dda;
 }
 
 .container {
