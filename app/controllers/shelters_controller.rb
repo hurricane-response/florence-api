@@ -32,7 +32,7 @@ class SheltersController < ApplicationController
         redirect_to draft, notice: 'Your new shelter is pending approval.'
       end
     else
-      flash[:notice] = "Something went wrong."
+      flash[:notice] = 'Something went wrong.'
       @shelter = Shelter.new(draft_params)
       render :new
     end
@@ -55,7 +55,7 @@ class SheltersController < ApplicationController
         redirect_to draft, notice: 'Your shelter update is pending approval.'
       end
     else
-      flash[:notice] = "Something went wrong."
+      flash[:notice] = 'Something went wrong.'
       render :edit
     end
   end

@@ -6,18 +6,18 @@ class ScheduleAmazonFetchJob < ApplicationJob
   throttle threshold: 1, period: 10.minutes, drop: true unless Rails.env.test?
 
   def perform(*args)
-    Rails.logger.debug "Starting ScheduleAmazonFetchJob"
+    Rails.logger.debug 'Starting ScheduleAmazonFetchJob'
 
     Need
       .all
       .map(&:clean_needs)
       .flatten
       .uniq
-      .reject {|need| AmazonProduct.where("need ILIKE ?", "%#{need}%").exists? }
-      .reject {|need| IgnoredAmazonProductNeed.where("need ILIKE ?", "%#{need}%").exists? }
-      .tap {|needs| Rails.logger.debug "ScheduleAmazonFetchJob #{needs.count}"}
+      .reject { |need| AmazonProduct.where("need ILIKE ?", "%#{need}%").exists? }
+      .reject { |need| IgnoredAmazonProductNeed.where("need ILIKE ?", "%#{need}%").exists? }
+      .tap {|needs| Rails.logger.debug "ScheduleAmazonFetchJob #{needs.count}" }
       .each { |need| FetchAmazonProductJob.perform_later(need) }
 
-    Rails.logger.debug "ScheduleAmazonFetchJob Complete"
+    Rails.logger.debug 'ScheduleAmazonFetchJob Complete'
   end
 end

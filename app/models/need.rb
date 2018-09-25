@@ -1,4 +1,6 @@
 class Need < ApplicationRecord
+  default_scope { where(active: true) }
+
   ColumnNames = %w[
     id location_name location_address
     contact_for_this_location_name contact_for_this_location_phone_number
@@ -13,22 +15,21 @@ class Need < ApplicationRecord
     contact_for_this_location_name contact_for_this_location_phone_number
     created_at location_address location_name source
     tell_us_about_the_supply_needs tell_us_about_the_volunteer_needs updated_at updated_by
-  ]
+  ].freeze
 
-  HeaderNames = ColumnNames.map(&:titleize)
+  HeaderNames = ColumnNames.map(&:titleize).freeze
 
   has_many :drafts, as: :record
 
   geocoded_by :location_address
-  default_scope { where(active: !false) }
 
   def clean_needs
     return [] if tell_us_about_the_supply_needs.blank?
     tell_us_about_the_supply_needs
-      .gsub("\n","")
+      .gsub("\n",'')
       .gsub('*', ',')
       .split(',')
-      .reject{|n| n =~ /^open/i }
+      .reject{ |n| n =~ /^open/i }
       .map(&:strip)
       .select(&:present?)
   end

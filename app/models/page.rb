@@ -66,4 +66,31 @@ class Page < ApplicationRecord
       page.content = '#Distribution Points Needing Update'
     end
   end
+
+
+  # Needs
+
+  scope :needs, -> do
+    where(key: 'needs').first_or_create do |page|
+      page.content = '#Needs'
+    end
+  end
+
+  scope :new_need, -> do
+    where(key: 'new_need').first_or_create do |page|
+      page.content = '#New Need'
+    end
+  end
+
+  scope :archived_needs, -> do
+    where(key: 'archived_needs').first_or_create do |page|
+      page.content = '#Archived Needs'
+    end
+  end
+
+  scope :need_drafts, -> do
+    where(key: 'need_drafts').first_or_create do |page|
+      page.content = '#Needs Update Queue'
+    end
+  end
 end
