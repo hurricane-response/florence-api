@@ -21,23 +21,20 @@ class DistributionPointsController < ApplicationController
   end
 
   def create
-    if admin?
-      @distribution_point = DistributionPoint.new(distribution_point_params)
+    draft_params = distribution_point_params
+    draft = Draft.create(record_type: DistributionPoint, info: draft_params, created_by: current_user)
 
-      if @distribution_point.save
+    if draft
+      if admin? && draft.accept(current_user)
+        @distribution_point = draft.record
         redirect_to distribution_points_path, notice: 'Distribution Point was successfully created.'
       else
-        render :new
+        redirect_to draft, notice: 'Your new distribution point is pending approval.'
       end
     else
-      draft = Draft.new(info: distribution_point_params, created_by: current_user, record_type: DistributionPoint)
-
-      if draft.save
-        redirect_to draft, notice: 'Your new distribution point is pending approval.'
-      else
-        @distribution_point = DistributionPoint.new(distribution_point_params)
-        render :new
-      end
+      flash[:notice] = "Something went wrong."
+      @distribution_point = DistributionPoint.new(draft_params)
+      render :new
     end
   end
 
@@ -48,20 +45,18 @@ class DistributionPointsController < ApplicationController
   end
 
   def update
-    if admin?
-      if @distribution_point.update(distribution_point_params)
+    draft_params = distribution_point_params
+    draft = Draft.create(record: @distribution_point, info: draft_params, created_by: current_user)
+
+    if draft
+      if admin? && draft.accept(current_user)
         redirect_to distribution_points_path, notice: 'Distribution Point was successfully updated.'
       else
-        render :edit
+        redirect_to draft, notice: 'Your distribution point update is pending approval.'
       end
     else
-      draft = Draft.new(record: @distribution_point, info: distribution_point_params, created_by: current_user)
-
-      if draft.save
-        redirect_to draft, notice: 'Your distribution point update is pending approval.'
-      else
-        render :edit
-      end
+      flash[:notice] = "Something went wrong."
+      render :edit
     end
   end
 

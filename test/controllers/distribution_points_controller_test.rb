@@ -19,6 +19,21 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "creates new and accepted draft if admin user creates a distribution point" do
+    expected_pods = DistributionPoint.count + 1
+    expected_drafts = Draft.count + 1
+    name = @distribution_point.facility_name
+    sign_in users(:admin)
+    post distribution_points_url, params: { distribution_point: { active: true, address: @distribution_point.address, city: @distribution_point.city, county: @distribution_point.county, facility_name: name, state: @distribution_point.state, phone: @distribution_point.phone } }
+    draft = Draft.last
+    assert_response :redirect
+    assert_equal expected_pods, DistributionPoint.count
+    assert_equal expected_drafts, Draft.count
+    assert_equal name, Draft.last.info["facility_name"]
+    assert_equal users(:admin), draft.accepted_by
+    assert_nil draft.denied_by
+  end
+
   test "creates new distribution point if user is admin" do
     expected_count = DistributionPoint.count + 1
     name = @distribution_point.facility_name
@@ -29,16 +44,19 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
     assert_equal name, DistributionPoint.last.facility_name
   end
 
-  test "creates new draft if user is guest creating a distribution point" do
+  test "creates new draft if guest user creates a distribution point" do
     expected_pods = DistributionPoint.count
     expected_drafts = Draft.count + 1
     name = @distribution_point.facility_name
     sign_in users(:guest)
     post distribution_points_url, params: { distribution_point: { active: true, address: @distribution_point.address, city: @distribution_point.city, county: @distribution_point.county, facility_name: name, state: @distribution_point.state, phone: @distribution_point.phone } }
+    draft = Draft.last
     assert_response :redirect
     assert_equal expected_pods, DistributionPoint.count
     assert_equal expected_drafts, Draft.count
-    assert_equal name, Draft.last.info["facility_name"]
+    assert_equal name, draft.info["facility_name"]
+    assert_nil draft.accepted_by
+    assert_nil draft.denied_by
   end
 
   test "should show distribution_point" do
@@ -51,21 +69,39 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "creates new and accepted draft if admin user updates a distribution point" do
+    pod = distribution_points(:nrg)
+    expected_pods = DistributionPoint.count
+    expected_drafts = Draft.count + 1
+    name = "Some random name you should never name a distribution point"
+    sign_in users(:admin)
+    patch distribution_point_url(pod), params: { distribution_point: {  facility_name: name } }
+    pod.reload
+    draft = pod.drafts.last
+    assert_response :redirect
+    assert_equal expected_pods, DistributionPoint.count
+    assert_equal expected_drafts, Draft.count
+    assert_equal name, pod.facility_name
+    assert_equal name, draft.info['facility_name']
+    assert_equal users(:admin), draft.accepted_by
+    assert_nil draft.denied_by
+  end
+
   test "should update distribution point if admin" do
     pod = distribution_points(:nrg)
     name = "Some random name you should never name a distribution point"
-    expected_count = DistributionPoint.count
-    expected_drafts = Draft.count
+    expected_pods = DistributionPoint.count
+    expected_drafts = Draft.count + 1
     sign_in users(:admin)
     patch distribution_point_url(pod), params: { distribution_point: { facility_name: name } }
     pod.reload
     assert_response :redirect
-    assert_equal expected_count, DistributionPoint.count
+    assert_equal expected_pods, DistributionPoint.count
     assert_equal expected_drafts, Draft.count
     assert_equal name, pod.facility_name
   end
 
-  test "creates new draft if user is guest updating a distribution point" do
+  test "creates new draft if guest user updates a distribution point" do
     pod = distribution_points(:nrg)
     pod_name = pod.facility_name
     expected_pods = DistributionPoint.count
@@ -80,9 +116,11 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
     assert_equal expected_drafts, Draft.count
     assert_equal pod_name, pod.facility_name
     assert_equal name, draft.info['facility_name']
+    assert_nil draft.accepted_by
+    assert_nil draft.denied_by
   end
 
-  test "archives if user admin" do
+  test "archives if admin user" do
     pod = distribution_points(:nrg)
     expected_count = DistributionPoint.count - 1
     sign_in users(:admin)
