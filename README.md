@@ -1,7 +1,7 @@
 # The Hurricane Florence API
 
 * We serve JSON data here, open and fresh
-* We help client applications help those affeceted by Hurricane Florence.
+* We help client applications help those affected by Hurricane Florence.
 
 ## Developer Quick Links
 
@@ -541,7 +541,7 @@ This means Postgres is not running OR there is a connection problem to the datab
 
 This system's software code is licensed under the GPLv3.
 
-Full license availabe in [LICENSE](LICENSE)
+Full license available in [LICENSE](LICENSE)
 
 ### Data and Content
 
