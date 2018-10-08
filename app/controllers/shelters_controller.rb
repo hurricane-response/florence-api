@@ -1,4 +1,5 @@
 class SheltersController < ApplicationController
+  before_action :authenticate_admin!, only: [:archive, :unarchive]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
   before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
@@ -6,6 +7,7 @@ class SheltersController < ApplicationController
   def index
     @shelters = Shelter.all
     @page = Page.shelters.first_or_initialize
+
     respond_to do |format|
       format.html
       format.csv { send_data @shelters.to_csv, filename: "shelters-#{Date.today}.csv" }
@@ -67,6 +69,7 @@ class SheltersController < ApplicationController
   def archived
     @shelters = Shelter.inactive.all
     @page = Page.shelters.first_or_initialize
+
     respond_to do |format|
       format.html
       format.csv { send_data @shelters.to_csv, filename: "archived-shelters-#{Date.today}.csv" }
@@ -74,21 +77,13 @@ class SheltersController < ApplicationController
   end
 
   def archive
-    if admin?
-      @shelter.update_attributes(active: false)
-      redirect_to shelters_path, notice: 'Archived!'
-    else
-      redirect_to shelters_path, notice: 'You must be an admin to archive.'
-    end
+    @shelter.update_attributes(active: false)
+    redirect_to shelters_path, notice: 'Archived!'
   end
 
   def unarchive
-    if admin?
-      @shelter.update_attributes(active: true)
-      redirect_to shelters_path, notice: 'Reactivated!'
-    else
-      redirect_to shelters_path, notice: 'You must be an admin to unarchive.'
-    end
+    @shelter.update_attributes(active: true)
+    redirect_to shelters_path, notice: 'Reactivated!'
   end
 
   def drafts
@@ -100,7 +95,7 @@ class SheltersController < ApplicationController
   end
 
   def outdated
-    @outdated = Shelter.outdated.order('updated_at DESC')
+    @shelters = Shelter.outdated.order('updated_at DESC')
     @columns = Shelter::OutdatedViewColumnNames - Shelter::IndexHiddenColumnNames
     @headers = @columns.map(&:titleize)
   end

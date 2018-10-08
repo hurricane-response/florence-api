@@ -1,3 +1,7 @@
 <h1>Amazon Products</h1>
 
-<%= render "shared/table", rows: @amazon_products, headers: @headers, columns: @columns, reverse_chron: false %>
+<%= render "shared/table", rows: @amazon_products,
+                           headers: @headers,
+                           columns: @columns,
+                           commands: table_command_list,
+                           reverse_chron: false %>

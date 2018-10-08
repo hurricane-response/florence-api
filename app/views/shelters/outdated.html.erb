@@ -1,3 +1,7 @@
 <h1>Shelters Needing Updates</h2>
 
-<%= render "shared/table", rows: @outdated, columns: @columns, headers: @headers, reverse_chron: true %>
+<%= render 'shared/table', rows: @shelters,
+                           headers: @headers,
+                           columns: @columns,
+                           commands: table_command_list(:archive),
+                           reverse_chron: true %>

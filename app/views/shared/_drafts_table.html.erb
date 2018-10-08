@@ -15,13 +15,13 @@
       <tr>
         <td>
             <% if user_signed_in? && current_user.admin? && row.accepted_by_id.nil? && row.denied_by_id.nil? %>
-              <%= link_to 'Accept', [:accept, row], {class: "button", method: :post} %>
-              <%= link_to 'Deny', row, {class: "button button-outline", method: :delete} %>
+              <%= link_to 'Accept', [:accept, row], {class: 'button', method: :post} %>
+              <%= link_to 'Deny', row, {class: 'button button-outline', method: :delete} %>
             <% end %>
           </td>
 
         <td>
-          <% if  row.created_by %>
+          <% if row.created_by %>
             <%=row.created_by.email%>
           <%end%>
         </td>

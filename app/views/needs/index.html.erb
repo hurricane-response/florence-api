@@ -26,4 +26,8 @@
 
 <%= link_to 'Add New Need', new_need_path, class: "button button-outline" %>
 
-<%= render "shared/table", rows: @needs, headers: @headers, columns: @columns, reverse_chron: false %>
+<%= render "shared/table", rows: @needs,
+                           headers: @headers,
+                           columns: @columns,
+                           commands: table_command_list(:archive),
+                           reverse_chron: false %>

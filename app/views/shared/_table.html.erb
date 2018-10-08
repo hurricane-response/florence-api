@@ -11,7 +11,11 @@
   <tbody>
     <% rows.each do |row| %>
       <tr>
-        <td><%= link_to 'Show', row %> / <%= link_to 'Update', [:edit, row] %></td>
+        <td>
+          <%= commands.map do |cmd| %>
+            <% link_to cmd[:label], cmd[:path].call(row), **cmd.fetch(:args, {}) %>
+          <% end.join('<br/>').html_safe %>
+        </td>
         <% columns.each do |column| %>
           <% value = row.send(column) %>
           <% if value.acts_like?(:time) %>
