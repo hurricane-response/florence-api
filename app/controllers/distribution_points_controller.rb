@@ -1,4 +1,5 @@
 class DistributionPointsController < ApplicationController
+  before_action :authenticate_admin!, only: [:archive, :unarchive]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
   before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
@@ -6,6 +7,7 @@ class DistributionPointsController < ApplicationController
   def index
     @distribution_points = DistributionPoint.all
     @page = Page.distribution_points.first_or_initialize
+
     respond_to do |format|
       format.html
       format.csv { send_data @distribution_points.to_csv, filename: "distribution_points-#{Date.today}.csv" }
@@ -64,31 +66,24 @@ class DistributionPointsController < ApplicationController
   def destroy
   end
 
-  def archive
-    if admin?
-      @distribution_point.update_attributes(archived: true)
-      redirect_to distribution_points_path, notice: 'Archived!'
-    else
-      redirect_to distribution_points_path, notice: 'You must be an admin to archive.'
-    end
-  end
-
-  def unarchive
-    if admin?
-      @distribution_point.update_attributes(archived: false)
-      redirect_to distribution_points_path, notice: 'Unarchived!'
-    else
-      redirect_to distribution_points_path, notice: 'You must be an admin to unarchive.'
-    end
-  end
-
   def archived
     @distribution_points = DistributionPoint.archived.all
     @page = Page.distribution_points.first_or_initialize
+
     respond_to do |format|
       format.html
       format.csv { send_data @distribution_points.to_csv, filename: "archived-distribution_points-#{Date.today}.csv" }
     end
+  end
+
+  def archive
+    @distribution_point.update_attributes(archived: true)
+    redirect_to distribution_points_path, notice: 'Archived!'
+  end
+
+  def unarchive
+    @distribution_point.update_attributes(archived: false)
+    redirect_to distribution_points_path, notice: 'Unarchived!'
   end
 
   def drafts

@@ -1,4 +1,5 @@
 class NeedsController < ApplicationController
+  before_action :authenticate_admin!, only: [:archive]
   before_action :set_headers
   before_action :set_need, only: [:show, :edit, :update, :destroy, :archive]
 
@@ -11,8 +12,7 @@ class NeedsController < ApplicationController
   end
 
   def create
-
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       @need = Need.new(need_update_params)
 
       if @need.save
@@ -40,19 +40,15 @@ class NeedsController < ApplicationController
   end
 
   def archive
-    if(user_signed_in? && current_user.admin?)
-      @need.update_attributes(active: false)
-      redirect_to needs_path, notice: "Archived!"
-    else
-      redirect_to needs_path, notice: "You must be an admin to archive."      
-    end
+    @need.update_attributes(active: false)
+    redirect_to needs_path, notice: 'Archived!'
   end
 
   def edit
   end
 
   def update
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       if @need.update(need_update_params)
         redirect_to @need, notice: 'Need was successfully updated.'
       else
