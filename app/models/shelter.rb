@@ -30,7 +30,7 @@ class Shelter < ApplicationRecord
   UpdateFields = %w[
     accepting address address_name city county state zip notes allow_pets pets phone
     shelter source supply_needs updated_by volunteer_needs distribution_center
-    food_pantry latitude longitude google_place_id accessibility unofficial
+    food_pantry latitude longitude google_place_id special_needs accessibility unofficial
   ].freeze
 
   PrivateFields = %w[
