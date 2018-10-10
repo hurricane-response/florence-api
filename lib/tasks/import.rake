@@ -8,6 +8,11 @@ namespace :api do
       puts "Not running api:import because it's not development mode. Mode: #{Rails.env}"
     end
   end
+
+  desc "Schedule an import from FEMA"
+  task :fema => :environment do
+    ImportFemaSheltersJob.perform_now
+  end
 end
 
 namespace :amazon do
