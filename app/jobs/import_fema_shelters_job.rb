@@ -20,14 +20,18 @@ private
   def duplicate?(data)
     # This is a very naive deduplication effort, yes it does
     # an unindexed scan of the database against several columns of text
-    c1 = Shelter.unscope(:where).where(shelter: data[:shelter],
-                                     city: data[:city],
-                                     state: data[:state],
-                                     zip: data[:zip]).count
-    c2 = Shelter.unscope(:where).where(address: data[:address]).count
-    c3 = Shelter.unscope(:where).where(source: data[:source]).count
+    #
+    # TODO: Use Arel for the where named functions
 
-    if c1 > 0 || c2 > 0 || c3 > 0
+    arel = Shelter.arel_table
+    cnt = Shelter.unscope(:where).where(
+          'LOWER(TRIM(shelter)) = ? AND LOWER(TRIM(city)) = ? AND LOWER(TRIM(state)) = ? AND LOWER(TRIM(zip)) = ?',
+          data[:shelter].strip.downcase, data[:city].strip.downcase, data[:state].strip.downcase, data[:zip].strip.downcase
+        ).count
+    cnt += Shelter.unscope(:where).where('LOWER(TRIM(address)) = ?', data[:address].strip.downcase).count
+    cnt += Shelter.unscope(:where).where('LOWER(TRIM(source)) = ?', data[:source].strip.downcase).count
+
+    if cnt > 0
       logger.info "Duplicate: #{data[:shelter]} @ #{data[:address]}"
       true
     else
