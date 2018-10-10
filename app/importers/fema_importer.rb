@@ -23,7 +23,6 @@ class FemaImporter
       data = {
         longitude: f['geometry']['coordinates'][0],
         latitude: f['geometry']['coordinates'][1],
-        source: "FEMA GeoServer, Shelter ID: #{props['SHELTER_ID']}, Org ID: #{props['ORG_ID']}, #{props['ORG_NAME']}",
         shelter: props['SHELTER_NAME'],
         address: "#{props['ADDRESS']}, #{props['CITY']}, #{props['STATE']} #{props['ZIP']}",
         city: props['CITY'],
@@ -32,11 +31,16 @@ class FemaImporter
         active: props['SHELTER_STATUS'] == 'OPEN' ? :yes : :no
       } 
 
-      data['notes'] = <<~NOTE
+      data[:source] = 'FEMA GeoServer'
+      data[:source] << ", Shelter ID: #{props['SHELTER_ID']}" unless props['SHELTER_ID'].blank?
+      data[:source] << ", Org ID: #{props['ORG_ID']}" unless props['ORG_ID'].blank?
+      data[:source] << ", #{props['ORG_NAME']}" unless props['ORG_NAME'].blank?
+
+      data[:notes] = <<~NOTE
         Capacity: #{props['TOTAL_POPULATION']} / #{props['EVACUATION_CAPACITY']} (#{props['POST_IMPACT_CAPACITY']})
       NOTE
-      if props['HOURS_OPEN'] || props['HOURS_CLOSE']
-        data['notes'] << "\nHours: #{props['HOURS_OPEN']} to #{ props['HOURS_CLOSE']}"
+      unless props['HOURS_OPEN'].blank? && props['HOURS_CLOSE'].blank?
+        data[:notes] << "\nHours: #{props['HOURS_OPEN']} to #{ props['HOURS_CLOSE']}"
       end
       data
     end
