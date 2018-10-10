@@ -54,11 +54,11 @@ class FemaImporter
       data[:source] << ", Org ID: #{props['ORG_ID']}" unless props['ORG_ID'].blank?
       data[:source] << ", #{props['ORG_NAME']}" unless props['ORG_NAME'].blank?
 
-      data[:notes] = <<~NOTE
+      data[:private_notes] = <<~NOTE
         Capacity: #{props['TOTAL_POPULATION']} / #{props['EVACUATION_CAPACITY']} (#{props['POST_IMPACT_CAPACITY']})
       NOTE
       unless props['HOURS_OPEN'].blank? && props['HOURS_CLOSE'].blank?
-        data[:notes] << "\nHours: #{props['HOURS_OPEN']} to #{ props['HOURS_CLOSE']}"
+        data[:notes] = "\nHours: #{props['HOURS_OPEN']} to #{props['HOURS_CLOSE']}"
       end
 
       data
