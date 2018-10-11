@@ -24,12 +24,11 @@ module Geocodable
     reverse_geocoded_by(:latitude, :longitude) do |obj, result|
       geo = result.first
       if geo
-        county = geo.data['address_components'].find { |el| el['types'].include?('administrative_area_level_2') }
-        obj.county = county.fetch('long_name', '') unless obj.county.nil?
-        obj.address = geo.data['formatted_address']
+        obj.county = geo.sub_state if obj.county.blank?
         obj.city = geo.city if obj.city.blank?
         obj.state = geo.state if obj.state.blank?
         obj.zip = geo.postal_code if obj.zip.blank?
+        obj.address = geo.address
       end
       obj
     end

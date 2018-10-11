@@ -57,3 +57,26 @@ inactive:
   source: "https://t.co/REjWR4UR7Q"
   address_name: "Lone Star College North Harris 2700 W W Thorne Dr Houston TX"
   active: false
+
+incomplete1:
+  address: "155 9th Street, San Francisco, CA, 94103"
+  shelter: "Code for Amerca HQ"
+  accepting: "no"
+  active: true
+  updated_by: "Doostee"
+  notes: "This is not actually a shelter.  This is just a test."
+  longitude: -122.4136007
+  latitude: 37.7756917
+  source: "https://www.codeforamerica.org/contact-us"
+
+incomplete2:
+  address: "1101 Arch St, Philadelphia, PA 19107"
+  shelter: "Pennsylvania Convention Center"
+  county: "Philadelphia"
+  accepting: "no"
+  active: true
+  updated_by: "Doostee"
+  notes: "This is not actually a shelter.  This is just a test."
+  longitude: -122.4136007
+  latitude: 37.7756917
+  source: "https://www.codeforamerica.org/contact-us"

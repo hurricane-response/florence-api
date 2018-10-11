@@ -1,0 +1,91 @@
+{
+  "address_components": [
+    {
+      "long_name": "149",
+      "short_name": "149",
+      "types": [
+        "street_number"
+      ]
+    },
+    {
+      "long_name": "9th Street",
+      "short_name": "9th St",
+      "types": [
+        "route"
+      ]
+    },
+    {
+      "long_name": "South of Market",
+      "short_name": "South of Market",
+      "types": [
+        "neighborhood",
+        "political"
+      ]
+    },
+    {
+      "long_name": "San Francisco",
+      "short_name": "SF",
+      "types": [
+        "locality",
+        "political"
+      ]
+    },
+    {
+      "long_name": "San Francisco County",
+      "short_name": "San Francisco County",
+      "types": [
+        "administrative_area_level_2",
+        "political"
+      ]
+    },
+    {
+      "long_name": "California",
+      "short_name": "CA",
+      "types": [
+        "administrative_area_level_1",
+        "political"
+      ]
+    },
+    {
+      "long_name": "United States",
+      "short_name": "US",
+      "types": [
+        "country",
+        "political"
+      ]
+    },
+    {
+      "long_name": "94103",
+      "short_name": "94103",
+      "types": [
+        "postal_code"
+      ]
+    }
+  ],
+  "formatted_address": "149 9th St, San Francisco, CA 94103, USA",
+  "geometry": {
+    "location": {
+      "lat": 37.7756906,
+      "lng": -122.4136764
+    },
+    "location_type": "ROOFTOP",
+    "viewport": {
+      "northeast": {
+        "lat": 37.77703958029149,
+        "lng": -122.4123274197085
+      },
+      "southwest": {
+        "lat": 37.7743416197085,
+        "lng": -122.4150253802915
+      }
+    }
+  },
+  "place_id": "ChIJgUEnJZ2AhYARdWgDnqcm4xM",
+  "plus_code": {
+    "compound_code": "QHGP+7G South of Market, San Francisco, CA, United States",
+    "global_code": "849VQHGP+7G"
+  },
+  "types": [
+    "street_address"
+  ]
+}
