@@ -60,6 +60,6 @@ module Geocodable
   end
 
   def schedule_reverse_geocode
-    RecodeGeocodingJob.perform_later('Shelter', self.id) if reverse_geocode_needed?
+    RecodeGeocodingJob.perform_later(self.class.name, self.id) if reverse_geocode_needed?
   end
 end
