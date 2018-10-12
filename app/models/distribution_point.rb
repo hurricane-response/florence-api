@@ -1,4 +1,6 @@
 class DistributionPoint < ApplicationRecord
+  include Geocodable
+
   default_scope { where(archived: false) }
 
   ColumnNames = %w[
@@ -41,8 +43,6 @@ class DistributionPoint < ApplicationRecord
 
   scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
   scope :archived, -> { unscope(:where).where(archived: true) }
-
-  geocoded_by :address
 
   def self.to_csv
     attributes = %w[

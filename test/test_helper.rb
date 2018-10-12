@@ -15,10 +15,12 @@ class ActiveSupport::TestCase
         'latitude'     => 29.7496888,
         'longitude'    => -95.45794269999999,
         'address'      => '4800 Hallmark Dr, Houston, TX 77056, USA',
+        'city'         => 'Houston',
         'state'        => 'Texas',
         'state_code'   => 'TX',
         'country'      => 'United States',
-        'country_code' => 'US'
+        'country_code' => 'US',
+        'sub_state'    => 'Harris County'
       }
     ]
   )
