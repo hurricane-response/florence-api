@@ -10,7 +10,7 @@ addons:
     packages:
     - google-chrome-stable
 services:
-  - redis-server
+- redis-server
 before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 - cp config/database.yml.travis config/database.yml
@@ -24,17 +24,18 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 script:
- - RAILS_ENV=test bundle exec rails db:migrate --trace
- - bundle exec rails db:test:prepare
- - bundle exec rails test
- - bundle exec rails test:system
+- RAILS_ENV=test bundle exec rails db:migrate --trace
+- bundle exec rails db:test:prepare
+- bundle exec rails test
+- bundle exec rails test:system
 deploy:
+  matrix:
   - provider: heroku
-    api_key:
-      secure: jheoABY2Yhe+eP4DB87h877u4cSc02Rf09PhmRxNroQQHv3XkToVgxXo33TEEuCoucDfhSepOeky4QozarJ7hSHCn1ssPb8jo3klicxPrB90t8SBPHB7evqfcaXAGYZBIPcvoGXzqQ0Brv/IvSP2eK81KUFAA8CAE9jUI4HXJkqRWnL2SC51yytxhnTBruOlTA3Z/90vgj9q6y3Y+xZCP3DrBDoBlvdaeyOXt54X+vcj+ZKepiMTdOuSEkC8dxuLiru7yMWZPANvvP/B/MLnh6XdG/EggRujR/uKvfrRKjKZjRt/TkMM7SarP+klGqOiaHV9KOct28E2Wbmoe03Qllk2NopqsanF4wemUWb8jCp4fLaf6e6KPnzA+Vfr3C8h1AyJYAXDXKx+jAa3pGDSSuDQmvO9lNtpLpxNbVwHSpBvdaY9MDta64oj+5eb2RR/UZZmB8JBuW2+2B22cf/OPU/Z915qWzshE3Fi0pTEgca4Tq37KqzyuYl8n4JnLxsUIWYVytWMMX8JtnvMYJdVLJEWrNidAD/BrZQGRhKUE8vnTMK7sFCzC2XInNpFXXDW0z2Keor8tb0Qk0y+PUyUlwy6YJgmITGkBHcRNWM0tYwO8+DS/duqvlSg0gMdxE6sa6mz9eVk1oP7KBJ/O4VdvJoRkdMiMKC9UvCceLqAT5A=
-    app: harvey-api
+    app: hurricane-florence-api
     on:
-      repo: sketch-city/harvey-api
+      tags: true 
     run:
-      - "rails db:migrate"
-      - "rake cleanup"
+    - rails db:migrate
+    - rake cleanup
+  api_key:
+    secure: hrf+0+plUYp1LH+yRFlDql2yi6qzUmPlIsRzUSPfkYKgiOoTTRqi5wKsGXHMBEZSoTmdPlkIwyNdv4tCIgegatlY8xB+++OOcyy1GQGEEk0Iqjji1EBh4IYdBXyK6QOiXbGXnll8GSua6DUlRN4om/L0oG1STaqHt1zbpnicawrRIrpzvytCVOdcIAfJlsq/S9zwL0cK7hQvx2dhSZO9O3Qx5MXiYJuAD4Ve1ggIao9HRUs9Ijsdu+AsEDPPOLMJ2ZliGeWm5VxaXh+gtB3QLObFIpa1j4gzOUbNSLZDefcSGKkcg5lAx7ZG+/aUFdeE0Zhu8UrJHg4zQzac4eZXducjQgxyDWAnG5leu/SShv64PG+f9z+YioUQTqyGXxMC5tFz9vTO+6iq1iriHorGf4AeW4+Kv9wJJ5lzvR3AfjmdyXHhC1mI2St/IL+4wlVd30t2pO3CypucF2sPWtBNr3jN18XTHQyob/vvwrHsXS+2a4buZUxFvooBpabpXxAgczUHyZATudE6MgWxhY+OTjGbOYXZFcA1lyqFpseNrexYrkhzTPpy3mmN3U/aKFb6pngFUCf1cxuJUihuCtEA4b36sABpWsUtMyFQF0azVAt9XRdz7D2KdFgo6l7G6J3vfo2JwJiKTGQFh69xWuKwQ2qnWktpEn8bZW8jnZADG9o=
