@@ -33,9 +33,12 @@ deploy:
   - provider: heroku
     app: hurricane-florence-api
     on:
-      tags: true 
+      tags: true
     run:
     - rails db:migrate
     - rake cleanup
   api_key:
     secure: hrf+0+plUYp1LH+yRFlDql2yi6qzUmPlIsRzUSPfkYKgiOoTTRqi5wKsGXHMBEZSoTmdPlkIwyNdv4tCIgegatlY8xB+++OOcyy1GQGEEk0Iqjji1EBh4IYdBXyK6QOiXbGXnll8GSua6DUlRN4om/L0oG1STaqHt1zbpnicawrRIrpzvytCVOdcIAfJlsq/S9zwL0cK7hQvx2dhSZO9O3Qx5MXiYJuAD4Ve1ggIao9HRUs9Ijsdu+AsEDPPOLMJ2ZliGeWm5VxaXh+gtB3QLObFIpa1j4gzOUbNSLZDefcSGKkcg5lAx7ZG+/aUFdeE0Zhu8UrJHg4zQzac4eZXducjQgxyDWAnG5leu/SShv64PG+f9z+YioUQTqyGXxMC5tFz9vTO+6iq1iriHorGf4AeW4+Kv9wJJ5lzvR3AfjmdyXHhC1mI2St/IL+4wlVd30t2pO3CypucF2sPWtBNr3jN18XTHQyob/vvwrHsXS+2a4buZUxFvooBpabpXxAgczUHyZATudE6MgWxhY+OTjGbOYXZFcA1lyqFpseNrexYrkhzTPpy3mmN3U/aKFb6pngFUCf1cxuJUihuCtEA4b36sABpWsUtMyFQF0azVAt9XRdz7D2KdFgo6l7G6J3vfo2JwJiKTGQFh69xWuKwQ2qnWktpEn8bZW8jnZADG9o=
+notifications:
+  slack:
+    secure: n0v3/iVdKCoEKEe2w/tho42BTHTpf7Z2lpcpJqy+s6igrydmwrCIgZjx/LIeFuJfFWCZqpubIpSzGHPPNQiL3codSyxI7eVev27HpLE69bEJyHHX7eKS6838xRxdD+GlynhRT4UR9UGFsC5SP8JHgLqC48vy3w9x0F+hK2MWptguRnx7TeXTIPtU+dI8lTnjdeyvJKIS41T2ywHZ/BfbwMsAI76/NpaBvIeDe+Hk2efeE6IOgRMTqHbmbgvxDf00c6EP/QCqUthSL0OmAjcOEjRBAHHeXsn7e7lbDMhsTJmU+K+M8iUxZILzUt2EgnG5dng4xjWWeb4alb+PdIfkn3cPk0M4CMeXhXp7pWEKWr3C6aQDTQ7XiTdeapDkdEaNB2F6/Nh9gNEKtMGdfZnioq6+SqffoMNy0ieVEFp4nm36mODzAVB6QD+eW6+qnFrO+uUE587VI2yUPYW/r/+5kr6PEY1J5HL7Lq0AJY6Yi3aIvad7NQ259xFr8kx+3K0bGORBlEpu1zMWozzm1K8ImDcMtChyrSQJpgEAjsyOeqWbtznciyb/8/ZihVIbKd7tNsPoGHfedCFJjgorTcmc+HIt02J5TA91eq8zym9O89/K1toI+esy1VUA7Rgy8zh6aoKI4BG7zgUrX8Jxp1jmSVGgsy3RSKlBV7RGvyBNpys=
