@@ -9,6 +9,7 @@
 * [GETTING STARTED](#getting-started)
 * [LICENSE](#license)
 * [CODE OF CONDUCT](CODE_OF_CONDUCT.md)
+* [CHANGELOG](CHANGELOG.md)
 
 ## API Specification
 
