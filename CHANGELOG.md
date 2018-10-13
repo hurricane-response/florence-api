@@ -1,8 +1,7 @@
 # Change Log
 
-## [Unreleased](https://github.com/hurricane-response/florence-api/tree/HEAD)
-
-[Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.0...HEAD)
+## [2.6.1](https://github.com/hurricane-response/florence-api/tree/2.6.1) (2018-10-13)
+[Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.0...2.6.1)
 
 **Closed issues:**
 

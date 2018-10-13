@@ -33,6 +33,7 @@ deploy:
   - provider: heroku
     app: hurricane-florence-api
     on:
+      repo: hurricane-response/florence-api
       tags: true
     run:
     - rails db:migrate
