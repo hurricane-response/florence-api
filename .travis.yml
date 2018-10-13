@@ -33,8 +33,9 @@ deploy:
     app: hurricane-florence-api
     on:
       repo: hurricane-response/florence-api
-      all_branches: true
-      tags: true
+      condition:
+        all_branches: true
+        tags: true
     run:
     - rails db:migrate
     - rake cleanup
