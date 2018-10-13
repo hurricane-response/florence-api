@@ -29,11 +29,11 @@ script:
 - bundle exec rails test
 - bundle exec rails test:system
 deploy:
-  matrix:
   - provider: heroku
     app: hurricane-florence-api
     on:
       repo: hurricane-response/florence-api
+      all_branches: true
       tags: true
     run:
     - rails db:migrate
