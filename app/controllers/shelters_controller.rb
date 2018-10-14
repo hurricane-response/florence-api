@@ -102,7 +102,7 @@ class SheltersController < ApplicationController
   end
 
   def mark_current
-    @shelter.update_columns(updated_at: Time.now);
+    @shelter.update_columns(updated_at: Time.now)
     redirect_to outdated_shelters_path
   end
 

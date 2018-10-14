@@ -23,6 +23,7 @@
           <%= f.radio_button :accepting, :no %><%= f.label :accepting_no, "No" %>
           <%= f.radio_button :accepting, :unknown %><%= f.label :accepting_unknown, "Unknown" %>
         </div>
+        <label><%= f.check_box :active %> Active (not archived)</label>
         <label><%= f.check_box :unofficial %> Unofficial (not county-run/FEMA approved)</label>
         <%= f.label :google_place, 'Where is it?' %>
         <%= f.text_field :google_place, :value => f.object.address, :class => 'place-autocomplete', :data => {

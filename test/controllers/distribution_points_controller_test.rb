@@ -131,6 +131,7 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
   test "viewers cannot mark current" do
     pod = distribution_points(:nrg)
     oldtimestamp = pod.updated_at
+    sleep 0.1
     post mark_current_distribution_point_path(pod)
     assert_response :redirect
     assert_redirected_to root_path
@@ -141,6 +142,7 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
   test "users can mark current" do
     pod = distribution_points(:nrg)
     oldtimestamp = pod.updated_at
+    sleep 0.1
     sign_in users(:guest)
     post mark_current_distribution_point_path(pod)
     assert_response :redirect
@@ -152,6 +154,7 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
   test "admins can mark current" do
     pod = distribution_points(:nrg)
     oldtimestamp = pod.updated_at
+    sleep 0.1
     sign_in users(:admin)
     post mark_current_distribution_point_path(pod)
     assert_response :redirect

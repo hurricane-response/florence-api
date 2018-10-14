@@ -102,7 +102,7 @@ class DistributionPointsController < ApplicationController
   end
 
   def mark_current
-    @distribution_point.update_columns(updated_at: Time.now);
+    @distribution_point.update_columns(updated_at: Time.now)
     redirect_to outdated_distribution_points_path
   end
 
