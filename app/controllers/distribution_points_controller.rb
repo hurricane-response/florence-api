@@ -83,7 +83,7 @@ class DistributionPointsController < ApplicationController
 
   def unarchive
     @distribution_point.update_attributes(archived: false)
-    redirect_to distribution_points_path, notice: 'Unarchived!'
+    redirect_to archived_distribution_points_path, notice: 'Unarchived!'
   end
 
   def drafts

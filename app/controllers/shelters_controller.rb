@@ -83,7 +83,7 @@ class SheltersController < ApplicationController
 
   def unarchive
     @shelter.update_attributes(active: true)
-    redirect_to shelters_path, notice: 'Reactivated!'
+    redirect_to archived_shelters_path, notice: 'Reactivated!'
   end
 
   def drafts
