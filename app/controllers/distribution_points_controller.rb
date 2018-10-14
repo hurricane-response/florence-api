@@ -1,8 +1,9 @@
 class DistributionPointsController < ApplicationController
   before_action :authenticate_admin!, only: [:archive, :unarchive]
+  before_action :authenticate_user!, only: [:mark_current]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
-  before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
+  before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :mark_current]
 
   def index
     @distribution_points = DistributionPoint.all
@@ -98,6 +99,11 @@ class DistributionPointsController < ApplicationController
     @distribution_points = DistributionPoint.outdated.order('updated_at DESC')
     @columns = DistributionPoint::OutdatedViewColumnNames - DistributionPoint::IndexHiddenColumnNames
     @headers = @columns.map(&:titleize)
+  end
+
+  def mark_current
+    @distribution_point.update_columns(updated_at: Time.now);
+    redirect_to outdated_distribution_points_path
   end
 
 private

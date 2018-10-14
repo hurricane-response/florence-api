@@ -20,6 +20,11 @@
                   class: 'button button-clear' %>
   <% end %>
 <% end %>
+<% if user_signed_in? && @distribution_point.outdated? %> |
+  <%= link_to 'Mark Current', mark_current_distribution_point_path(@distribution_point),
+                method: :post,
+                class: 'button button-clear' %>
+<% end %>
 
 <div class="row">
   <div class="column">

@@ -19,6 +19,11 @@
                   class: 'button button-clear' %>
   <% end %>
 <% end %>
+<% if user_signed_in? && @shelter.outdated? %> |
+  <%= link_to 'Mark Current', mark_current_shelter_path(@shelter),
+                method: :post,
+                class: 'button button-clear' %>
+<% end %>
 
 <div class="row">
   <div class="column">

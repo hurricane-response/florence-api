@@ -123,4 +123,36 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     get drafts_shelters_path
     assert_response :success
   end
+
+  test "viewers cannot mark current" do
+    shelter = shelters(:nrg)
+    oldtimestamp = shelter.updated_at
+    post mark_current_shelter_path(shelter)
+    assert_response :redirect
+    assert_redirected_to root_path
+    shelter.reload
+    assert_equal oldtimestamp, shelter.updated_at
+  end
+
+  test "users can mark current" do
+    shelter = shelters(:nrg)
+    oldtimestamp = shelter.updated_at
+    sign_in users(:guest)
+    post mark_current_shelter_path(shelter)
+    assert_response :redirect
+    assert_redirected_to outdated_shelters_path
+    shelter.reload
+    refute_equal oldtimestamp, shelter.updated_at
+  end
+
+  test "admins can mark current" do
+    shelter = shelters(:nrg)
+    oldtimestamp = shelter.updated_at
+    sign_in users(:admin)
+    post mark_current_shelter_path(shelter)
+    assert_response :redirect
+    assert_redirected_to outdated_shelters_path
+    shelter.reload
+    refute_equal oldtimestamp, shelter.updated_at
+  end
 end

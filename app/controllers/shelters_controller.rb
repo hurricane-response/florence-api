@@ -1,8 +1,9 @@
 class SheltersController < ApplicationController
   before_action :authenticate_admin!, only: [:archive, :unarchive]
+  before_action :authenticate_user!, only: [:mark_current]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
-  before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive, :unarchive]
+  before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :mark_current]
 
   def index
     @shelters = Shelter.all
@@ -98,6 +99,11 @@ class SheltersController < ApplicationController
     @shelters = Shelter.outdated.order('updated_at DESC')
     @columns = Shelter::OutdatedViewColumnNames - Shelter::IndexHiddenColumnNames
     @headers = @columns.map(&:titleize)
+  end
+
+  def mark_current
+    @shelter.update_columns(updated_at: Time.now);
+    redirect_to outdated_shelters_path
   end
 
 private
