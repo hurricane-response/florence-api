@@ -162,4 +162,31 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
     pod.reload
     refute_equal oldtimestamp, pod.updated_at
   end
+
+  test "guests may not delete" do
+    pod = distribution_points(:nrg)
+    sign_in users(:guest)
+    delete distribution_point_path(pod)
+    assert_response :redirect
+    assert_redirected_to root_path
+  end
+
+  test "admins can delete" do
+    pod = distribution_points(:nrg)
+    sign_in users(:admin)
+    delete distribution_point_path(pod)
+    assert_response :redirect
+    assert_redirected_to distribution_points_path
+  end
+
+  test "deleted items get moved to trash" do
+    pod = distribution_points(:nrg)
+    expected_pods = DistributionPoint.count - 1
+    expected_trash = Trash.count + 1
+    sign_in users(:admin)
+    delete distribution_point_path(pod)
+    assert_response :redirect
+    assert_equal expected_pods, DistributionPoint.count
+    assert_equal expected_trash, Trash.count
+  end
 end

@@ -158,4 +158,31 @@ class SheltersControllerTest < ActionDispatch::IntegrationTest
     shelter.reload
     refute_equal oldtimestamp, shelter.updated_at
   end
+
+  test "guests may not delete" do
+    shelter = shelters(:nrg)
+    sign_in users(:guest)
+    delete shelter_path(shelter)
+    assert_response :redirect
+    assert_redirected_to root_path
+  end
+
+  test "admins can delete" do
+    shelter = shelters(:nrg)
+    sign_in users(:admin)
+    delete shelter_path(shelter)
+    assert_response :redirect
+    assert_redirected_to shelters_path
+  end
+
+  test "deleted items get moved to trash" do
+    shelter = shelters(:nrg)
+    expected_shelters = Shelter.count - 1
+    expected_trash = Trash.count + 1
+    sign_in users(:admin)
+    delete shelter_path(shelter)
+    assert_response :redirect
+    assert_equal expected_shelters, Shelter.count
+    assert_equal expected_trash, Trash.count
+  end
 end

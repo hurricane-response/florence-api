@@ -10,7 +10,7 @@ module Geocodable
   #   latitude, longitude, address, city, state, zip, county
 
   included do
-    after_commit :schedule_reverse_geocode
+    after_commit :schedule_reverse_geocode, on: [:create, :update]
 
     scope :incomplete_geocoding, -> { where(<<~SQL
       county IS NULL OR TRIM(county) = '' OR

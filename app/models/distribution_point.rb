@@ -1,5 +1,6 @@
 class DistributionPoint < ApplicationRecord
   include Geocodable
+  include Trashable
 
   default_scope { where(archived: false) }
 
@@ -37,7 +38,7 @@ class DistributionPoint < ApplicationRecord
 
   has_many :drafts, as: :record
 
-  after_commit do
+  after_commit on: [:create, :update] do
     DistributionPointUpdateNotifierJob.perform_later self
   end
 
