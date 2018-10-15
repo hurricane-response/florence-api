@@ -11,7 +11,7 @@
   <tbody>
     <% rows.each do |row| %>
       <tr>
-        <td>
+        <td class="controlsColumn">
           <%= commands.map do |cmd| %>
             <% link_to cmd[:label], cmd[:path].call(row), **cmd.fetch(:args, {}) %>
           <% end.join('<br/>').html_safe %>

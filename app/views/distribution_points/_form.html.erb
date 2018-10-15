@@ -17,6 +17,7 @@
       <div class="column">
         <%= f.button :submit %>
 
+        <label><%= f.check_box :archived %> Archived</label>
         <label><%= f.check_box :active %> Active</label>
         <%= f.label :google_place, 'Where is it?' %>
         <%= f.text_field :google_place, :value => f.object.address, :class => 'place-autocomplete', :data => {

@@ -1,7 +1,18 @@
 <h1>Distribution Points Needing Updates</h1>
 
+<%
+extra_commands = []
+if user_signed_in?
+  extra_commands += [
+    {
+      label: 'Mark Current', path: ->(record) { [:mark_current, record] },
+      args: { method: :post, class: 'button button-clear' }
+    }
+  ]
+end
+%>
 <%= render "shared/table", rows: @distribution_points,
                            headers: @headers,
                            columns: @columns,
-                           commands: table_command_list(:archive),
+                           commands: table_command_list(:archive, extra_commands),
                            reverse_chron: true %>

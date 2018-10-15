@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     get :drafts, on: :collection
     get :outdated, on: :collection
 
+    post :mark_current, on: :member
+
     # archived distribution points
     get :archived, on: :collection
     post :archive, on: :member
@@ -22,6 +24,8 @@ Rails.application.routes.draw do
   resources :shelters do
     get :drafts, on: :collection
     get :outdated, on: :collection
+
+    post :mark_current, on: :member
 
     # archived shelters
     get :archived, on: :collection

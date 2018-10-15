@@ -20,4 +20,10 @@ class ApplicationController < ActionController::Base
       redirect_to request.referrer || root_path, notice: "Admins Only! :|"
     end
   end
+
+  def authenticate_user!
+    if !user_signed_in?
+      redirect_to request.referrer || root_path, notice: "Please sign up or sign in!  Thanks!"
+    end
+  end
 end
