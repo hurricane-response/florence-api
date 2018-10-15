@@ -1,42 +1,40 @@
 language: ruby
 cache: bundler
 rvm:
-- 2.4.1
+  - 2.4.1
 addons:
   postgresql: '9.6'
   sources:
-  - google-chrome
+    - google-chrome
   apt:
     packages:
-    - google-chrome-stable
+      - google-chrome-stable
 services:
-- redis-server
+  - redis-server
 before_script:
-- psql -c 'create database travis_ci_test;' -U postgres
-- cp config/database.yml.travis config/database.yml
-- wget http://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
-- unzip chromedriver_linux64.zip
-- sudo apt-get install libnss3
-- sudo apt-get --only-upgrade install google-chrome-stable
-- sudo cp chromedriver /usr/local/bin/.
-- sudo chmod +x /usr/local/bin/chromedriver
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- sleep 3
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+  - wget http://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - sudo apt-get install libnss3
+  - sudo apt-get --only-upgrade install google-chrome-stable
+  - sudo cp chromedriver /usr/local/bin/.
+  - sudo chmod +x /usr/local/bin/chromedriver
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
 script:
-- RAILS_ENV=test bundle exec rails db:migrate --trace
-- bundle exec rails db:test:prepare
-- bundle exec rails test
-- bundle exec rails test:system
+  - RAILS_ENV=test bundle exec rails db:migrate --trace
+  - bundle exec rails db:test:prepare
+  - bundle exec rails test
+  - bundle exec rails test:system
 deploy:
-  - provider: heroku
-    app: hurricane-florence-api
-    on:
-      repo: hurricane-response/florence-api
-      condition:
-        all_branches: true
-        tags: true
-    run:
+  provider: heroku
+  app: hurricane-florence-api
+  on:
+    repo: hurricane-response/florence-api
+    tags: true
+  run:
     - rails db:migrate
     - rake cleanup
   api_key:
