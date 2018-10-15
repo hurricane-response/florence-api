@@ -522,6 +522,41 @@ ALTER SEQUENCE public.shelters_id_seq OWNED BY public.shelters.id;
 
 
 --
+-- Name: trashes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.trashes (
+    id bigint NOT NULL,
+    trashable_type character varying NOT NULL,
+    trashable_id bigint NOT NULL,
+    data jsonb,
+    user_id bigint,
+    reason text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: trashes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.trashes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: trashes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.trashes_id_seq OWNED BY public.trashes.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -680,6 +715,13 @@ ALTER TABLE ONLY public.shelters ALTER COLUMN id SET DEFAULT nextval('public.she
 
 
 --
+-- Name: trashes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.trashes ALTER COLUMN id SET DEFAULT nextval('public.trashes_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -798,6 +840,14 @@ ALTER TABLE ONLY public.shelters
 
 
 --
+-- Name: trashes trashes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.trashes
+    ADD CONSTRAINT trashes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -863,6 +913,20 @@ CREATE INDEX index_drafts_on_record_type_and_record_id ON public.drafts USING bt
 
 
 --
+-- Name: index_trashes_on_trashable_type_and_trashable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_trashes_on_trashable_type_and_trashable_id ON public.trashes USING btree (trashable_type, trashable_id);
+
+
+--
+-- Name: index_trashes_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_trashes_on_user_id ON public.trashes USING btree (user_id);
+
+
+--
 -- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -897,6 +961,14 @@ ALTER TABLE ONLY public.drafts
 
 ALTER TABLE ONLY public.drafts
     ADD CONSTRAINT fk_rails_687f4d113b FOREIGN KEY (denied_by_id) REFERENCES public.users(id);
+
+
+--
+-- Name: trashes fk_rails_7d97d072f5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.trashes
+    ADD CONSTRAINT fk_rails_7d97d072f5 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -940,6 +1012,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170910045633'),
 ('20180914132709'),
 ('20180915035427'),
-('20180919043949');
+('20180919043949'),
+('20181013222410');
 
 

@@ -1,5 +1,6 @@
 class Shelter < ApplicationRecord
   include Geocodable
+  include Trashable
 
   default_scope { where(active: true) }
 
@@ -55,7 +56,7 @@ class Shelter < ApplicationRecord
 
   has_many :drafts, as: :record
 
-  after_commit do
+  after_commit on: [:create, :update] do
     ShelterUpdateNotifierJob.perform_later self
   end
 

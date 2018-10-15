@@ -1,5 +1,5 @@
 class DistributionPointsController < ApplicationController
-  before_action :authenticate_admin!, only: [:archive, :unarchive]
+  before_action :authenticate_admin!, only: [:archive, :unarchive, :destroy]
   before_action :authenticate_user!, only: [:mark_current]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
@@ -65,6 +65,11 @@ class DistributionPointsController < ApplicationController
   end
 
   def destroy
+    if @distribution_point.trash!(current_user, params[:reason])
+      redirect_to distribution_points_path, notice: "'#{@distribution_point.facility_name}' has been moved to the trash."
+    else
+      redirect_to @distribution_point, notice: "Something went wrong, '#{@distribution_point.facility_name}' has not been trashed."
+    end
   end
 
   def archived

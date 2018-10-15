@@ -18,7 +18,11 @@
                   method: :post,
                   data: { confirm: 'Are you sure?' },
                   class: 'button button-clear' %>
-  <% end %>
+  <% end %> |
+  <%= link_to 'Delete', @distribution_point,
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button button-clear' %>
 <% end %>
 <% if user_signed_in? && @distribution_point.outdated? %> |
   <%= link_to 'Mark Current', mark_current_distribution_point_path(@distribution_point),

@@ -17,7 +17,11 @@
                   method: :delete,
                   data: { confirm: 'Are you sure?' },
                   class: 'button button-clear' %>
-  <% end %>
+  <% end %> |
+  <%= link_to 'Delete', @shelter,
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button button-clear' %>
 <% end %>
 <% if user_signed_in? && @shelter.outdated? %> |
   <%= link_to 'Mark Current', mark_current_shelter_path(@shelter),

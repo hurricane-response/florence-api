@@ -1,5 +1,5 @@
 class SheltersController < ApplicationController
-  before_action :authenticate_admin!, only: [:archive, :unarchive]
+  before_action :authenticate_admin!, only: [:archive, :unarchive, :destroy]
   before_action :authenticate_user!, only: [:mark_current]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
@@ -65,6 +65,11 @@ class SheltersController < ApplicationController
   end
 
   def destroy
+    if @shelter.trash!(current_user, params[:reason])
+      redirect_to shelters_path, notice: "'#{@shelter.shelter}' has been moved to the trash."
+    else
+      redirect_to @shelter, notice: "Something went wrong, '#{@shelter.shelter}' has not been trashed."
+    end
   end
 
   def archived
