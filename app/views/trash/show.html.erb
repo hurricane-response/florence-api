@@ -1,0 +1,9 @@
+<% content_for :resource_command_list do %>
+  <%= link_to 'Restore', trash_path(@trash),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: 'button button-clear' %>
+<% end %>
+<%= render @resource, resource: @resource,
+                      headers: @headers,
+                      columns: @columns %>
