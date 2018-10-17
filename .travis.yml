@@ -28,9 +28,6 @@ script:
 - bundle exec rails db:test:prepare
 - bundle exec rails test
 - bundle exec rails test:system
-notifications:
-  slack:
-    secure: n0v3/iVdKCoEKEe2w/tho42BTHTpf7Z2lpcpJqy+s6igrydmwrCIgZjx/LIeFuJfFWCZqpubIpSzGHPPNQiL3codSyxI7eVev27HpLE69bEJyHHX7eKS6838xRxdD+GlynhRT4UR9UGFsC5SP8JHgLqC48vy3w9x0F+hK2MWptguRnx7TeXTIPtU+dI8lTnjdeyvJKIS41T2ywHZ/BfbwMsAI76/NpaBvIeDe+Hk2efeE6IOgRMTqHbmbgvxDf00c6EP/QCqUthSL0OmAjcOEjRBAHHeXsn7e7lbDMhsTJmU+K+M8iUxZILzUt2EgnG5dng4xjWWeb4alb+PdIfkn3cPk0M4CMeXhXp7pWEKWr3C6aQDTQ7XiTdeapDkdEaNB2F6/Nh9gNEKtMGdfZnioq6+SqffoMNy0ieVEFp4nm36mODzAVB6QD+eW6+qnFrO+uUE587VI2yUPYW/r/+5kr6PEY1J5HL7Lq0AJY6Yi3aIvad7NQ259xFr8kx+3K0bGORBlEpu1zMWozzm1K8ImDcMtChyrSQJpgEAjsyOeqWbtznciyb/8/ZihVIbKd7tNsPoGHfedCFJjgorTcmc+HIt02J5TA91eq8zym9O89/K1toI+esy1VUA7Rgy8zh6aoKI4BG7zgUrX8Jxp1jmSVGgsy3RSKlBV7RGvyBNpys=
 deploy:
   provider: heroku
   api_key:
@@ -40,5 +37,10 @@ deploy:
     repo: hurricane-response/florence-api
     tags: true
   run:
-    - rails db:migrate
-    - rake cleanup
+  - rails db:migrate
+  - rake cleanup
+  api_key:
+    secure: lyo4YTLZBJgMGn69Fp89AoCuAV4vpQovzhivCT/Uxoyz6KGVRdJ5D2/ZjPRGDLdV4BQ6l/Hbo+vBNHBe7DEELIPsT2QZ9yLy5QTocGSPV5gRtkhoLsBcJ8tJnhcH5Y+/cw59lE5VbM2A9iWG0kdlUbJ9SKyVR7ZOpcCsEpUi49t0E3SSggkj9XZ6k958wpufHcBs3zmQ+RqdKh6JSKKMrGTDBddGLFduoWRL9BQapHpeqzFlkxC9TFoMHRyb/sqxbvVQ8tcoreThAxcULvHM9hzE+H0hA+zFHZePjoNNIJ22Z+x7QUnQk0b7V5SAziog6gpRzUC1QhV2NF8Qwghf5GPBz7QhaiGKA+f+xLd/cCdGmIdpYTSSioCWn75u+Ju+VsLvE5I+Z3sRu04a1V7Z+229YLhcaC3uMjMt6KjIgIGoECq5SnwNn6iszqqr+9+V/8R+3RxmQ1g+RAzAIV4KBIBOE6wYjmAedZMG+yiYnPSjGV0Ryx5g0eEvDxFm/MV7zRLbMkw97jHapvYFdoujsX16ZsXNBSqOmoMmaQq2Nu/kI0J+Lc8gVPIKBGM1uSRRTtrqLFnw3h1DBwT/KF3rkswCH/udkeKpRolxEzXGdAVGj+9p91NHtDltiVZx7XC6URx6OpC9Abd5wpaX0y7HxvLzqW6jqoatKBME1ai/1dQ=
+notifications:
+  slack:
+    secure: n0v3/iVdKCoEKEe2w/tho42BTHTpf7Z2lpcpJqy+s6igrydmwrCIgZjx/LIeFuJfFWCZqpubIpSzGHPPNQiL3codSyxI7eVev27HpLE69bEJyHHX7eKS6838xRxdD+GlynhRT4UR9UGFsC5SP8JHgLqC48vy3w9x0F+hK2MWptguRnx7TeXTIPtU+dI8lTnjdeyvJKIS41T2ywHZ/BfbwMsAI76/NpaBvIeDe+Hk2efeE6IOgRMTqHbmbgvxDf00c6EP/QCqUthSL0OmAjcOEjRBAHHeXsn7e7lbDMhsTJmU+K+M8iUxZILzUt2EgnG5dng4xjWWeb4alb+PdIfkn3cPk0M4CMeXhXp7pWEKWr3C6aQDTQ7XiTdeapDkdEaNB2F6/Nh9gNEKtMGdfZnioq6+SqffoMNy0ieVEFp4nm36mODzAVB6QD+eW6+qnFrO+uUE587VI2yUPYW/r/+5kr6PEY1J5HL7Lq0AJY6Yi3aIvad7NQ259xFr8kx+3K0bGORBlEpu1zMWozzm1K8ImDcMtChyrSQJpgEAjsyOeqWbtznciyb/8/ZihVIbKd7tNsPoGHfedCFJjgorTcmc+HIt02J5TA91eq8zym9O89/K1toI+esy1VUA7Rgy8zh6aoKI4BG7zgUrX8Jxp1jmSVGgsy3RSKlBV7RGvyBNpys=
