@@ -28,17 +28,14 @@ script:
 - bundle exec rails db:test:prepare
 - bundle exec rails test
 - bundle exec rails test:system
-deploy:
-  provider: heroku
-  app: hurricane-florence-api
-  on:
-    repo: hurricane-response/florence-api
-    tags: true
-  run:
-  - rails db:migrate
-  - rake cleanup
-  api_key:
-    secure: lyo4YTLZBJgMGn69Fp89AoCuAV4vpQovzhivCT/Uxoyz6KGVRdJ5D2/ZjPRGDLdV4BQ6l/Hbo+vBNHBe7DEELIPsT2QZ9yLy5QTocGSPV5gRtkhoLsBcJ8tJnhcH5Y+/cw59lE5VbM2A9iWG0kdlUbJ9SKyVR7ZOpcCsEpUi49t0E3SSggkj9XZ6k958wpufHcBs3zmQ+RqdKh6JSKKMrGTDBddGLFduoWRL9BQapHpeqzFlkxC9TFoMHRyb/sqxbvVQ8tcoreThAxcULvHM9hzE+H0hA+zFHZePjoNNIJ22Z+x7QUnQk0b7V5SAziog6gpRzUC1QhV2NF8Qwghf5GPBz7QhaiGKA+f+xLd/cCdGmIdpYTSSioCWn75u+Ju+VsLvE5I+Z3sRu04a1V7Z+229YLhcaC3uMjMt6KjIgIGoECq5SnwNn6iszqqr+9+V/8R+3RxmQ1g+RAzAIV4KBIBOE6wYjmAedZMG+yiYnPSjGV0Ryx5g0eEvDxFm/MV7zRLbMkw97jHapvYFdoujsX16ZsXNBSqOmoMmaQq2Nu/kI0J+Lc8gVPIKBGM1uSRRTtrqLFnw3h1DBwT/KF3rkswCH/udkeKpRolxEzXGdAVGj+9p91NHtDltiVZx7XC6URx6OpC9Abd5wpaX0y7HxvLzqW6jqoatKBME1ai/1dQ=
 notifications:
   slack:
     secure: n0v3/iVdKCoEKEe2w/tho42BTHTpf7Z2lpcpJqy+s6igrydmwrCIgZjx/LIeFuJfFWCZqpubIpSzGHPPNQiL3codSyxI7eVev27HpLE69bEJyHHX7eKS6838xRxdD+GlynhRT4UR9UGFsC5SP8JHgLqC48vy3w9x0F+hK2MWptguRnx7TeXTIPtU+dI8lTnjdeyvJKIS41T2ywHZ/BfbwMsAI76/NpaBvIeDe+Hk2efeE6IOgRMTqHbmbgvxDf00c6EP/QCqUthSL0OmAjcOEjRBAHHeXsn7e7lbDMhsTJmU+K+M8iUxZILzUt2EgnG5dng4xjWWeb4alb+PdIfkn3cPk0M4CMeXhXp7pWEKWr3C6aQDTQ7XiTdeapDkdEaNB2F6/Nh9gNEKtMGdfZnioq6+SqffoMNy0ieVEFp4nm36mODzAVB6QD+eW6+qnFrO+uUE587VI2yUPYW/r/+5kr6PEY1J5HL7Lq0AJY6Yi3aIvad7NQ259xFr8kx+3K0bGORBlEpu1zMWozzm1K8ImDcMtChyrSQJpgEAjsyOeqWbtznciyb/8/ZihVIbKd7tNsPoGHfedCFJjgorTcmc+HIt02J5TA91eq8zym9O89/K1toI+esy1VUA7Rgy8zh6aoKI4BG7zgUrX8Jxp1jmSVGgsy3RSKlBV7RGvyBNpys=
+deploy:
+  provider: heroku
+  api_key:
+    secure: VyWHcd1os/MqSC38zcnVAoqhsH7qb5Dos7D/sgHekT8/Ppf6+WBR7XmrDeSzLa1MrX98liFHMPAQsLCjPc94+Kdt/iOKzlKStw5RbptptmKdk65VU/Br1LCL0yF/8eAc0isE3EgZ7lPvFUTbB03BgLWXsQ6tkutFJlRFmBR078eEboAhLsU2qOdEN6W+Jh1KT4qqz4dwWYrKgCgj1laeGB8YlK9XSeXz8EHX8/Dlw5VleHBT3RWk7pkyc9UTRDXdWFzy8shbfku2DRxmrHG3lArQa02hWvEKUJnsS0ay4cS1Y9pPOQ4nEVFumcz1iSFNgg2V1dJkLbuLDiVywiPnsug0aQozgAJPQiKwd9F7oa9O2D9Cl7wyB8m3Uxb8g/NNKVT5mZ65VMPAXnHuVh9xqWIAqzI6bds98HMh0kheGFlUb/hUVmGD2/Cf2pi12wykLgf3Wt9VBO0Pg8kwSg3jwOlO2qD4wuui5q6d4WprGihDN+07IoY81ugGPaD2sbDgvwSYYCdE9tF2TK/rfALFezzxTz25Mm33YEv89vdzEILwyMvrYI5AFDYiJE2iiarnwJUkt4xvgwFyGb2W0DkLTLfqoR1L7Z/+h3oaYGY440kKafn3tu2LbpovkDfOkWcoykQJFhc03LRzThx3OfV9IOlyFsS3TDJ9vVc0KIm9iP4=
+  app: florence-api
+  on:
+    repo: hurricane-response/florence-api
+    tags: true
