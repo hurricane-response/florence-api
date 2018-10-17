@@ -39,3 +39,6 @@ deploy:
   on:
     repo: hurricane-response/florence-api
     tags: true
+  run:
+    - rails db:migrate
+    - rake cleanup
