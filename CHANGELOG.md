@@ -1,5 +1,34 @@
 # Change Log
 
+## [Unreleased](https://github.com/hurricane-response/florence-api/tree/HEAD)
+
+[Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.3...HEAD)
+
+**Implemented enhancements:**
+
+- Enhancements for Unarchive [\#56](https://github.com/hurricane-response/florence-api/issues/56)
+- Feature: Delete Shelter in Admin UI [\#54](https://github.com/hurricane-response/florence-api/issues/54)
+
+**Fixed bugs:**
+
+- Imports create duplicates if existing data is archived [\#59](https://github.com/hurricane-response/florence-api/issues/59)
+
+**Closed issues:**
+
+- Feature: ability to mark a shelter updated/current [\#63](https://github.com/hurricane-response/florence-api/issues/63)
+
+**Merged pull requests:**
+
+- fix travis script [\#66](https://github.com/hurricane-response/florence-api/pull/66) ([miklb](https://github.com/miklb))
+- Make the app workflow more user friendly for updating and moving resources in and out of archives [\#65](https://github.com/hurricane-response/florence-api/pull/65) ([omnilord](https://github.com/omnilord))
+- Better control of deduplication through Deleting resources via UI and finer import logic [\#64](https://github.com/hurricane-response/florence-api/pull/64) ([omnilord](https://github.com/omnilord))
+
+## [2.6.3](https://github.com/hurricane-response/florence-api/tree/2.6.3) (2018-10-13)
+[Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.2...2.6.3)
+
+## [2.6.2](https://github.com/hurricane-response/florence-api/tree/2.6.2) (2018-10-13)
+[Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.1...2.6.2)
+
 ## [2.6.1](https://github.com/hurricane-response/florence-api/tree/2.6.1) (2018-10-13)
 [Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.0...2.6.1)
 
