@@ -16,6 +16,10 @@ class Api::V1::DistributionPointsController < ApplicationController
     @distribution_points, @filters = apply_filters(DistributionPoint.all)
   end
 
+  def geo
+    @distribution_points, @filters = apply_filters(DistributionPoint.all)
+  end
+
   def outdated
     @distribution_points, @filters = apply_filters(DistributionPoint.outdated.order('updated_at DESC'))
   end

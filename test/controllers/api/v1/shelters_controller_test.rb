@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::SheltersControllerTest < ActionDispatch::IntegrationTest
 
-  test "returns all shelters" do
+  test "index returns all shelters" do
     count = Shelter.count
     get "/api/v1/shelters"
     json = JSON.parse(response.body)
@@ -34,5 +34,25 @@ class Api::SheltersControllerTest < ActionDispatch::IntegrationTest
     get "/api/v1/shelters"
     json = JSON.parse(response.body)
     assert_equal count, json["shelters"].length
+  end
+
+  test "geo returns valid geojson" do
+    get "/api/v1/shelters/geo"
+    json = JSON.parse(response.body)
+    assert_equal json["type"], "FeatureCollection"
+    assert_instance_of Array, json["features"]
+    assert_equal json["features"][0]["type"], "Feature"
+    assert_includes json["features"][0].keys, "properties"
+    assert_includes json["features"][0].keys, "geometry"
+    assert_equal json["features"][0]["geometry"]["type"], "Point"
+    assert_includes json["features"][0]["geometry"].keys, "coordinates"
+    assert_instance_of Array, json["features"][0]["geometry"]["coordinates"]
+  end
+
+  test "geo returns all shelters" do
+    count = Shelter.count
+    get "/api/v1/shelters/geo"
+    json = JSON.parse(response.body)
+    assert_equal count, json["features"].length
   end
 end

@@ -36,6 +36,10 @@ class Api::V1::SheltersController < ApplicationController
     @shelters, @filters = apply_filters(Shelter.all)
   end
 
+  def geo
+    @shelters, @filters = apply_filters(Shelter.all)
+  end
+
   def outdated
     @outdated, @filters = apply_filters(Shelter.outdated.order('updated_at DESC'))
   end
