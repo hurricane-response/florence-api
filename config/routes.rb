@@ -58,8 +58,10 @@ Rails.application.routes.draw do
       resources :shelters, only: [:index, :outdated]
       get "/shelters" => 'shelters#index'
       get "/shelters/outdated" => 'shelters#outdated'
+      get "/shelters/geo" => 'shelters#geo'
       get "/distribution_points" => 'distribution_points#index'
       get "/distribution_points/outdated" => 'distribution_points#outdated'
+      get "/distribution_points/geo" => 'distribution_points#geo'
       get "/products" => 'amazon_products#index'
       get "/charitable_organizations" => 'charitable_organizations#index'
 
