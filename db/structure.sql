@@ -3,6 +3,7 @@ SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
@@ -35,13 +36,11 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
 COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
 
 
-SET search_path = public, pg_catalog;
-
 --
 -- Name: shelter_accepting_value; Type: TYPE; Schema: public; Owner: -
 --
 
-CREATE TYPE shelter_accepting_value AS ENUM (
+CREATE TYPE public.shelter_accepting_value AS ENUM (
     'yes',
     'no',
     'unknown'
@@ -56,7 +55,7 @@ SET default_with_oids = false;
 -- Name: amazon_products; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE amazon_products (
+CREATE TABLE public.amazon_products (
     id bigint NOT NULL,
     need character varying,
     amazon_title character varying,
@@ -76,7 +75,7 @@ CREATE TABLE amazon_products (
 -- Name: amazon_products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE amazon_products_id_seq
+CREATE SEQUENCE public.amazon_products_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -88,14 +87,14 @@ CREATE SEQUENCE amazon_products_id_seq
 -- Name: amazon_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE amazon_products_id_seq OWNED BY amazon_products.id;
+ALTER SEQUENCE public.amazon_products_id_seq OWNED BY public.amazon_products.id;
 
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE ar_internal_metadata (
+CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
     created_at timestamp without time zone NOT NULL,
@@ -107,7 +106,7 @@ CREATE TABLE ar_internal_metadata (
 -- Name: charitable_organizations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE charitable_organizations (
+CREATE TABLE public.charitable_organizations (
     id bigint NOT NULL,
     name character varying,
     services character varying,
@@ -129,7 +128,7 @@ CREATE TABLE charitable_organizations (
 -- Name: charitable_organizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE charitable_organizations_id_seq
+CREATE SEQUENCE public.charitable_organizations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -141,14 +140,14 @@ CREATE SEQUENCE charitable_organizations_id_seq
 -- Name: charitable_organizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE charitable_organizations_id_seq OWNED BY charitable_organizations.id;
+ALTER SEQUENCE public.charitable_organizations_id_seq OWNED BY public.charitable_organizations.id;
 
 
 --
 -- Name: connect_markers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE connect_markers (
+CREATE TABLE public.connect_markers (
     id bigint NOT NULL,
     marker_type character varying NOT NULL,
     name character varying DEFAULT ''::character varying NOT NULL,
@@ -171,7 +170,7 @@ CREATE TABLE connect_markers (
 -- Name: connect_markers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE connect_markers_id_seq
+CREATE SEQUENCE public.connect_markers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -183,14 +182,14 @@ CREATE SEQUENCE connect_markers_id_seq
 -- Name: connect_markers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE connect_markers_id_seq OWNED BY connect_markers.id;
+ALTER SEQUENCE public.connect_markers_id_seq OWNED BY public.connect_markers.id;
 
 
 --
 -- Name: distribution_points; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE distribution_points (
+CREATE TABLE public.distribution_points (
     id bigint NOT NULL,
     facility_name character varying,
     address character varying,
@@ -202,10 +201,10 @@ CREATE TABLE distribution_points (
     updated_by character varying,
     notes character varying,
     source character varying,
-    longitude character varying,
-    latitude character varying,
+    longitude double precision,
+    latitude double precision,
     google_place_id character varying,
-    active boolean,
+    active boolean DEFAULT true,
     archived boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -216,7 +215,7 @@ CREATE TABLE distribution_points (
 -- Name: distribution_points_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE distribution_points_id_seq
+CREATE SEQUENCE public.distribution_points_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -228,14 +227,14 @@ CREATE SEQUENCE distribution_points_id_seq
 -- Name: distribution_points_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE distribution_points_id_seq OWNED BY distribution_points.id;
+ALTER SEQUENCE public.distribution_points_id_seq OWNED BY public.distribution_points.id;
 
 
 --
 -- Name: drafts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE drafts (
+CREATE TABLE public.drafts (
     id bigint NOT NULL,
     info jsonb,
     created_at timestamp without time zone NOT NULL,
@@ -252,7 +251,7 @@ CREATE TABLE drafts (
 -- Name: drafts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE drafts_id_seq
+CREATE SEQUENCE public.drafts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -264,14 +263,14 @@ CREATE SEQUENCE drafts_id_seq
 -- Name: drafts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE drafts_id_seq OWNED BY drafts.id;
+ALTER SEQUENCE public.drafts_id_seq OWNED BY public.drafts.id;
 
 
 --
 -- Name: ignored_amazon_product_needs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE ignored_amazon_product_needs (
+CREATE TABLE public.ignored_amazon_product_needs (
     id bigint NOT NULL,
     need character varying,
     created_at timestamp without time zone NOT NULL,
@@ -283,7 +282,7 @@ CREATE TABLE ignored_amazon_product_needs (
 -- Name: ignored_amazon_product_needs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE ignored_amazon_product_needs_id_seq
+CREATE SEQUENCE public.ignored_amazon_product_needs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -295,14 +294,14 @@ CREATE SEQUENCE ignored_amazon_product_needs_id_seq
 -- Name: ignored_amazon_product_needs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE ignored_amazon_product_needs_id_seq OWNED BY ignored_amazon_product_needs.id;
+ALTER SEQUENCE public.ignored_amazon_product_needs_id_seq OWNED BY public.ignored_amazon_product_needs.id;
 
 
 --
 -- Name: locations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE locations (
+CREATE TABLE public.locations (
     id bigint NOT NULL,
     name character varying,
     address character varying,
@@ -325,7 +324,7 @@ CREATE TABLE locations (
 -- Name: locations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE locations_id_seq
+CREATE SEQUENCE public.locations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -337,14 +336,14 @@ CREATE SEQUENCE locations_id_seq
 -- Name: locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE locations_id_seq OWNED BY locations.id;
+ALTER SEQUENCE public.locations_id_seq OWNED BY public.locations.id;
 
 
 --
 -- Name: mucked_homes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE mucked_homes (
+CREATE TABLE public.mucked_homes (
     id bigint NOT NULL,
     name character varying,
     description text,
@@ -361,7 +360,7 @@ CREATE TABLE mucked_homes (
 -- Name: mucked_homes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE mucked_homes_id_seq
+CREATE SEQUENCE public.mucked_homes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -373,14 +372,14 @@ CREATE SEQUENCE mucked_homes_id_seq
 -- Name: mucked_homes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE mucked_homes_id_seq OWNED BY mucked_homes.id;
+ALTER SEQUENCE public.mucked_homes_id_seq OWNED BY public.mucked_homes.id;
 
 
 --
 -- Name: needs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE needs (
+CREATE TABLE public.needs (
     id bigint NOT NULL,
     updated_by character varying,
     "timestamp" character varying,
@@ -406,7 +405,7 @@ CREATE TABLE needs (
 -- Name: needs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE needs_id_seq
+CREATE SEQUENCE public.needs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -418,14 +417,14 @@ CREATE SEQUENCE needs_id_seq
 -- Name: needs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE needs_id_seq OWNED BY needs.id;
+ALTER SEQUENCE public.needs_id_seq OWNED BY public.needs.id;
 
 
 --
 -- Name: pages; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE pages (
+CREATE TABLE public.pages (
     id bigint NOT NULL,
     key character varying DEFAULT ''::character varying NOT NULL,
     content text DEFAULT ''::text NOT NULL,
@@ -438,7 +437,7 @@ CREATE TABLE pages (
 -- Name: pages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE pages_id_seq
+CREATE SEQUENCE public.pages_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -450,14 +449,14 @@ CREATE SEQUENCE pages_id_seq
 -- Name: pages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE pages_id_seq OWNED BY pages.id;
+ALTER SEQUENCE public.pages_id_seq OWNED BY public.pages.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
 
@@ -466,7 +465,7 @@ CREATE TABLE schema_migrations (
 -- Name: shelters; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE shelters (
+CREATE TABLE public.shelters (
     id bigint NOT NULL,
     county character varying,
     shelter character varying,
@@ -474,7 +473,7 @@ CREATE TABLE shelters (
     city character varying,
     pets character varying,
     phone character varying,
-    accepting shelter_accepting_value,
+    accepting public.shelter_accepting_value,
     last_updated character varying,
     updated_by character varying,
     notes character varying,
@@ -507,7 +506,7 @@ CREATE TABLE shelters (
 -- Name: shelters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE shelters_id_seq
+CREATE SEQUENCE public.shelters_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -519,14 +518,14 @@ CREATE SEQUENCE shelters_id_seq
 -- Name: shelters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shelters_id_seq OWNED BY shelters.id;
+ALTER SEQUENCE public.shelters_id_seq OWNED BY public.shelters.id;
 
 
 --
 -- Name: trashes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE trashes (
+CREATE TABLE public.trashes (
     id bigint NOT NULL,
     trashable_type character varying NOT NULL,
     trashable_id bigint NOT NULL,
@@ -542,7 +541,7 @@ CREATE TABLE trashes (
 -- Name: trashes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE trashes_id_seq
+CREATE SEQUENCE public.trashes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -554,14 +553,14 @@ CREATE SEQUENCE trashes_id_seq
 -- Name: trashes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE trashes_id_seq OWNED BY trashes.id;
+ALTER SEQUENCE public.trashes_id_seq OWNED BY public.trashes.id;
 
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id bigint NOT NULL,
     admin boolean,
     email character varying DEFAULT ''::character varying NOT NULL,
@@ -587,7 +586,7 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -599,14 +598,14 @@ CREATE SEQUENCE users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
 -- Name: volunteers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE volunteers (
+CREATE TABLE public.volunteers (
     id bigint NOT NULL,
     name character varying,
     description text,
@@ -623,7 +622,7 @@ CREATE TABLE volunteers (
 -- Name: volunteers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE volunteers_id_seq
+CREATE SEQUENCE public.volunteers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -635,112 +634,112 @@ CREATE SEQUENCE volunteers_id_seq
 -- Name: volunteers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE volunteers_id_seq OWNED BY volunteers.id;
+ALTER SEQUENCE public.volunteers_id_seq OWNED BY public.volunteers.id;
 
 
 --
 -- Name: amazon_products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY amazon_products ALTER COLUMN id SET DEFAULT nextval('amazon_products_id_seq'::regclass);
+ALTER TABLE ONLY public.amazon_products ALTER COLUMN id SET DEFAULT nextval('public.amazon_products_id_seq'::regclass);
 
 
 --
 -- Name: charitable_organizations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY charitable_organizations ALTER COLUMN id SET DEFAULT nextval('charitable_organizations_id_seq'::regclass);
+ALTER TABLE ONLY public.charitable_organizations ALTER COLUMN id SET DEFAULT nextval('public.charitable_organizations_id_seq'::regclass);
 
 
 --
 -- Name: connect_markers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY connect_markers ALTER COLUMN id SET DEFAULT nextval('connect_markers_id_seq'::regclass);
+ALTER TABLE ONLY public.connect_markers ALTER COLUMN id SET DEFAULT nextval('public.connect_markers_id_seq'::regclass);
 
 
 --
 -- Name: distribution_points id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY distribution_points ALTER COLUMN id SET DEFAULT nextval('distribution_points_id_seq'::regclass);
+ALTER TABLE ONLY public.distribution_points ALTER COLUMN id SET DEFAULT nextval('public.distribution_points_id_seq'::regclass);
 
 
 --
 -- Name: drafts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY drafts ALTER COLUMN id SET DEFAULT nextval('drafts_id_seq'::regclass);
+ALTER TABLE ONLY public.drafts ALTER COLUMN id SET DEFAULT nextval('public.drafts_id_seq'::regclass);
 
 
 --
 -- Name: ignored_amazon_product_needs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ignored_amazon_product_needs ALTER COLUMN id SET DEFAULT nextval('ignored_amazon_product_needs_id_seq'::regclass);
+ALTER TABLE ONLY public.ignored_amazon_product_needs ALTER COLUMN id SET DEFAULT nextval('public.ignored_amazon_product_needs_id_seq'::regclass);
 
 
 --
 -- Name: locations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY locations ALTER COLUMN id SET DEFAULT nextval('locations_id_seq'::regclass);
+ALTER TABLE ONLY public.locations ALTER COLUMN id SET DEFAULT nextval('public.locations_id_seq'::regclass);
 
 
 --
 -- Name: mucked_homes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY mucked_homes ALTER COLUMN id SET DEFAULT nextval('mucked_homes_id_seq'::regclass);
+ALTER TABLE ONLY public.mucked_homes ALTER COLUMN id SET DEFAULT nextval('public.mucked_homes_id_seq'::regclass);
 
 
 --
 -- Name: needs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY needs ALTER COLUMN id SET DEFAULT nextval('needs_id_seq'::regclass);
+ALTER TABLE ONLY public.needs ALTER COLUMN id SET DEFAULT nextval('public.needs_id_seq'::regclass);
 
 
 --
 -- Name: pages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY pages ALTER COLUMN id SET DEFAULT nextval('pages_id_seq'::regclass);
+ALTER TABLE ONLY public.pages ALTER COLUMN id SET DEFAULT nextval('public.pages_id_seq'::regclass);
 
 
 --
 -- Name: shelters id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shelters ALTER COLUMN id SET DEFAULT nextval('shelters_id_seq'::regclass);
+ALTER TABLE ONLY public.shelters ALTER COLUMN id SET DEFAULT nextval('public.shelters_id_seq'::regclass);
 
 
 --
 -- Name: trashes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY trashes ALTER COLUMN id SET DEFAULT nextval('trashes_id_seq'::regclass);
+ALTER TABLE ONLY public.trashes ALTER COLUMN id SET DEFAULT nextval('public.trashes_id_seq'::regclass);
 
 
 --
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
 -- Name: volunteers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY volunteers ALTER COLUMN id SET DEFAULT nextval('volunteers_id_seq'::regclass);
+ALTER TABLE ONLY public.volunteers ALTER COLUMN id SET DEFAULT nextval('public.volunteers_id_seq'::regclass);
 
 
 --
 -- Name: amazon_products amazon_products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY amazon_products
+ALTER TABLE ONLY public.amazon_products
     ADD CONSTRAINT amazon_products_pkey PRIMARY KEY (id);
 
 
@@ -748,7 +747,7 @@ ALTER TABLE ONLY amazon_products
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ar_internal_metadata
+ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
@@ -756,7 +755,7 @@ ALTER TABLE ONLY ar_internal_metadata
 -- Name: charitable_organizations charitable_organizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY charitable_organizations
+ALTER TABLE ONLY public.charitable_organizations
     ADD CONSTRAINT charitable_organizations_pkey PRIMARY KEY (id);
 
 
@@ -764,7 +763,7 @@ ALTER TABLE ONLY charitable_organizations
 -- Name: connect_markers connect_markers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY connect_markers
+ALTER TABLE ONLY public.connect_markers
     ADD CONSTRAINT connect_markers_pkey PRIMARY KEY (id);
 
 
@@ -772,7 +771,7 @@ ALTER TABLE ONLY connect_markers
 -- Name: distribution_points distribution_points_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY distribution_points
+ALTER TABLE ONLY public.distribution_points
     ADD CONSTRAINT distribution_points_pkey PRIMARY KEY (id);
 
 
@@ -780,7 +779,7 @@ ALTER TABLE ONLY distribution_points
 -- Name: drafts drafts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY drafts
+ALTER TABLE ONLY public.drafts
     ADD CONSTRAINT drafts_pkey PRIMARY KEY (id);
 
 
@@ -788,7 +787,7 @@ ALTER TABLE ONLY drafts
 -- Name: ignored_amazon_product_needs ignored_amazon_product_needs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ignored_amazon_product_needs
+ALTER TABLE ONLY public.ignored_amazon_product_needs
     ADD CONSTRAINT ignored_amazon_product_needs_pkey PRIMARY KEY (id);
 
 
@@ -796,7 +795,7 @@ ALTER TABLE ONLY ignored_amazon_product_needs
 -- Name: locations locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY locations
+ALTER TABLE ONLY public.locations
     ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
 
 
@@ -804,7 +803,7 @@ ALTER TABLE ONLY locations
 -- Name: mucked_homes mucked_homes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY mucked_homes
+ALTER TABLE ONLY public.mucked_homes
     ADD CONSTRAINT mucked_homes_pkey PRIMARY KEY (id);
 
 
@@ -812,7 +811,7 @@ ALTER TABLE ONLY mucked_homes
 -- Name: needs needs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY needs
+ALTER TABLE ONLY public.needs
     ADD CONSTRAINT needs_pkey PRIMARY KEY (id);
 
 
@@ -820,7 +819,7 @@ ALTER TABLE ONLY needs
 -- Name: pages pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY pages
+ALTER TABLE ONLY public.pages
     ADD CONSTRAINT pages_pkey PRIMARY KEY (id);
 
 
@@ -828,7 +827,7 @@ ALTER TABLE ONLY pages
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY schema_migrations
+ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
@@ -836,7 +835,7 @@ ALTER TABLE ONLY schema_migrations
 -- Name: shelters shelters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY shelters
+ALTER TABLE ONLY public.shelters
     ADD CONSTRAINT shelters_pkey PRIMARY KEY (id);
 
 
@@ -844,7 +843,7 @@ ALTER TABLE ONLY shelters
 -- Name: trashes trashes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY trashes
+ALTER TABLE ONLY public.trashes
     ADD CONSTRAINT trashes_pkey PRIMARY KEY (id);
 
 
@@ -852,7 +851,7 @@ ALTER TABLE ONLY trashes
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -860,7 +859,7 @@ ALTER TABLE ONLY users
 -- Name: volunteers volunteers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY volunteers
+ALTER TABLE ONLY public.volunteers
     ADD CONSTRAINT volunteers_pkey PRIMARY KEY (id);
 
 
@@ -868,108 +867,108 @@ ALTER TABLE ONLY volunteers
 -- Name: index_connect_markers_on_categories; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_connect_markers_on_categories ON connect_markers USING gin (categories);
+CREATE INDEX index_connect_markers_on_categories ON public.connect_markers USING gin (categories);
 
 
 --
 -- Name: index_connect_markers_on_device_uuid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_connect_markers_on_device_uuid ON connect_markers USING btree (device_uuid);
+CREATE INDEX index_connect_markers_on_device_uuid ON public.connect_markers USING btree (device_uuid);
 
 
 --
 -- Name: index_connect_markers_on_latitude_and_longitude; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_connect_markers_on_latitude_and_longitude ON connect_markers USING btree (latitude, longitude);
+CREATE INDEX index_connect_markers_on_latitude_and_longitude ON public.connect_markers USING btree (latitude, longitude);
 
 
 --
 -- Name: index_connect_markers_on_unresolved; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_connect_markers_on_unresolved ON connect_markers USING btree (resolved) WHERE (resolved IS FALSE);
+CREATE INDEX index_connect_markers_on_unresolved ON public.connect_markers USING btree (resolved) WHERE (resolved IS FALSE);
 
 
 --
 -- Name: index_drafts_on_accepted_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_drafts_on_accepted_by_id ON drafts USING btree (accepted_by_id);
+CREATE INDEX index_drafts_on_accepted_by_id ON public.drafts USING btree (accepted_by_id);
 
 
 --
 -- Name: index_drafts_on_denied_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_drafts_on_denied_by_id ON drafts USING btree (denied_by_id);
+CREATE INDEX index_drafts_on_denied_by_id ON public.drafts USING btree (denied_by_id);
 
 
 --
 -- Name: index_drafts_on_record_type_and_record_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_drafts_on_record_type_and_record_id ON drafts USING btree (record_type, record_id);
+CREATE INDEX index_drafts_on_record_type_and_record_id ON public.drafts USING btree (record_type, record_id);
 
 
 --
 -- Name: index_trashes_on_trashable_type_and_trashable_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_trashes_on_trashable_type_and_trashable_id ON trashes USING btree (trashable_type, trashable_id);
+CREATE INDEX index_trashes_on_trashable_type_and_trashable_id ON public.trashes USING btree (trashable_type, trashable_id);
 
 
 --
 -- Name: index_trashes_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_trashes_on_user_id ON trashes USING btree (user_id);
+CREATE INDEX index_trashes_on_user_id ON public.trashes USING btree (user_id);
 
 
 --
 -- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_confirmation_token ON users USING btree (confirmation_token);
+CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
 
 
 --
 -- Name: drafts fk_rails_52f0256db1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY drafts
-    ADD CONSTRAINT fk_rails_52f0256db1 FOREIGN KEY (accepted_by_id) REFERENCES users(id);
+ALTER TABLE ONLY public.drafts
+    ADD CONSTRAINT fk_rails_52f0256db1 FOREIGN KEY (accepted_by_id) REFERENCES public.users(id);
 
 
 --
 -- Name: drafts fk_rails_687f4d113b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY drafts
-    ADD CONSTRAINT fk_rails_687f4d113b FOREIGN KEY (denied_by_id) REFERENCES users(id);
+ALTER TABLE ONLY public.drafts
+    ADD CONSTRAINT fk_rails_687f4d113b FOREIGN KEY (denied_by_id) REFERENCES public.users(id);
 
 
 --
 -- Name: trashes fk_rails_7d97d072f5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY trashes
-    ADD CONSTRAINT fk_rails_7d97d072f5 FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY public.trashes
+    ADD CONSTRAINT fk_rails_7d97d072f5 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
