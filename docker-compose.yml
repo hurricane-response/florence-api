@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: '.'
+      dockerfile: './Dockerfile'
+    entrypoint: ["./docker_entrypoint.sh"]
+    command: ["rails", "server"]
+    environment:
+      RAILS_ENV:
+      DATABASE_URL: "postgresql://harvey-api:harvey-api@db:5432/harvey-api_${RAILS_ENV}"
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/usr/src/app/app
+      - ./lib:/usr/src/app/lib
+      - ./db:/usr/src/app/db
+      - ./public:/usr/src/app/public
+    depends_on:
+      - db
+  db:
+    image: 'mdillon/postgis:10-alpine'
+    environment:
+      POSTGRES_USER: 'harvey-api'
+      POSTGRES_PASSWORD: 'harvey-api'
+    ports:
+      - 5432:5432
