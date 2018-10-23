@@ -63,7 +63,7 @@ class NeedsController < ApplicationController
   end
 
   def archive
-    @need.update_attributes(archived: false)
+    @need.update_attributes(archived: true)
     redirect_to needs_path, notice: 'Archived!'
   end
 

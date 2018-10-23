@@ -2,7 +2,7 @@ class ShelterUpdateNotifierJob < ApplicationJob
   queue_as :default
 
   def perform shelter
-    ShelterChannel.broadcast_to "shelters", shelter: render(shelter)
+    ShelterChannel.broadcast_to 'shelters', shelter: render(shelter)
   end
 
   def render shelter

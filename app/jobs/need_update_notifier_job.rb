@@ -2,7 +2,7 @@ class NeedUpdateNotifierJob < ApplicationJob
   queue_as :default
 
   def perform need
-    NeedChannel.broadcast_to "needs", need: render(need)
+    NeedChannel.broadcast_to 'needs', need: render(need)
   end
 
   def render need

@@ -7,7 +7,7 @@ class ImportNeedsJob < ApplicationJob
     needs.each do |need|
       # needs and cleanPhone are derived fields
       # updatedAt is set on save to the database
-      Need.create! need.except("needs", "cleanPhone", "updatedAt")
+      Need.create! need.except('needs', 'cleanPhone', 'updatedAt')
     end
     logger.info "ImportNeedsJob Complete - {#{needs.count}}"
 

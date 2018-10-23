@@ -64,7 +64,6 @@ incomplete1:
   address: "155 9th Street, San Francisco, CA, 94103"
   shelter: "Code for Amerca HQ"
   accepting: "no"
-  active: true
   updated_by: "Doostee"
   notes: "This is not actually a shelter.  This is just a test."
   longitude: -122.4136007
@@ -76,7 +75,6 @@ incomplete2:
   shelter: "Pennsylvania Convention Center"
   county: "Philadelphia"
   accepting: "no"
-  active: true
   updated_by: "Doostee"
   notes: "This is not actually a shelter.  This is just a test."
   longitude: -122.4136007

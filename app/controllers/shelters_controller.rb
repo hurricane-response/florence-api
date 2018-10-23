@@ -79,12 +79,12 @@ class SheltersController < ApplicationController
   end
 
   def archive
-    @shelter.update_attributes(archived: false)
+    @shelter.update_attributes(archived: true)
     redirect_to shelters_path, notice: 'Archived!'
   end
 
   def unarchive
-    @shelter.update_attributes(archived: true)
+    @shelter.update_attributes(archived: false)
     redirect_to archived_shelters_path, notice: 'Reactivated!'
   end
 

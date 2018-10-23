@@ -3,7 +3,7 @@ json.extract! charitable_organization, :name, :services, :food_bank,
 
 
 begin
-	json.updatedAt charitable_organization.updated_at
+  json.updatedAt charitable_organization.updated_at
 rescue
-	json.updatedAt "baddate"
+  json.updatedAt 'baddate'
 end

@@ -31,6 +31,8 @@ private
     end
 
     if shelter.nil?
+      active = data.delete(:active)
+      data[:archived] ||= active.nil? ? false : !active
       Shelter.create!(data)
       1
     else
@@ -65,9 +67,9 @@ private
   end
 
   def unarchive!(shelter)
-    unless shelter.active
+    if shelter.archived
       logger.info "Unarchiving pre-existing shelter with ID #{shelter.id}"
-      shelter.update_columns(active: true, updated_at: Time.now)
+      shelter.update_columns(archived: false, updated_at: Time.now)
     end
   end
 end
