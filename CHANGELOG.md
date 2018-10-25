@@ -19,12 +19,18 @@
 **Closed issues:**
 
 - Feature: ability to mark a shelter updated/current [\#63](https://github.com/hurricane-response/florence-api/issues/63)
+<<<<<<< HEAD
 - SemVer [\#60](https://github.com/hurricane-response/florence-api/issues/60)
 
 **Merged pull requests:**
 
 - Add GeoJSON endpoints for shelters and distribution points [\#70](https://github.com/hurricane-response/florence-api/pull/70) ([nihonjinrxs](https://github.com/nihonjinrxs))
 - update changelog [\#67](https://github.com/hurricane-response/florence-api/pull/67) ([miklb](https://github.com/miklb))
+=======
+
+**Merged pull requests:**
+
+>>>>>>> 5766bf6a4225f2c0a5f80901aeb98c673c1a90f6
 - fix travis script [\#66](https://github.com/hurricane-response/florence-api/pull/66) ([miklb](https://github.com/miklb))
 - Make the app workflow more user friendly for updating and moving resources in and out of archives [\#65](https://github.com/hurricane-response/florence-api/pull/65) ([omnilord](https://github.com/omnilord))
 - Better control of deduplication through Deleting resources via UI and finer import logic [\#64](https://github.com/hurricane-response/florence-api/pull/64) ([omnilord](https://github.com/omnilord))
