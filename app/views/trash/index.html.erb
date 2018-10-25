@@ -1,0 +1,43 @@
+<h1>Trashed Records</h1>
+
+
+<table id="data-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Type/ID</th>
+      <th>Record Name</th>
+      <th>Deleted At</th>
+      <th>Deleted By</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trash.each do |row| %>
+      <tr>
+        <td class="controlsColumn">
+          <%= link_to 'Show', row, class: 'button button-clear' %>
+          <% if admin? %>
+            <br/>
+            <%= link_to 'Restore', row,
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' },
+                        class: 'button button-clear' %>
+          <% end %>
+        </td>
+        <td><%= "#{row.trashable_type}/#{row.trashable_id}" %></td>
+        <td><%= sanitize(row.resource.name) %></td>
+        <td><%= time_ago_in_words(row.created_at) %> ago</td>
+        <td><%= row.user&.email %></td>
+        <td><%= sanitize(row.reason) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+window.onload = function() {
+  $('#data-table').DataTable();
+};
+</script>

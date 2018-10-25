@@ -70,7 +70,8 @@ private
         { text: 'Users', path: users_path },
         { text: 'AmazonProducts', path: amazon_products_path },
         { text: 'Charitable Organizations', path: charitable_organizations_path },
-        { text: 'Pages', path: pages_path }
+        { text: 'Pages', path: pages_path },
+        { text: 'Trash', path: trash_index_path }
       ] }
     end
   end
