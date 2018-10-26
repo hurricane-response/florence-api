@@ -60,18 +60,18 @@ class Shelter < ApplicationRecord
 
   has_many :drafts, as: :record
 
-  after_commit on: [:create, :update] do
+  after_commit on: %i[create update] do
     ShelterUpdateNotifierJob.perform_later self
   end
 
-  scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
+  scope :outdated, ->(timing = 4.hours.ago) { where('updated_at < ?', timing) }
   scope :archived, -> { unscope(:where).where(archived: true) }
 
   def self.to_csv
     CSV.generate(headers: true) do |csv|
       csv << CSV_Attributes
 
-      self.all.each do |shelter|
+      all.each do |shelter|
         csv << CSV_Attributes.map { |attr| shelter.send(attr) }
       end
     end

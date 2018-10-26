@@ -1,8 +1,8 @@
 class LocationsController < ApplicationController
   before_action :setup
-  before_action :set_location, only: [:show, :edit, :update, :archive]
+  before_action :set_location, only: %i[show edit update archive]
 
-  layout "locations"
+  layout 'locations'
 
   def index
     @locations = location_class.all
@@ -36,11 +36,9 @@ class LocationsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if admin?
@@ -67,9 +65,9 @@ class LocationsController < ApplicationController
 
     if admin?
       @location.update_attributes(active: false)
-      redirect_to path, notice: "Archived!"
+      redirect_to path, notice: 'Archived!'
     else
-      redirect_to path, notice: "You must be an admin to archive."
+      redirect_to path, notice: 'You must be an admin to archive.'
     end
   end
 
@@ -84,12 +82,12 @@ private
     @organization = params[:organization]
     @legacy_table_name = params[:legacy_table_name]
 
-    return redirect_to(root_path, notice: "No such organization and table") if !location_class.present?
+    return redirect_to(root_path, notice: 'No such organization and table') unless location_class.present?
 
     @legacy_table_display_name = location_class.legacy_table_display_name
     @update_fields = location_class.update_fields
 
-    # TODO Add support for private fields
+    # TODO: Add support for private fields
     # TODO Show default columns too
     @columns = location_class.table_columns
     @headers = location_class.table_headers
@@ -102,15 +100,15 @@ private
   def set_location
     @location = location_class.find(params[:id])
 
-    return redirect_to(root_path, notice: "No location for organization and table") if !@location.present?
+    return redirect_to(root_path, notice: 'No location for organization and table') unless @location.present?
   end
 
   def location_update_params
-    format_params.keep_if { |_,v| v.present? }
+    format_params.keep_if { |_, v| v.present? }
   end
 
   def location_create_params
-    location_update_params.merge({organization: @organization, legacy_table_name: @legacy_table_name})
+    location_update_params.merge(organization: @organization, legacy_table_name: @legacy_table_name)
   end
 
   def location_draft_params
@@ -118,10 +116,10 @@ private
   end
 
   def format_params
-    key = location_class.name.gsub('::','').underscore
-    location_class.update_fields.each_with_object({}) do |field,obj|
+    key = location_class.name.gsub('::', '').underscore
+    location_class.update_fields.each_with_object({}) do |field, obj|
       value = params[key][field.name]
-      if(value)
+      if value
         obj[field.name] = location_class.format_field(field.type, value, field.options)
       end
     end

@@ -1,7 +1,6 @@
 class CreateNeeds < ActiveRecord::Migration[5.1]
   def change
     create_table :needs do |t|
-
       t.string :updated_by
       t.string :timestamp
       t.string :location_name

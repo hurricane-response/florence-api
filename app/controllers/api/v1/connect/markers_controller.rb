@@ -4,7 +4,7 @@ module Api
   module V1
     module Connect
       class MarkersController < ApplicationController
-        before_action :check_device_uuid, only: [:create, :update]
+        before_action :check_device_uuid, only: %i[create update]
 
         def index
           @filters = {}
@@ -54,18 +54,21 @@ module Api
 
         def category_filter
           return unless params[:category].present?
+
           @filters[:category] = params[:category]
           @markers = @markers.by_category(params[:category])
         end
 
         def device_uuid_filter
           return unless params[:device_uuid].present?
+
           @filters[:device_uuid] = device_uuid
           @markers = @markers.by_device_uuid(device_uuid)
         end
 
         def location_filter
           return unless params[:lat].present? && params[:lon].present?
+
           location = params.values_at(:lat, :lon)
           @filters[:lat], @filters[:lon] = location
           @filters[:rad] = params.fetch(:rad, 10).to_i
@@ -74,12 +77,14 @@ module Api
 
         def limit_filter
           return unless params[:limit].to_i.positive?
+
           @filters[:limit] = params[:limit].to_i
           @markers = @markers.limit(params[:limit].to_i)
         end
 
         def type_filter
           return unless params[:type].present?
+
           @filters[:type] = params[:type]
           @markers = @markers.by_type(params[:type])
         end

@@ -13,7 +13,6 @@ class Api::V2::LocationsController < ApplicationController
   end
 
   def index
-
     @filters = {}
 
     @locations.filters.values.each do |filter|
@@ -25,37 +24,36 @@ class Api::V2::LocationsController < ApplicationController
           @locations = @locations.near([params[:lat], params[:lon]], 100)
         end
       when :limit
-        if params[:limit].to_i > 0
+        if params[:limit].to_i.positive?
           @locations = @locations.limit(params[:limit].to_i)
         end
       when :truthy
         if params[filter.name].present?
           @filters[filter.name] = params[filter.name]
-
-          if(filter.column)
-            @locations = @locations.where(filter.name => true)
-          else
-            @locations = @locations.where("(legacy_data->>?)::boolean", filter.name)
-          end
+          @locations =
+            if filter.column
+              @locations.where(filter.name => true)
+            else
+              @locations.where('(legacy_data->>?)::boolean', filter.name)
+            end
         end
       else
         if params[filter.name].present?
           @filters[filter.name] = params[filter.name]
 
           # Location whitelists valid columns. No sql injection here.
-          if(filter.column)
-            @locations = @locations.where("#{filter.name} ILIKE ?", "%#{@filters[filter.name]}%")
-          else
-            @locations = @locations.where("legacy_data->>? ILIKE ?", filter.name, "%#{@filters[filter.name]}%")
-          end
+          @locations =
+            if filter.column
+              @locations.where("#{filter.name} ILIKE ?", "%#{@filters[filter.name]}%")
+            else
+              @locations.where('legacy_data->>? ILIKE ?', filter.name, "%#{@filters[filter.name]}%")
+            end
         end
       end
     end
-
-    def help
-    end
-
-    def routes
-    end
   end
+
+  def help; end
+
+  def routes; end
 end

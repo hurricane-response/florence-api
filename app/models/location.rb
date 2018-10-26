@@ -9,44 +9,46 @@ class Location < ApplicationRecord
   # See below for how to use.
 
   # Columns included in table and updates by default. They live on the locations table.
-  DefaultColumns = %i(name address city state zip phone)
-  Field = Struct.new(:name, :type, :options, :required) do
-    def description
-      case type
-      when :string
-        "A string column. Returns text."
-      when :phone
-        "A phone numbers. Returns text. May include - ( )"
-      when :zip
-        "A zip code. Returns text. May include - for zip+4"
-      when :boolean
-        "A boolean column. Returns boolean"
-      when :enum
-        "A enum column. Returns text limited to the values specified in options above"
+  DefaultColumns = %i[name address city state zip phone].freeze
+  Field =
+    Struct.new(:name, :type, :options, :required) do
+      def description
+        case type
+        when :string
+          'A string column. Returns text.'
+        when :phone
+          'A phone numbers. Returns text. May include - ( )'
+        when :zip
+          'A zip code. Returns text. May include - for zip+4'
+        when :boolean
+          'A boolean column. Returns boolean'
+        when :enum
+          'A enum column. Returns text limited to the values specified in options above'
+        end
       end
     end
-  end
-  Filter = Struct.new(:name, :type, :column) do
-    def description
-      case type
-      when :string
-        "Searches the specified column for the supplied value, case insensitive"
-      when :coordinates
-        "expects 2 values: lng and lat, returns results within 100 miles sorted by distance ascending"
-      when :limit
-        "returns up to the limit results"
-      when :truthy
-        "for boolean columns, returns all results that are true"
+  Filter =
+    Struct.new(:name, :type, :column) do
+      def description
+        case type
+        when :string
+          'Searches the specified column for the supplied value, case insensitive'
+        when :coordinates
+          'expects 2 values: lng and lat, returns results within 100 miles sorted by distance ascending'
+        when :limit
+          'returns up to the limit results'
+        when :truthy
+          'for boolean columns, returns all results that are true'
+        end
       end
     end
-  end
 
   # All children pull from the locations table. This is handle rolled single table
   # inheritence.
-  self.table_name = "locations"
+  self.table_name = 'locations'
 
   geocoded_by :full_address
-  after_validation :geocode, if: ->(obj){ obj.full_address.present? and obj.geocode_address? }
+  after_validation :geocode, if: ->(obj) { obj.full_address.present? and obj.geocode_address? }
 
   def full_address
     [address, city, state, zip].compact.join(', ')
@@ -76,7 +78,7 @@ class Location < ApplicationRecord
       :update_fields,
       :admin_columns,
       :admin_headers,
-      :admin_legacy_headers,
+      :admin_legacy_headers
     )
 
     # Set Config
@@ -99,7 +101,7 @@ class Location < ApplicationRecord
       @organization = organization
       @organization_display_name = organization.titleize
 
-      default_scope { where(active: !false, organization: organization, legacy_table_name: legacy_table_name) }
+      default_scope { where(active: true, organization: organization, legacy_table_name: legacy_table_name) }
 
       @table_columns ||= [].concat(DefaultColumns)
       @table_headers ||= DefaultColumns.map(&:to_s).map(&:titleize)
@@ -124,14 +126,15 @@ class Location < ApplicationRecord
       @filters ||= {}
       column = DefaultColumns.include?(name)
 
-      case name
-      when :coordinates
-        @filters[name] = Filter.new(name, :coordinates, nil)
-      when :limit
-        @filters[name] = Filter.new(name, :limit, nil)
-      else
-        @filters[name] = Filter.new(name, type, column)
-      end
+      @filters[name] =
+        case name
+        when :coordinates
+          Filter.new(name, :coordinates, nil)
+        when :limit
+          Filter.new(name, :limit, nil)
+        else
+          Filter.new(name, type, column)
+        end
     end
 
     # Legacy Fields to import from the google sheet and display on tables and forms
@@ -160,9 +163,7 @@ class Location < ApplicationRecord
       end
 
       # Set which fields can be updated
-      if updatable
-        @update_fields.push(field)
-      end
+      @update_fields.push(field) if updatable
 
       # Set which fields are viewable by admins only
       if admin_only
@@ -171,40 +172,39 @@ class Location < ApplicationRecord
         @admin_legacy_headers.push(legacy_column)
       end
 
-
       # Setup getter and setter for field
       define_method(name) do
         legacy_data[name.to_s]
       end
       define_method(name.to_s + '=') do |value|
-        # TODO support coersion for more types, problematic bc it could raise errors
+        # TODO: support coersion for more types, problematic bc it could raise errors
         legacy_data[name.to_s] = self.class.format_field(type, value, options)
       end
     end
 
-    def format_field(type, value, options=[])
+    def format_field(type, value, options = [])
       case type
       when :boolean
-        ((value == true) || /(yes|true|t|1|y)/.match?(value.to_s)) ? true : false
+        (value == true) || /(yes|true|t|1|y)/.match?(value.to_s) ? true : false
       when :enum
         options.include?(value) ? value : nil
       when :phone
         # Leave in dashes and parens for phone numbers
-        value.gsub(/[^\d()-]/, "")
+        value.gsub(/[^\d()-]/, '')
       when :zip
         # Leave in dashes for zip+4
-        value.gsub(/[^\d-]/, "")
+        value.gsub(/[^\d-]/, '')
       else
         value
       end
     end
+
     # Field sets up a relationship between the legacy column and the location columns
     # Useful when longitude/latitude already geocoded, mapping names, phone numbers,
     # and other 'clean' data.
     # - column: symbol, name of the column to map to on location
     # - legacy_column_name: string, name of the column on the legacy table
-    def field(column, legacy_column_name)
-    end
+    def field(column, legacy_column_name); end
 
     def legacy_data
       super.with_indifferent_access

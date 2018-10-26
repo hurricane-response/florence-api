@@ -10,15 +10,7 @@ module Geocodable
   #   latitude, longitude, address, city, state, zip, county
 
   included do
-    after_commit :schedule_reverse_geocode, on: [:create, :update]
-
-    scope :incomplete_geocoding, -> { where(<<~SQL
-      county IS NULL OR TRIM(county) = '' OR
-      city IS NULL OR TRIM(city) = '' OR
-      state IS NULL OR TRIM(state) = '' OR
-      zip IS NULL OR TRIM(zip) = ''
-      SQL
-    ) }
+    after_commit :schedule_reverse_geocode, on: %i[create update]
 
     geocoded_by :address
     reverse_geocoded_by(:latitude, :longitude) do |obj, result|
@@ -35,6 +27,15 @@ module Geocodable
   end
 
   class_methods do
+    def incomplete_geocoding
+      where(<<~SQL)
+      county IS NULL OR TRIM(county) = '' OR
+      city IS NULL OR TRIM(city) = '' OR
+      state IS NULL OR TRIM(state) = '' OR
+      zip IS NULL OR TRIM(zip) = ''
+      SQL
+    end
+
     def geo_recode(*ids)
       list = ids.empty? ? incomplete_geocoding : where(id: ids)
       list.each do |obj|
@@ -59,6 +60,6 @@ module Geocodable
   end
 
   def schedule_reverse_geocode
-    RecodeGeocodingJob.perform_later(self.class.name, self.id) if reverse_geocode_needed?
+    RecodeGeocodingJob.perform_later(self.class.name, id) if reverse_geocode_needed?
   end
 end

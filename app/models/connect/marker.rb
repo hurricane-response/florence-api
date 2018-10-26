@@ -20,6 +20,7 @@ module Connect
 
     def coordinates_changed?
       return false if latitude.zero? || longitude.zero?
+
       latitude_changed? || longitude_changed?
     end
   end

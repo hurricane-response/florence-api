@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class Api::NeedsControllerTest < ActionDispatch::IntegrationTest
-
-  test "returns all needs" do
+  test 'returns all needs' do
     count = Need.count
     get '/api/v1/needs'
     json = JSON.parse(response.body)
@@ -10,7 +9,7 @@ class Api::NeedsControllerTest < ActionDispatch::IntegrationTest
     assert_equal count, json['meta']['result_count']
   end
 
-  test "filters are returned" do
+  test 'filters are returned' do
     count = Need.where(are_supplies_needed: true).count
     get '/api/v1/needs?supplies_needed=true'
     json = JSON.parse(response.body)
@@ -19,7 +18,7 @@ class Api::NeedsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'true', json['meta']['filters']['supplies_needed']
   end
 
-  test "needs are not returned after they are archived" do
+  test 'needs are not returned after they are archived' do
     archived = Need.where(archived: true).count
     active = Need.count
     count = active - archived
@@ -28,11 +27,11 @@ class Api::NeedsControllerTest < ActionDispatch::IntegrationTest
     assert_equal count, json['needs'].length
   end
 
-  test "needs can be created via JSON api" do
+  test 'needs can be created via JSON api' do
     expected_count = Need.count + 1
     name = 'Example Need'
     headers = { 'Authorization': "Bearer #{ENV['JSON_API_KEY']}" }
-    need_params = {location_name: name}
+    need_params = { location_name: name }
     post '/api/v1/needs', headers: headers, as: :json, params: need_params
 
     assert_response :success
@@ -43,11 +42,11 @@ class Api::NeedsControllerTest < ActionDispatch::IntegrationTest
     assert_equal(name, Need.last.location_name)
   end
 
-  test "needs cannot be created via JSON API without providing the proper API key" do
+  test 'needs cannot be created via JSON API without providing the proper API key' do
     expected_count = Need.count
     name = 'Example Need'
     headers = { 'Authorization': "Bearer FAKE#{ENV['JSON_API_KEY']}" }
-    need_params = {location_name: name}
+    need_params = { location_name: name }
     post '/api/v1/needs', headers: headers, as: :json, params: need_params
 
     assert_response :forbidden

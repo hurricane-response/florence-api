@@ -1,5 +1,5 @@
 class LocationDraftsController < ApplicationController
-  before_action :authenticate_admin!, only: [:destroy, :accept]
+  before_action :authenticate_admin!, only: %i[destroy accept]
   before_action :set_record
 
   layout 'locations'
@@ -48,10 +48,10 @@ private
   def redirect_after_update(msg)
     if next_draft.present?
       path = location_draft_path(organization: @organization, legacy_table_name: @legacy_table_name, id: @next_draft.id)
-      msg += " Redirecting to next draft in queue."
+      msg += ' Redirecting to next draft in queue.'
     else
       path = locations_path(organization: @organization, legacy_table_name: @legacy_table_name)
-      msg += " All drafts processed. Keep up the good work and thank you."
+      msg += ' All drafts processed. Keep up the good work and thank you.'
     end
 
     redirect_to path, notice: msg

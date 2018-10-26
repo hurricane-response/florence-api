@@ -1,7 +1,7 @@
 class NeedsController < ApplicationController
   before_action :authenticate_admin!, only: [:archive]
   before_action :set_headers
-  before_action :set_need, only: [:show, :edit, :update, :destroy, :archive]
+  before_action :set_need, only: %i[show edit update destroy archive]
 
   def index
     @page = Page.needs
@@ -25,7 +25,7 @@ class NeedsController < ApplicationController
         redirect_to draft, notice: 'Your new need is pending approval.'
       end
     else
-      flash[:notice] = "Something went wrong."
+      flash[:notice] = 'Something went wrong.'
       @need = Need.new(draft_params)
       render :new
     end
@@ -35,11 +35,9 @@ class NeedsController < ApplicationController
     @need = Need.find(params[:id])
   end
 
-  def destroy
-  end
+  def destroy; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     draft_params = need_update_params
@@ -92,6 +90,6 @@ private
   end
 
   def need_update_params
-    params.require(:need).permit(Need::UpdateFields).keep_if { |_,v| v.present? }
+    params.require(:need).permit(Need::UpdateFields).keep_if { |_, v| v.present? }
   end
 end

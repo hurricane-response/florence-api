@@ -5,17 +5,19 @@ class Draft < ApplicationRecord
   belongs_to :created_by, class_name: 'User', optional: true
 
   scope :actionable, -> { where(accepted_by_id: nil, denied_by_id: nil) }
-  scope :actionable_by_type, ->(type) do
+
+  def self.actionable_by_type(type)
     actionable.includes(:record)
               .where("record_type = ? OR info->>'record_type' = ?", type, type)
   end
-  scope :actionable_by_legacy_table, ->(org, table) do
+
+  def self.actionable_by_legacy_table(org, table)
     actionable.includes(:record)
               .where("info->>'organization' = ? AND info->>'legacy_table_name' = ?", org, table)
   end
 
   def build_record
-    record_info = info.delete_if { |k,_| k == 'record_type' }
+    record_info = info.delete_if { |k, _| k == 'record_type' }
     if record
       record.assign_attributes(record_info)
     else
@@ -31,8 +33,6 @@ class Draft < ApplicationRecord
 
   def accept(user)
     build_record
-    if record.save
-      update(record: record, accepted_by: user)
-    end
+    update(record: record, accepted_by: user) if record.save
   end
 end

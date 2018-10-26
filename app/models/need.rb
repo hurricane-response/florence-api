@@ -31,11 +31,12 @@ class Need < ApplicationRecord
 
   def clean_needs
     return [] if tell_us_about_the_supply_needs.blank?
+
     tell_us_about_the_supply_needs
-      .gsub("\n",'')
-      .gsub('*', ',')
+      .delete("\n")
+      .tr('*', ',')
       .split(',')
-      .reject{ |n| n =~ /^open/i }
+      .reject { |n| n =~ /^open/i }
       .map(&:strip)
       .select(&:present?)
   end

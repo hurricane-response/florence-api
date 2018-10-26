@@ -9,12 +9,11 @@ class FemaImporter
   QueryValues = {
     'service' => 'WFS',
     'version' => '1.0.0',
-    'request' =>' GetFeature',
+    'request' => ' GetFeature',
     'typeName' => 'FEMA:FEMANSSOpenShelters',
     'maxFeatures' => 250,
     'outputFormat' => 'json'
   }.freeze
-
 
   def self.shelters
     fema_data = get('/ows', query: QueryValues)
@@ -47,7 +46,7 @@ class FemaImporter
         # if shelter-seekers do show up even if they are not accepting at this time.
         active: status != 'CLOSED',
         accepting: accepting
-      } 
+      }
 
       data[:source] = 'FEMA GeoServer'
       data[:source] << ", Shelter ID: #{props['SHELTER_ID']}" unless props['SHELTER_ID'].blank?

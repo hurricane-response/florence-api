@@ -8,87 +8,89 @@ class Page < ApplicationRecord
 
   # Shelters
 
-  scope :shelters, -> do
+  def self.shelters
     where(key: 'shelters').first_or_create do |page|
       page.content = '#Shelters'
     end
   end
-  scope :new_shelter, -> do
+
+  def self.new_shelter
     where(key: 'new_shelter').first_or_create do |page|
       page.content = '#New Shelter'
     end
   end
-  scope :archived_shelters, -> do
+
+  def self.archived_shelters
     where(key: 'archived_shelters').first_or_create do |page|
       page.content = '#Archived Shelters'
     end
   end
-  scope :shelter_drafts, -> do
+
+  def self.shelter_drafts
     where(key: 'shelter_drafts').first_or_create do |page|
       page.content = '#Shelters Update Queue'
     end
   end
-  scope :outdated_shelters, -> do
+
+  def self.outdated_shelters
     where(key: 'outdated_shelters').first_or_create do |page|
       page.content = '#Shelters Needing Update'
     end
   end
 
-
   # Distribution Points
 
-  scope :distribution_points, -> do
+  def self.distribution_points
     where(key: 'distribution_points').first_or_create do |page|
       page.content = '#Distribution Points'
     end
   end
 
-  scope :new_distribution_point, -> do
+  def self.new_distribution_point
     where(key: 'new_distribution_point').first_or_create do |page|
       page.content = '#New Distribution Point'
     end
   end
 
-  scope :archived_distribution_points, -> do
+  def self.archived_distribution_points
     where(key: 'archived_distribution_points').first_or_create do |page|
       page.content = '#Archived Distribution Points'
     end
   end
 
-  scope :distribution_point_drafts, -> do
+  def self.distribution_point_drafts
     where(key: 'distribution_point_drafts').first_or_create do |page|
       page.content = '#Distribution Points Update Queue'
     end
   end
 
-  scope :outdated_distribution_points, -> do
+  def self.outdated_distribution_points
     where(key: 'outdated_distribution_points').first_or_create do |page|
       page.content = '#Distribution Points Needing Update'
     end
   end
 
-
   # Needs
 
-  scope :needs, -> do
+  def self.needs
     where(key: 'needs').first_or_create do |page|
       page.content = '#Needs'
     end
   end
 
-  scope :new_need, -> do
+  def self.new_need
     where(key: 'new_need').first_or_create do |page|
       page.content = '#New Need'
     end
   end
 
-  scope :archived_needs, -> do
+  def self.archived_needs
     where(key: 'archived_needs').first_or_create do |page|
       page.content = '#Archived Needs'
     end
   end
 
-  scope :need_drafts, -> do
+  def self.need_drafts
     where(key: 'need_drafts').first_or_create do |page|
       page.content = '#Needs Update Queue'
     end

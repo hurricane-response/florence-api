@@ -1,6 +1,6 @@
 class ShelterChannel < ApplicationCable::Channel
   def subscribed
-    stream_for "shelters"
+    stream_for 'shelters'
   end
 
   def unsubscribed

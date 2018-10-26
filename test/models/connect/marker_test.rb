@@ -78,22 +78,25 @@ class Connect::MarkerTest < ActiveSupport::TestCase
   end
 
   test 'scope by category' do
-    assert Connect::Marker.by_category('labor').all? { |m| m.categories.keys.include?('labor') }
+    evaluation = Connect::Marker.by_category('labor').all? { |m| m.categories.key?('labor') }
+    assert evaluation
   end
 
   test 'scope by device uuid' do
-    assert Connect::Marker.by_device_uuid(@marker.device_uuid).all? { |m| m.device_uuid == @marker.device_uuid }
+    evaluation = Connect::Marker.by_device_uuid(@marker.device_uuid).all? { |m| m.device_uuid == @marker.device_uuid }
+    assert evaluation
   end
 
   test 'scope by type' do
-    assert Connect::Marker.by_type(@marker.marker_type).all? { |m| m.marker_type == @marker.marker_type }
+    evaluation = Connect::Marker.by_type(@marker.marker_type).all? { |m| m.marker_type == @marker.marker_type }
+    assert evaluation
   end
 
   test 'scope resolved' do
-    assert Connect::Marker.resolved.all? { |m| m.resolved }
+    assert Connect::Marker.resolved.all?(&:resolved)
   end
 
   test 'scope unresolved' do
-    assert Connect::Marker.unresolved.none? { |m| m.resolved }
+    assert Connect::Marker.unresolved.none?(&:resolved)
   end
 end

@@ -14,5 +14,4 @@ class ImportNeedsJob < ApplicationJob
     # schedule an update, but it's throttled to 1 every 10 minutes
     ScheduleAmazonFetchJob.perform_later
   end
-
 end

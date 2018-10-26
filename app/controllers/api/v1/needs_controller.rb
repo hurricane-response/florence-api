@@ -10,7 +10,7 @@ class Api::V1::NeedsController < ApplicationController
     { type: :text, param: :name, field: :location_name },
     { type: :text, param: :location_name },
     { type: :boolean, param: :volunteers_needed, field: :are_volunteers_needed },
-    { type: :boolean, param: :supplies_needed, field: :are_supplies_needed },
+    { type: :boolean, param: :supplies_needed, field: :are_supplies_needed }
   ]
 
   def index
@@ -34,12 +34,12 @@ class Api::V1::NeedsController < ApplicationController
       @success = true
     else
       @message = @need.errors.messages
-      @need= nil
+      @need = nil
     end
-    return render template: 'api/v1/needs/show'
+    render template: 'api/v1/needs/show'
   end
 
   def need_update_params
-    params.require(:need).permit(Need::UpdateFields).keep_if { |_,v| v.present? }
+    params.require(:need).permit(Need::UpdateFields).keep_if { |_, v| v.present? }
   end
 end

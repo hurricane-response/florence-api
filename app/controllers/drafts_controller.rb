@@ -1,5 +1,5 @@
 class DraftsController < ApplicationController
-  before_action :authenticate_admin!, only: [:destroy, :accept]
+  before_action :authenticate_admin!, only: %i[destroy accept]
   before_action :set_record
 
   def show
@@ -18,7 +18,7 @@ class DraftsController < ApplicationController
       @record = @draft.record
       redirect_to [:drafts, @record.class.name.underscore.pluralize.to_sym], notice: "#{@record.class.name} updated"
     else
-      flash[:notice] = "Something went wrong."
+      flash[:notice] = 'Something went wrong.'
       render :edit
     end
   end

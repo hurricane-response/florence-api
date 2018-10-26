@@ -1,7 +1,6 @@
 class CreateShelters < ActiveRecord::Migration[5.1]
   def change
     create_table :shelters do |t|
-
       t.string :county
       t.string :shelter
       t.string :address

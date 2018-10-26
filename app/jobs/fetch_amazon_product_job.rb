@@ -28,7 +28,7 @@ class FetchAmazonProductJob < ApplicationJob
       }
     )
 
-    error_code = response.dig(*%w[ItemSearchResponse Items Request Errors Error Code])
+    error_code = response.dig('ItemSearchResponse', 'Items', 'Request', 'Errors', 'Error', 'Code')
 
     if error_code == 'AWS.ECommerceService.NoExactMatches'
       IgnoredAmazonProductNeed.create need: need

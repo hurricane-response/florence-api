@@ -1,5 +1,4 @@
 class AmazonProduct < ApplicationRecord
-
   ColumnNames = %w[need asin amazon_title detail_url priority disabled].freeze
 
   HeaderNames = ColumnNames.map(&:titleize).freeze

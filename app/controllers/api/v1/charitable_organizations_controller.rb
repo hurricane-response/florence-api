@@ -9,7 +9,7 @@ class Api::V1::CharitableOrganizationsController < ApplicationController
     { type: :text, param: :services },
     { type: :text, param: :name },
     { type: :boolean, param: :food_bank },
-    { type: :text, param: :city },
+    { type: :text, param: :city }
   ]
 
   def index

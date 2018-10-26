@@ -19,13 +19,10 @@ class PagesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if @page.update(page_params)
-      redirect_to pages_path, notice: 'Page was successfully updated.'
-    end
+    redirect_to pages_path, notice: 'Page was successfully updated.' if @page.update(page_params)
   end
 
   def destroy
@@ -42,5 +39,4 @@ private
   def page_params
     params.require(:page).permit(:key, :content)
   end
-
 end

@@ -15,7 +15,7 @@ class ScheduleAmazonFetchJob < ApplicationJob
       .uniq
       .reject { |need| AmazonProduct.where('need ILIKE ?', "%#{need}%").exists? }
       .reject { |need| IgnoredAmazonProductNeed.where('need ILIKE ?', "%#{need}%").exists? }
-      .tap {|needs| Rails.logger.debug "ScheduleAmazonFetchJob #{needs.count}" }
+      .tap { |needs| Rails.logger.debug "ScheduleAmazonFetchJob #{needs.count}" }
       .each { |need| FetchAmazonProductJob.perform_later(need) }
 
     Rails.logger.debug 'ScheduleAmazonFetchJob Complete'

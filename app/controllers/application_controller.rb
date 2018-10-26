@@ -15,15 +15,11 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin!
-    unless admin?
-      redirect_to request.referrer || root_path, notice: 'Admins Only! :|'
-    end
+    redirect_to(request.referrer || root_path, notice: 'Admins Only! :|') unless admin?
   end
 
   def authenticate_user!
-    if !user_signed_in?
-      redirect_to request.referrer || root_path, notice: "Please sign up or sign in!  Thanks!"
-    end
+    redirect_to(request.referrer || root_path, notice: 'Please sign up or sign in!  Thanks!') unless user_signed_in?
   end
 
 private
@@ -33,7 +29,7 @@ private
   end
 
   def setup_main_menu
-    #TODO: This isn't the most elaborate or pretty method, but it is straightforward.
+    # TODO: This isn't the most elaborate or pretty method, but it is straightforward.
     #      @main_menu contains all the top level items on the left side of the navbar.
     #      Each item is either a link or a dropdown menu that may be a link or test.
     #      Only 1 level of depth is supported.

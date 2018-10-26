@@ -1,6 +1,6 @@
 class CharitableOrganizationsController < ApplicationController
   before_action :set_headers
-  before_action :set_charitable_organization, only: [:show, :edit, :update, :destroy, :archive]
+  before_action :set_charitable_organization, only: %i[show edit update destroy archive]
 
   def index
     @charitable_organizations = CharitableOrganization.all
@@ -35,20 +35,18 @@ class CharitableOrganizationsController < ApplicationController
     @charitable_organization = CharitableOrganization.find(params[:id])
   end
 
-  def destroy
-  end
+  def destroy; end
 
   def archive
     if admin?
       @charitable_organization.update_attributes(active: false)
-      redirect_to charitable_organizations_path, notice: "Archived!"
+      redirect_to charitable_organizations_path, notice: 'Archived!'
     else
-      redirect_to charitable_organizations_path, notice: "You must be an admin to archive."
+      redirect_to charitable_organizations_path, notice: 'You must be an admin to archive.'
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if admin?
@@ -68,7 +66,6 @@ class CharitableOrganizationsController < ApplicationController
     end
   end
 
-
   def drafts
     @drafts = Draft.actionable_by_type(CharitableOrganization.name)
   end
@@ -83,7 +80,6 @@ class CharitableOrganizationsController < ApplicationController
   end
 
   def charitable_organization_update_params
-    params.require(:charitable_organization).permit(CharitableOrganization::UpdateFields).keep_if { |_,v| v.present? }
+    params.require(:charitable_organization).permit(CharitableOrganization::UpdateFields).keep_if { |_, v| v.present? }
   end
-
 end

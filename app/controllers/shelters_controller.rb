@@ -1,9 +1,9 @@
 class SheltersController < ApplicationController
-  before_action :authenticate_admin!, only: [:archive, :unarchive, :destroy]
+  before_action :authenticate_admin!, only: %i[archive unarchive destroy]
   before_action :authenticate_user!, only: [:mark_current]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
-  before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :mark_current]
+  before_action :set_shelter, only: %i[show edit update destroy archive unarchive mark_current]
 
   def index
     @page = Page.shelters
@@ -38,14 +38,11 @@ class SheltersController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    draft_params = shelter_update_params
     draft = Draft.create(record: @shelter, info: shelter_update_params, created_by: current_user)
 
     if draft

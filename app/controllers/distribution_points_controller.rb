@@ -1,9 +1,9 @@
 class DistributionPointsController < ApplicationController
-  before_action :authenticate_admin!, only: [:archive, :unarchive, :destroy]
+  before_action :authenticate_admin!, only: %i[archive unarchive destroy]
   before_action :authenticate_user!, only: [:mark_current]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
-  before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :mark_current]
+  before_action :set_distribution_point, only: %i[show edit update destroy archive unarchive mark_current]
 
   def index
     @page = Page.distribution_points
@@ -32,17 +32,15 @@ class DistributionPointsController < ApplicationController
         redirect_to draft, notice: 'Your new distribution point is pending approval.'
       end
     else
-      flash[:notice] = "Something went wrong."
+      flash[:notice] = 'Something went wrong.'
       @distribution_point = DistributionPoint.new(draft_params)
       render :new
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     draft_params = distribution_point_params
@@ -55,7 +53,7 @@ class DistributionPointsController < ApplicationController
         redirect_to draft, notice: 'Your distribution point update is pending approval.'
       end
     else
-      flash[:notice] = "Something went wrong."
+      flash[:notice] = 'Something went wrong.'
       render :edit
     end
   end

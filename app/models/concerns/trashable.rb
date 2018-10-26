@@ -6,12 +6,13 @@ module Trashable
   end
 
   def trash!(user, reason = nil)
+    trash = nil
     transaction do
       trash = Trash.create(trashable: self,
                    user: user,
-                   data: self.attributes,
+                   data: attributes,
                    reason: reason)
-      unless trash && self.destroy
+      unless trash && destroy
         trash = nil
         raise ActiveRecord::Rollback
       end

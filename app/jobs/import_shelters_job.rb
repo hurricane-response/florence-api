@@ -8,7 +8,7 @@ class ImportSheltersJob < ApplicationJob
       # needs and cleanPhone are derived fields
       # active is a deprecated field
       # updatedAt is set on save to the database
-      data = shelter.except(*%w[needs cleanPhone updatedAt])
+      data = shelter.except('needs', 'cleanPhone', 'updatedAt')
       active = data.delete('active')
       data['archived'] ||= active.nil? ? false : !active
       Shelter.create! data

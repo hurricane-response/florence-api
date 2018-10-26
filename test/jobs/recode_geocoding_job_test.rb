@@ -9,7 +9,7 @@ class RecodeGeocodingJobTest < ActiveJob::TestCase
 
   def teardown
     # TODO: fix geocoder testing
-    #Geocoder::Lookup::Test.reset
+    # Geocoder::Lookup::Test.reset
   end
 
   test 'Shelters get recoded' do
@@ -20,9 +20,9 @@ class RecodeGeocodingJobTest < ActiveJob::TestCase
 
   test 'When an id is provider, only the referenced shelter gets updated' do
     shelter = shelters(:incomplete1)
-    expectedCount = Shelter.incomplete_geocoding.count - 1
+    expected_count = Shelter.incomplete_geocoding.count - 1
     RecodeGeocodingJob.perform_now('Shelter', shelter.id)
-    assert_equal expectedCount, Shelter.incomplete_geocoding.count
+    assert_equal expected_count, Shelter.incomplete_geocoding.count
   end
 
   test 'When a shelter is updated, all missing fields are filled' do

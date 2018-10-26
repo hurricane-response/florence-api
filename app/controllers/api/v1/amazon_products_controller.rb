@@ -15,9 +15,9 @@ class Api::V1::AmazonProductsController < ApplicationController
     end
 
     @products = AmazonProduct
-                  .active
-                  .where(need: @needs)
-                  .order("priority, need")
+                .active
+                .where(need: @needs)
+                .order('priority, need')
 
     if params[:priority].to_s == 'true'
       @filters[:priority] = params[:priority]
@@ -29,11 +29,11 @@ class Api::V1::AmazonProductsController < ApplicationController
       cat_specific_field = AmazonProduct.arel_table[:category_specific]
       cat_general_field = AmazonProduct.arel_table[:category_general]
       @products = @products
-        .where(cat_specific_field.matches("%#{params[:category]}%"))
-        .or(@products.where(cat_general_field.matches("%#{params[:category]}%")))
+                  .where(cat_specific_field.matches("%#{params[:category]}%"))
+                  .or(@products.where(cat_general_field.matches("%#{params[:category]}%")))
     end
 
-    if params[:limit].to_i > 0
+    if params[:limit].to_i.positive?
       @filters[:limit] = params[:limit].to_i
       @products = @products.limit(params[:limit].to_i)
     end
