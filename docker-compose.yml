@@ -3,26 +3,48 @@ version: '3'
 services:
   api:
     build:
-      context: '.'
-      dockerfile: './Dockerfile'
-    entrypoint: ["./docker_entrypoint.sh"]
-    command: ["rails", "server"]
+      context: .
+      dockerfile: ./Dockerfile
+    entrypoint: ['./docker_entrypoint.sh']
+    command: ['bundle', 'exec', 'rails', 'server']
     environment:
-      RAILS_ENV:
-      DATABASE_URL: "postgresql://harvey-api:harvey-api@db:5432/harvey-api_${RAILS_ENV}"
+      RAILS_ENV: development
+      RAKE_ENV: development
+      DATABASE_URL: "postgres://harvey-api:harvey-api@postgresql:5432/harvey-api_${RAILS_ENV}"
+      RHOST: redis
     ports:
       - 3000:3000
+    expose:
+      - 3000
     volumes:
       - ./app:/usr/src/app/app
       - ./lib:/usr/src/app/lib
       - ./db:/usr/src/app/db
       - ./public:/usr/src/app/public
+    links:
+      - postgresql
     depends_on:
-      - db
-  db:
-    image: 'mdillon/postgis:10-alpine'
+      - postgresql
+      - redis
+  postgresql:
+    container_name: postgresql
+    image: postgres:9.6
     environment:
       POSTGRES_USER: 'harvey-api'
       POSTGRES_PASSWORD: 'harvey-api'
+      POSTGRES_DB: "harvey-api_${RAILS_ENV}"
     ports:
       - 5432:5432
+      - 5555:5432
+    expose:
+      - 5555
+    restart: always
+  redis:
+    image: 'redis:4.0.5-alpine'
+    command: redis-server
+    hostname: redis
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
