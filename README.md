@@ -1,7 +1,8 @@
 # The Hurricane Florence API
 
-* We serve JSON data here, open and fresh
+* We serve JSON(JavaScript Object Notation) data here, open and fresh
 * We help client applications help those affected by Hurricane Florence.
+
 
 ## Developer Quick Links
 
@@ -13,15 +14,20 @@
 
 ## API Specification
 
+   API is an Application programming interface which is a set of routines,protocols and tools for building software applications.
+
+
 ### Overall
 
-* URI: https://hurricane-florence-api.herokuapp.com
+* URL: https://hurricane-florence-api.herokuapp.com
 * Namespaced and versioned: `/api/v1`
 
 * Sample API for list of all shelters: https://hurricane-florence-api.herokuapp.com/api/v1/shelters
 * Sample API for list of all shelters accepting people: https://hurricane-florence-api.herokuapp.com/api/v1/shelters?accepting=true
 
 ### Shelters Endpoint
+
+Below is an example JSON format which is an array,It tells you about the basic information of any specific Shelter,Information like it's position whether it is accepting,if there is any need of volunteers moreover the co-ordinates are also provided in this JSON example,
 
 Shape (with truncated `"shelters"` array):
 
@@ -136,6 +142,9 @@ Sample:
 
 ### Distribution Points API
 
+ Below is a JSON file which tells you about the distribution points this contains the total information about
+  the distribution points like their active status,the facility name , the address,longitude and latitude,county,State etc.
+
 Shape:
 
 ```
@@ -189,6 +198,7 @@ Sample:
   * Filters by facility name
 
 ### Needs API
+ This below JSON format tells you about the supplies and needs requires at a specific location.
 
 Shape:
 
