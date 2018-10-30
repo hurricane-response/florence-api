@@ -1,49 +1,34 @@
-<h1><%= @shelter.shelter %></h1>
-
-<% if @shelter.active %>
-  <%= link_to 'Update', [:edit, @shelter], class: 'button button-clear' %> |
-  <%= link_to 'Back', shelters_path, class: 'button button-clear' %>
-<% else %>
-  <%= link_to 'Back', archived_shelters_path, class: 'button button-clear' %>
-<% end %>
-<% if admin? %> |
+<% content_for :resource_command_list do %>
   <% if @shelter.active %>
-    <%= link_to 'Archive', archive_shelter_path(@shelter),
-                  method: :post,
-                  data: { confirm: 'Are you sure?' },
-                  class: 'button button-clear' %>
+    <%= link_to 'Update', [:edit, @shelter], class: 'button button-clear' %> |
+    <%= link_to 'Back', shelters_path, class: 'button button-clear' %>
   <% else %>
-    <%= link_to 'Unarchive', unarchive_shelter_path(@shelter),
-                  method: :delete,
-                  data: { confirm: 'Are you sure?' },
+    <%= link_to 'Back', archived_shelters_path, class: 'button button-clear' %>
+  <% end %>
+  <% if admin? %> |
+    <% if @shelter.active %>
+      <%= link_to 'Archive', archive_shelter_path(@shelter),
+                    method: :post,
+                    data: { confirm: 'Are you sure?' },
+                    class: 'button button-clear' %>
+    <% else %>
+      <%= link_to 'Unarchive', unarchive_shelter_path(@shelter),
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    class: 'button button-clear' %>
+    <% end %> |
+    <%= link_to 'Delete', @shelter,
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' },
+                    class: 'button button-clear' %>
+  <% end %>
+  <% if user_signed_in? && @shelter.outdated? %> |
+    <%= link_to 'Mark Current', mark_current_shelter_path(@shelter),
+                  method: :post,
                   class: 'button button-clear' %>
-  <% end %> |
-  <%= link_to 'Delete', @shelter,
-                  method: :delete,
-                  data: { confirm: 'Are you sure?' },
-                  class: 'button button-clear' %>
-<% end %>
-<% if user_signed_in? && @shelter.outdated? %> |
-  <%= link_to 'Mark Current', mark_current_shelter_path(@shelter),
-                method: :post,
-                class: 'button button-clear' %>
+  <% end %>
 <% end %>
 
-<div class="row">
-  <div class="column">
-    <%= render 'shared/show', record: @shelter, headers: @headers, columns: @columns %>
-  </div>
-  <div class="column">
-    <div id="map" style="height: 300px; width: 100%"></div>
-    <script>
-      $(window).ready(function(){
-        simpleMap({
-          selector: "#map",
-          name: "<%= j @shelter.shelter %>",
-          lat: <%= @shelter.latitude || 0 %>,
-          lng: <%= @shelter.longitude || 0 %>
-        })
-      })
-    </script>
-  </div>
-</div>
+<%= render @shelter, resource: @shelter,
+                     headers: @headers,
+                     columns: @columns %>

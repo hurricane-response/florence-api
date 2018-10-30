@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     post :accept, on: :member
   end
 
+  resources :trashes, as: :trash, path: '/trash', controller: 'trash', only: [:index, :show, :destroy]
+
   resources :amazon_products, except: [:new, :create, :destroy]
 
   namespace :connect do

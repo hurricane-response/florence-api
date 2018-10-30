@@ -78,6 +78,10 @@ class Shelter < ApplicationRecord
     end
   end
 
+  def name
+    shelter
+  end
+
   def outdated?
     updated_at < 4.hours.ago
   end

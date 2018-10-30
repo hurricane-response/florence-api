@@ -1,13 +1,16 @@
 # Change Log
 
-## [Unreleased](https://github.com/hurricane-response/florence-api/tree/HEAD)
+## [2.7.0](https://github.com/hurricane-response/florence-api/tree/2.7.0) (2018-10-25)
 
-[Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.3...HEAD)
+[Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.3...2.7.0)
 
 **Implemented enhancements:**
 
 - Enhancements for Unarchive [\#56](https://github.com/hurricane-response/florence-api/issues/56)
 - Feature: Delete Shelter in Admin UI [\#54](https://github.com/hurricane-response/florence-api/issues/54)
+- Feature: add geoJSON endpoints [\#44](https://github.com/hurricane-response/florence-api/issues/44)
+- Adding functionality to view trashed items and restore them when needed. [\#68](https://github.com/hurricane-response/florence-api/pull/68) ([omnilord](https://github.com/omnilord))
+- Menu cleanup [\#43](https://github.com/hurricane-response/florence-api/pull/43) ([omnilord](https://github.com/omnilord))
 
 **Fixed bugs:**
 
@@ -16,9 +19,12 @@
 **Closed issues:**
 
 - Feature: ability to mark a shelter updated/current [\#63](https://github.com/hurricane-response/florence-api/issues/63)
+- SemVer [\#60](https://github.com/hurricane-response/florence-api/issues/60)
 
 **Merged pull requests:**
 
+- Add GeoJSON endpoints for shelters and distribution points [\#70](https://github.com/hurricane-response/florence-api/pull/70) ([nihonjinrxs](https://github.com/nihonjinrxs))
+- update changelog [\#67](https://github.com/hurricane-response/florence-api/pull/67) ([miklb](https://github.com/miklb))
 - fix travis script [\#66](https://github.com/hurricane-response/florence-api/pull/66) ([miklb](https://github.com/miklb))
 - Make the app workflow more user friendly for updating and moving resources in and out of archives [\#65](https://github.com/hurricane-response/florence-api/pull/65) ([omnilord](https://github.com/omnilord))
 - Better control of deduplication through Deleting resources via UI and finer import logic [\#64](https://github.com/hurricane-response/florence-api/pull/64) ([omnilord](https://github.com/omnilord))
@@ -70,6 +76,7 @@
 - Bumped to latest patch of Rails 5.1 [\#36](https://github.com/hurricane-response/florence-api/pull/36) ([nihonjinrxs](https://github.com/nihonjinrxs))
 - \[Depends on \#34\] Fix tests \(and production API 500 errors, too! Yikes!\) [\#35](https://github.com/hurricane-response/florence-api/pull/35) ([nihonjinrxs](https://github.com/nihonjinrxs))
 - Update db/structure.sql to current state after all these merges [\#34](https://github.com/hurricane-response/florence-api/pull/34) ([nihonjinrxs](https://github.com/nihonjinrxs))
+- Adding missing semicolons in sql [\#32](https://github.com/hurricane-response/florence-api/pull/32) ([omnilord](https://github.com/omnilord))
 
 ## [2.5.0](https://github.com/hurricane-response/florence-api/tree/2.5.0) (2018-09-16)
 **Closed issues:**
@@ -87,20 +94,8 @@
 
 **Merged pull requests:**
 
-- Adding missing semicolons in sql [\#32](https://github.com/hurricane-response/florence-api/pull/32) ([omnilord](https://github.com/omnilord))
 - Fix API importer for dev use [\#30](https://github.com/hurricane-response/florence-api/pull/30) ([nihonjinrxs](https://github.com/nihonjinrxs))
 - "Shelters Needing Updates" view fixes [\#28](https://github.com/hurricane-response/florence-api/pull/28) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- Lots of README updates… [\#23](https://github.com/hurricane-response/florence-api/pull/23) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- \[DB Migration\] \[Depends on \#30\] Accessibility field [\#22](https://github.com/hurricane-response/florence-api/pull/22) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- \[DB migration\] Add third state "unknown" to accepting field on shelters [\#21](https://github.com/hurricane-response/florence-api/pull/21) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- Fix the contributors page to display contributors from the correct repo [\#20](https://github.com/hurricane-response/florence-api/pull/20) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- Add Export to CSV for shelters, both rake shelters:export and a button on index [\#18](https://github.com/hurricane-response/florence-api/pull/18) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- Fix footer to point to the florence repo instead of the harvey one. [\#17](https://github.com/hurricane-response/florence-api/pull/17) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- Add view of shelters needing updates. [\#16](https://github.com/hurricane-response/florence-api/pull/16) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- Add a State field in the Shelter update form [\#13](https://github.com/hurricane-response/florence-api/pull/13) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- Update README dev docs to re-order a few things [\#12](https://github.com/hurricane-response/florence-api/pull/12) ([nihonjinrxs](https://github.com/nihonjinrxs))
-- Format timestamps as relative time in admin table [\#6](https://github.com/hurricane-response/florence-api/pull/6) ([tdooner](https://github.com/tdooner))
-- Store record\_type for Draft posts [\#4](https://github.com/hurricane-response/florence-api/pull/4) ([tdooner](https://github.com/tdooner))
 
 
 

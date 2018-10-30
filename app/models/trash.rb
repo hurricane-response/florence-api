@@ -2,15 +2,24 @@ class Trash < ApplicationRecord
   belongs_to :user
   belongs_to :trashable, polymorphic: true, optional: true
 
+  after_initialize :set_resource
+
   def restore!
-    restoring = nil
+    restored = false
     transaction do
-      restoring = trashable_type.constantize.create(data)
-      unless restoring && self.destroy
-        restoring = nil
-        raise ActiveRecord::Rollback
-      end
+      restored = @resource.save && self.destroy
+      raise ActiveRecord::Rollback unless restored
     end
-    restoring
+    restored ? @resource : nil
+  end
+
+  def resource
+    @resource
+  end
+
+private
+
+  def set_resource
+    @resource = trashable_type.constantize.new(data)
   end
 end

@@ -1,0 +1,22 @@
+<h1><%= resource.name %></h1>
+
+<%= content_for :resource_command_list %>
+
+<div class="row">
+  <div class="column">
+    <%= render 'shared/show', record: resource, headers: headers, columns: columns %>
+  </div>
+  <div class="column">
+    <div id="map" style="height: 300px; width: 100%"></div>
+    <script>
+      $(window).ready(function(){
+        simpleMap({
+          selector: "#map",
+          name: "<%= j resource.name %>",
+          lat: <%= resource.latitude || 0 %>,
+          lng: <%= resource.longitude || 0 %>
+        })
+      })
+    </script>
+  </div>
+</div>
