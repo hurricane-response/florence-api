@@ -18,4 +18,8 @@ echo
 
 bundle exec rails db:migrate
 
+if [ $RAILS_ENV = development ]; then
+  bundle exec rails api:import
+fi
+
 dockerize -wait tcp://postgresql:5432 -timeout 1s "$@"
