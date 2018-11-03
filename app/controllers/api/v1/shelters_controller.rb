@@ -33,7 +33,12 @@ class Api::V1::SheltersController < ApplicationController
   ]
 
   def index
-    @shelters, @filters = apply_filters(Shelter.all)
+    @shelters, @filters =
+      if params[:exporter] == 'all'
+        apply_filters(Shelter.unscope(:where))
+      else
+        apply_filters(Shelter.all)
+      end
   end
 
   def geo

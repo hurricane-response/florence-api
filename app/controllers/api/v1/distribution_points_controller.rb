@@ -13,7 +13,12 @@ class Api::V1::DistributionPointsController < ApplicationController
   ]
 
   def index
-    @distribution_points, @filters = apply_filters(DistributionPoint.all)
+    @distribution_points, @filters =
+      if params[:exporter] == 'all'
+        apply_filters(DistributionPoint.unscope(:where))
+      else
+        apply_filters(DistributionPoint.all)
+      end
   end
 
   def geo
