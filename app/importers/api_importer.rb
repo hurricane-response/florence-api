@@ -19,4 +19,8 @@ class APIImporter
       shelter.except!('pets_notes')
     end
   end
+
+  def self.distribution_points
+    get('/distribution_points')['distribution_points']
+  end
 end

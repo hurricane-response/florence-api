@@ -3,6 +3,7 @@ namespace :api do
   task :import => :environment do
     if Rails.env.development?
       ImportSheltersJob.perform_now
+      ImportDistributionPointsJob.perform_now
       ImportNeedsJob.perform_now
     else
       puts "Not running api:import because it's not development mode. Mode: #{Rails.env}"
