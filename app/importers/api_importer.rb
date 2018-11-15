@@ -7,11 +7,11 @@ class APIImporter
   format :json
 
   def self.needs
-    get('/needs')['needs']
+    get('/needs', query: { 'exporter' => 'all' })['needs']
   end
 
   def self.shelters
-    get('/shelters')['shelters'].map do |shelter|
+    get('/shelters', query: { 'exporter' => 'all' })['shelters'].map do |shelter|
       shelter['allow_pets'] = if shelter['pets'] == 'Yes' then true
                               elsif shelter['pets'] == 'No' then false
                               end
@@ -21,6 +21,6 @@ class APIImporter
   end
 
   def self.distribution_points
-    get('/distribution_points')['distribution_points']
+    get('/distribution_points', query: { 'exporter' => 'all' })['distribution_points']
   end
 end

@@ -6,7 +6,12 @@ class Api::V1::NeedsController < ApplicationController
 
   def index
       @filters = {}
-      @needs = Need.all
+      @needs =
+        if params[:exporter] == 'all'
+          Need.unscope(:where)
+        else
+          Need.all
+        end
 
       if params[:lat].present? && params[:lon].present?
         @filters[:lon] = params[:lon]
