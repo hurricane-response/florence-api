@@ -1,41 +1,24 @@
 class Api::V1::NeedsController < ApplicationController
+  include FilterByParams
 
   before_action do
     request.format = :json
   end
 
+  filterable_params [
+    { type: :geocoords },
+    { type: :text, param: :name, field: :location_name },
+    { type: :text, param: :location_name },
+    { type: :boolean, param: :volunteers_needed, field: :are_volunteers_needed },
+    { type: :boolean, param: :supplies_needed, field: :are_supplies_needed }
+  ]
+
   def index
-      @filters = {}
-      @needs =
-        if params[:exporter] == 'all'
-          Need.unscope(:where)
-        else
-          Need.all
-        end
-
-      if params[:lat].present? && params[:lon].present?
-        @filters[:lon] = params[:lon]
-        @filters[:lat] = params[:lat]
-        @needs = @needs.near([params[:lat], params[:lon]], 100)
-      end
-
-      if params[:location_name].present?
-        @filters[:location_name] = params[:location_name]
-        @needs = @needs.where("location_name ILIKE ?", "%#{params[:location_name]}%")
-      end
-
-      if params[:volunteers_needed].present?
-        @filters[:volunteers_needed] = params[:volunteers_needed]
-        @needs = @needs.where(are_volunteers_needed: true)
-      end
-
-      if params[:supplies_needed].present?
-        @filters[:supplies_needed] = params[:supplies_needed]
-        @needs = @needs.where(are_supplies_needed: true)
-      end
-
-      if params[:limit].to_i > 0
-        @needs = @needs.limit(params[:limit].to_i)
+    @needs, @filters =
+      if params[:exporter] == 'all'
+        apply_filters(Need.unscope(:where))
+      else
+        apply_filters(Need.all)
       end
   end
 
@@ -43,7 +26,7 @@ class Api::V1::NeedsController < ApplicationController
     @message = nil
     @success = false
 
-    return render status: :forbidden, json: {error: 'invalid auth token'} unless authenticate_json_api_token!
+    return render status: :forbidden, json: { error: 'invalid auth token' } unless authenticate_json_api_token!
 
     @need = Need.new(need_update_params)
 
@@ -51,12 +34,12 @@ class Api::V1::NeedsController < ApplicationController
       @success = true
     else
       @message = @need.errors.messages
-      @need= nil
+      @need = nil
     end
-    return render template: 'api/v1/needs/show'
+    render template: 'api/v1/needs/show'
   end
 
   def need_update_params
-    params.require(:need).permit(Need::UpdateFields).keep_if { |_,v| v.present? }
+    params.require(:need).permit(Need::UpdateFields).keep_if { |_, v| v.present? }
   end
 end

@@ -7,9 +7,10 @@ class Api::V1::DistributionPointsController < ApplicationController
 
   filterable_params [
     { type: :geocoords },
-    { type: :text, param: :county, field: 'county' },
-    { type: :text, param: :name, field: 'facility_name' },
-    { type: :boolean, param: :active, field: 'active' }
+    { type: :text, param: :county },
+    { type: :text, param: :name, field: :facility_name },
+    { type: :text, param: :facility_name },
+    { type: :boolean, param: :active }
   ]
 
   def index

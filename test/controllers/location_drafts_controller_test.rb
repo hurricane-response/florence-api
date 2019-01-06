@@ -7,7 +7,7 @@ class LocationDraftsControllerTest < ActionDispatch::IntegrationTest
     Draft.where("info->'organization' is not null").all
   end
 
-  test "loads show for all types" do
+  test 'loads show for all types' do
     drafts.each do |draft|
       organization = draft.info['organization']
       legacy_table_name = draft.info['legacy_table_name']
@@ -17,7 +17,7 @@ class LocationDraftsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "accepts drafts for all types" do
+  test 'accepts drafts for all types' do
     drafts.each do |draft|
       organization = draft.info['organization']
       legacy_table_name = draft.info['legacy_table_name']
@@ -33,8 +33,9 @@ class LocationDraftsControllerTest < ActionDispatch::IntegrationTest
         # We use record type to create the record for the draft if it is a new record
         # This field does not exist on the record, only in the draft
         # You cannot set a polymorphic type without also setting the id (as far as I know)
-        next if 'record_type' == key
-        if(record.send(key).nil?)
+        next if key == 'record_type'
+
+        if record.send(key).nil?
           assert_nil(draft.info[key], "Error #{key} not nil for #{draft.info['name']}")
         else
           assert_equal(record.send(key), draft.info[key], "Error for #{key} on #{draft.info['name']}")
@@ -43,7 +44,7 @@ class LocationDraftsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "denies drafts for all types" do
+  test 'denies drafts for all types' do
     drafts.each do |draft|
       organization = draft.info['organization']
       legacy_table_name = draft.info['legacy_table_name']
@@ -52,7 +53,6 @@ class LocationDraftsControllerTest < ActionDispatch::IntegrationTest
       delete location_draft_path(organization: organization, legacy_table_name: legacy_table_name, id: draft.id)
       assert_response :redirect
       draft = draft.reload
-      record = draft.record
       assert_equal(users(:admin), draft.denied_by)
     end
   end

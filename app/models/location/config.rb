@@ -13,7 +13,7 @@ class Location
       :update_fields,
       :admin_columns,
       :admin_headers,
-      :admin_legacy_headers,
+      :admin_legacy_headers
     )
 
     # Set Config
@@ -40,14 +40,14 @@ class Location
     def filter(name, type: :string)
       @filters ||= {}
 
-      case name
-      when :coordinates
-        @filters[name] = Filter.new(:coordinates)
-      when :limit
-        @filters[name] = Filter.new(:limit)
-      else
-        @filters[name] = Filter.new(type)
-      end
+      @filters[name] = case name
+                       when :coordinates
+                         Filter.new(:coordinates)
+                       when :limit
+                         Filter.new(:limit)
+                       else
+                         Filter.new(type)
+                       end
     end
 
     # Legacy Fields to import from the google sheet
@@ -63,7 +63,7 @@ class Location
       legacy_column ||= name.to_s.titleize
 
       # Set information for the columns
-      if(display && !admin_only)
+      if display && !admin_only
         @columns ||= []
         @columns.push(name)
         @headers ||= []
@@ -73,13 +73,13 @@ class Location
       end
 
       # Set which fields can be updated
-      if(updatable)
+      if updatable
         @update_fields ||= []
         @update_fields.push(name)
       end
 
       # Set which fields are viewable by admins only
-      if(admin_only)
+      if admin_only
         @admin_columns ||= []
         @admin_columns.push(name)
         @admin_headers ||= []
@@ -88,17 +88,17 @@ class Location
         @admin_legacy_headers.push(legacy_column)
       end
 
-
       define_method(name) do
         legacy_data[name.to_s]
       end
-      define_method(name.to_s+'=') do |value|
-        value = case type
-                when :boolean
-                  ((value == true) || /(yes|true|t|1|y)/.match?(value)) ? true : false
-                else
-                  value
-                end
+      define_method(name.to_s + '=') do |value|
+        value =
+          case type
+          when :boolean
+            (value == true) || /(yes|true|t|1|y)/.match?(value) ? true : false
+          else
+            value
+          end
         legacy_data[name.to_s] = value
       end
     end
@@ -108,7 +108,6 @@ class Location
     # and other 'clean' data.
     # - column: symbol, name of the column to map to on location
     # - legacy_column_name: string, name of the column on the legacy table
-    def field(column, legacy_column_name)
-    end
+    def field(column, legacy_column_name); end
   end
 end

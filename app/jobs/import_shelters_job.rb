@@ -6,8 +6,12 @@ class ImportSheltersJob < ApplicationJob
     shelters = APIImporter.shelters
     shelters.each do |shelter|
       # needs and cleanPhone are derived fields
+      # active is a deprecated field
       # updatedAt is set on save to the database
-      Shelter.create! shelter.except("needs", "cleanPhone", "updatedAt")
+      data = shelter.except('needs', 'cleanPhone', 'updatedAt')
+      active = data.delete('active')
+      data['archived'] ||= active.nil? ? false : !active
+      Shelter.create! data
     end
     logger.info "ImportSheltersJob Complete - {#{shelters.count}}"
   end

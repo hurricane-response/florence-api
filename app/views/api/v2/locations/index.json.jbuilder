@@ -1,7 +1,7 @@
 json.cache! @locations do
   json.locations @locations do |location|
     json.cache! location do
-      json.partial! "location", location: location
+      json.partial! 'location', location: location
     end
   end
 end

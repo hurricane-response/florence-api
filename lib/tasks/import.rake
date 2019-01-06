@@ -1,6 +1,6 @@
 namespace :api do
-  desc "Schedule import of records for needs and shelters"
-  task :import => :environment do
+  desc 'Schedule import of records for needs and shelters'
+  task import: :environment do
     if Rails.env.development?
       ImportSheltersJob.perform_now
       ImportDistributionPointsJob.perform_now
@@ -12,15 +12,15 @@ namespace :api do
 end
 
 namespace :fema do
-  desc "Schedule an import from FEMA"
-  task :import => :environment do
+  desc 'Schedule an import from FEMA'
+  task import: :environment do
     ImportFemaSheltersJob.perform_now
   end
 end
 
 namespace :amazon do
-  desc "Schedule import of Amazon Products"
-  task :import => :environment do
+  desc 'Schedule import of Amazon Products'
+  task import: :environment do
     ScheduleAmazonFetchJob.perform_now
   end
 end

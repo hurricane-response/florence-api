@@ -18,8 +18,6 @@ private
     # TODO: Use Arel for the where named functions
     # arel = Shelter.arel_table
 
-    shelter = nil
-
     if shelter = find_by_address(data).first
       logger.info "Duplicate found by address: #{data[:shelter]} @ #{data[:address]}"
     elsif shelter = find_by_coordinates(data).first
@@ -28,9 +26,13 @@ private
       logger.info "Duplicate found by fields: #{data[:shelter]} @ [#{data[:city]}, #{data[:state]}, #{data[:zip]}]"
     elsif shelter = find_by_source(data).first
       logger.info "Duplicate found by source: #{data[:shelter]} @ [#{data[:source]}]"
+    else
+      shelter = nil
     end
 
     if shelter.nil?
+      active = data.delete(:active)
+      data[:archived] ||= active.nil? ? false : !active
       Shelter.create!(data)
       1
     else
@@ -47,7 +49,7 @@ private
     lat = data[:latitude].to_f
     lon = data[:longitude].to_f
     delta = 0.0002
-    shelter = Shelter.unscope(:where).where(
+    Shelter.unscope(:where).where(
       '(latitude between ? and ?) AND (longitude between ? and ?)',
       lat - delta, lat + delta, lon - delta, lon + delta
     )
@@ -65,9 +67,9 @@ private
   end
 
   def unarchive!(shelter)
-    unless shelter.active
+    if shelter.archived
       logger.info "Unarchiving pre-existing shelter with ID #{shelter.id}"
-      shelter.update_columns(active: true, updated_at: Time.now)
+      shelter.update_columns(archived: false, updated_at: Time.now)
     end
   end
 end

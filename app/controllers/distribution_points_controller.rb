@@ -1,13 +1,13 @@
 class DistributionPointsController < ApplicationController
-  before_action :authenticate_admin!, only: [:archive, :unarchive, :destroy]
+  before_action :authenticate_admin!, only: %i[archive unarchive destroy]
   before_action :authenticate_user!, only: [:mark_current]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
-  before_action :set_distribution_point, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :mark_current]
+  before_action :set_distribution_point, only: %i[show edit update destroy archive unarchive mark_current]
 
   def index
+    @page = Page.distribution_points
     @distribution_points = DistributionPoint.all
-    @page = Page.distribution_points.first_or_initialize
 
     respond_to do |format|
       format.html
@@ -16,51 +16,45 @@ class DistributionPointsController < ApplicationController
   end
 
   def new
+    @page = Page.new_distribution_point
     @distribution_point = DistributionPoint.new
   end
 
   def create
-    if admin?
-      @distribution_point = DistributionPoint.new(distribution_point_params)
+    draft_params = distribution_point_params
+    draft = Draft.create(record_type: DistributionPoint, info: draft_params, created_by: current_user)
 
-      if @distribution_point.save
+    if draft
+      if admin? && draft.accept(current_user)
+        @distribution_point = draft.record
         redirect_to distribution_points_path, notice: 'Distribution Point was successfully created.'
       else
-        render :new
+        redirect_to draft, notice: 'Your new distribution point is pending approval.'
       end
     else
-      draft = Draft.new(info: distribution_point_params, created_by: current_user, record_type: DistributionPoint)
-
-      if draft.save
-        redirect_to draft, notice: 'Your new distribution point is pending approval.'
-      else
-        @distribution_point = DistributionPoint.new(distribution_point_params)
-        render :new
-      end
+      flash[:notice] = 'Something went wrong.'
+      @distribution_point = DistributionPoint.new(draft_params)
+      render :new
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if admin?
-      if @distribution_point.update(distribution_point_params)
+    draft_params = distribution_point_params
+    draft = Draft.create(record: @distribution_point, info: draft_params, created_by: current_user)
+
+    if draft
+      if admin? && draft.accept(current_user)
         redirect_to distribution_points_path, notice: 'Distribution Point was successfully updated.'
       else
-        render :edit
+        redirect_to draft, notice: 'Your distribution point update is pending approval.'
       end
     else
-      draft = Draft.new(record: @distribution_point, info: distribution_point_params, created_by: current_user)
-
-      if draft.save
-        redirect_to draft, notice: 'Your distribution point update is pending approval.'
-      else
-        render :edit
-      end
+      flash[:notice] = 'Something went wrong.'
+      render :edit
     end
   end
 
@@ -73,8 +67,8 @@ class DistributionPointsController < ApplicationController
   end
 
   def archived
+    @page = Page.archived_distribution_points
     @distribution_points = DistributionPoint.archived.all
-    @page = Page.distribution_points.first_or_initialize
 
     respond_to do |format|
       format.html
@@ -93,7 +87,8 @@ class DistributionPointsController < ApplicationController
   end
 
   def drafts
-    @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = ?", DistributionPoint.name, DistributionPoint.name).where(accepted_by_id: nil).where(denied_by_id: nil)
+    @page = Page.distribution_point_drafts
+    @drafts = Draft.actionable_by_type(DistributionPoint.name)
   end
 
   def csv
@@ -101,6 +96,7 @@ class DistributionPointsController < ApplicationController
   end
 
   def outdated
+    @page = Page.outdated_distribution_points
     @distribution_points = DistributionPoint.outdated.order('updated_at DESC')
     @columns = DistributionPoint::OutdatedViewColumnNames - DistributionPoint::IndexHiddenColumnNames
     @headers = @columns.map(&:titleize)

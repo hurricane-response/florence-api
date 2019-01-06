@@ -1,6 +1,6 @@
 class CharitableOrganizationsController < ApplicationController
   before_action :set_headers
-  before_action :set_charitable_organization, only: [:show, :edit, :update, :destroy, :archive]
+  before_action :set_charitable_organization, only: %i[show edit update destroy archive]
 
   def index
     @charitable_organizations = CharitableOrganization.all
@@ -11,8 +11,7 @@ class CharitableOrganizationsController < ApplicationController
   end
 
   def create
-
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       @charitable_organization = CharitableOrganization.new(charitable_organization_update_params)
 
       if @charitable_organization.save
@@ -36,23 +35,21 @@ class CharitableOrganizationsController < ApplicationController
     @charitable_organization = CharitableOrganization.find(params[:id])
   end
 
-  def destroy
-  end
+  def destroy; end
 
   def archive
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       @charitable_organization.update_attributes(active: false)
-      redirect_to charitable_organizations_path, notice: "Archived!"
+      redirect_to charitable_organizations_path, notice: 'Archived!'
     else
-      redirect_to charitable_organizations_path, notice: "You must be an admin to archive."
+      redirect_to charitable_organizations_path, notice: 'You must be an admin to archive.'
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if(user_signed_in? && current_user.admin?)
+    if admin?
       if @charitable_organization.update(charitable_organization_update_params)
         redirect_to @charitable_organization, notice: 'Charitable Organization was successfully updated.'
       else
@@ -69,9 +66,8 @@ class CharitableOrganizationsController < ApplicationController
     end
   end
 
-
   def drafts
-    @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = 'CharitableOrganization'", CharitableOrganization.name).where(accepted_by_id: nil).where(denied_by_id: nil)
+    @drafts = Draft.actionable_by_type(CharitableOrganization.name)
   end
 
   def set_headers
@@ -84,7 +80,6 @@ class CharitableOrganizationsController < ApplicationController
   end
 
   def charitable_organization_update_params
-    params.require(:charitable_organization).permit(CharitableOrganization::UpdateFields).keep_if { |_,v| v.present? }
+    params.require(:charitable_organization).permit(CharitableOrganization::UpdateFields).keep_if { |_, v| v.present? }
   end
-
 end

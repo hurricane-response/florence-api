@@ -1,11 +1,10 @@
 class Location
   module HHRD
     class Rescuers < Location
-
       # Import, Models, HTML Controller, API Controller
       config(
-        legacy_table_name: "rescuers",
-        organization: "hurricane-harvey-rescue-dispatchers"
+        legacy_table_name: 'rescuers',
+        organization: 'hurricane-harvey-rescue-dispatchers'
       )
 
       filter(:status)

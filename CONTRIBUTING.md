@@ -109,7 +109,7 @@ Run `rails db:setup`
 
 ##### Ensuring you have the latest schema
 
-Run rails migrate to create/update schema: `rails db:migrate`
+If you are setting up your database for the first time, run rails structure load to create the schema: `rails db:structure:load`, otherwise you can migrate to get any new updates: `rails db:migrate`
 
 ##### Importing data
 

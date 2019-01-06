@@ -24,12 +24,13 @@ class AmazonProductsController < ApplicationController
   end
 
   private
+
   def set_headers
     @columns = AmazonProduct::ColumnNames
     @headers = AmazonProduct::HeaderNames
   end
 
   def amazon_product_params
-    params.require(:amazon_product).permit(AmazonProduct::UpdateFields).keep_if { |_,v| v.present? }
+    params.require(:amazon_product).permit(AmazonProduct::UpdateFields).keep_if { |_, v| v.present? }
   end
 end

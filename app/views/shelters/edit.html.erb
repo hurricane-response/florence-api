@@ -1,13 +1,14 @@
 <h1>Edit <%= @shelter.shelter %></h1>
+
 <% if admin? %>
-  <% if @shelter.active %>
-    <%= link_to 'Archive', archive_shelter_path(@shelter),
-                  method: :post,
+  <% if @shelter.archived %>
+    <%= link_to 'Unarchive', unarchive_shelter_path(@shelter),
+                  method: :delete,
                   data: { confirm: 'Are you sure?' },
                   class: 'button button-clear' %>
   <% else %>
-    <%= link_to 'Unarchive', unarchive_shelter_path(@shelter),
-                  method: :delete,
+    <%= link_to 'Archive', archive_shelter_path(@shelter),
+                  method: :post,
                   data: { confirm: 'Are you sure?' },
                   class: 'button button-clear' %>
   <% end %>

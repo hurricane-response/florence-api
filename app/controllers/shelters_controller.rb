@@ -1,13 +1,13 @@
 class SheltersController < ApplicationController
-  before_action :authenticate_admin!, only: [:archive, :unarchive, :destroy]
+  before_action :authenticate_admin!, only: %i[archive unarchive destroy]
   before_action :authenticate_user!, only: [:mark_current]
   before_action :set_headers, except: [:index]
   before_action :set_index_headers, only: [:index]
-  before_action :set_shelter, only: [:show, :edit, :update, :destroy, :archive, :unarchive, :mark_current]
+  before_action :set_shelter, only: %i[show edit update destroy archive unarchive mark_current]
 
   def index
+    @page = Page.shelters
     @shelters = Shelter.all
-    @page = Page.shelters.first_or_initialize
 
     respond_to do |format|
       format.html
@@ -16,51 +16,44 @@ class SheltersController < ApplicationController
   end
 
   def new
+    @page = Page.new_shelter
     @shelter = Shelter.new
   end
 
   def create
-    if admin?
-      @shelter = Shelter.new(shelter_update_params)
+    draft_params = shelter_update_params
+    draft = Draft.create(record_type: Shelter, info: draft_params, created_by: current_user)
 
-      if @shelter.save
+    if draft
+      if admin? && draft.accept(current_user)
+        @shelter = draft.record
         redirect_to shelters_path, notice: 'Shelter was successfully created.'
       else
-        render :new
+        redirect_to draft, notice: 'Your new shelter is pending approval.'
       end
     else
-      draft = Draft.new(info: shelter_update_params, created_by: current_user, record_type: Shelter)
-
-      if draft.save
-        redirect_to draft, notice: 'Your new shelter is pending approval.'
-      else
-        @shelter = Shelter.new(shelter_update_params)
-        render :new
-      end
+      flash[:notice] = 'Something went wrong.'
+      @shelter = Shelter.new(draft_params)
+      render :new
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if admin?
-      if @shelter.update(shelter_update_params)
+    draft = Draft.create(record: @shelter, info: shelter_update_params, created_by: current_user)
+
+    if draft
+      if admin? && draft.accept(current_user)
         redirect_to shelters_path, notice: 'Shelter was successfully updated.'
       else
-        render :edit
+        redirect_to draft, notice: 'Your shelter update is pending approval.'
       end
     else
-      draft = Draft.new(record: @shelter, info: shelter_update_params, created_by: current_user)
-
-      if draft.save
-        redirect_to draft, notice: 'Your shelter update is pending approval.'
-      else
-        render :edit
-      end
+      flash[:notice] = 'Something went wrong.'
+      render :edit
     end
   end
 
@@ -73,8 +66,8 @@ class SheltersController < ApplicationController
   end
 
   def archived
-    @shelters = Shelter.inactive.all
-    @page = Page.shelters.first_or_initialize
+    @page = Page.archived_shelters
+    @shelters = Shelter.archived.all
 
     respond_to do |format|
       format.html
@@ -83,17 +76,18 @@ class SheltersController < ApplicationController
   end
 
   def archive
-    @shelter.update_attributes(active: false)
+    @shelter.update_attributes(archived: true)
     redirect_to shelters_path, notice: 'Archived!'
   end
 
   def unarchive
-    @shelter.update_attributes(active: true)
+    @shelter.update_attributes(archived: false)
     redirect_to archived_shelters_path, notice: 'Reactivated!'
   end
 
   def drafts
-    @drafts = Draft.includes(:record).where("record_type = ? OR info->>'record_type' = ?", Shelter.name, Shelter.name).where(accepted_by_id: nil).where(denied_by_id: nil)
+    @page = Page.shelter_drafts
+    @drafts = Draft.actionable_by_type(Shelter.name)
   end
 
   def csv
@@ -101,7 +95,9 @@ class SheltersController < ApplicationController
   end
 
   def outdated
+    @page = Page.outdated_shelters
     @shelters = Shelter.outdated.order('updated_at DESC')
+
     @columns = Shelter::OutdatedViewColumnNames - Shelter::IndexHiddenColumnNames
     @headers = @columns.map(&:titleize)
   end

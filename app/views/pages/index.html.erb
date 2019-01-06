@@ -1,5 +1,8 @@
 <h1>Select Page to edit</h1>
 
+<%= link_to 'Add New Page', new_page_path, class: 'button button-outline' %>
+
 <% @pages.each do |page| %>
+<hr/>
 <h4><%= link_to page.key, edit_page_path(page) %></h4>
 <% end %>

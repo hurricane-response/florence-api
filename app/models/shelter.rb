@@ -2,7 +2,7 @@ class Shelter < ApplicationRecord
   include Geocodable
   include Trashable
 
-  default_scope { where(active: true) }
+  default_scope { where(archived: false) }
 
   enum accepting: {
     yes: 'yes',
@@ -54,26 +54,25 @@ class Shelter < ApplicationRecord
     latitude longitude accessibility unofficial
   ].freeze
 
+  CSV_Attributes = %w[
+    shelter address city state county zip phone updated_at source accepting pets
+  ].freeze
+
   has_many :drafts, as: :record
 
-  after_commit on: [:create, :update] do
+  after_commit on: %i[create update] do
     ShelterUpdateNotifierJob.perform_later self
   end
 
-  scope :outdated, ->(timing = 4.hours.ago) { where("updated_at < ?", timing) }
-  scope :inactive, -> { unscope(:where).where(active: false) }
+  scope :outdated, ->(timing = 4.hours.ago) { where('updated_at < ?', timing) }
+  scope :archived, -> { unscope(:where).where(archived: true) }
 
   def self.to_csv
-    attributes = %w[
-
-      shelter address city state county zip phone updated_at source accepting pets accessibility
-
-    ]
     CSV.generate(headers: true) do |csv|
-      csv << attributes
+      csv << CSV_Attributes
 
-      self.all.each do |shelter|
-        csv << attributes.map { |attr| shelter.send(attr) }
+      all.each do |shelter|
+        csv << CSV_Attributes.map { |attr| shelter.send(attr) }
       end
     end
   end

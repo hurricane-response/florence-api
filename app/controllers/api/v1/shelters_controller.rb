@@ -7,28 +7,18 @@ class Api::V1::SheltersController < ApplicationController
 
   filterable_params [
     { type: :geocoords },
-    { type: :text, param: :county, field: 'county' },
-    { type: :text, param: :name, field: 'shelter' },
-    { type: :text, param: :shelter, field: 'shelter' },
-    { type: :boolean, param: :active, field: 'active' },
-    { type: :boolean, param: :special_needs, field: 'special_needs' },
-    { type: :text, param: :accessibility, field: 'accessibility' },
-    { type: :boolean, param: :unofficial, field: 'unofficial' },
+    { type: :text, param: :county },
+    { type: :text, param: :name, field: :shelter },
+    { type: :text, param: :shelter },
+    { type: :boolean, param: :archived },
+    { type: :boolean, param: :special_needs },
+    { type: :text, param: :accessibility },
+    { type: :boolean, param: :unofficial },
     {
-      type: :callback,
+      type: :enum,
       param: :accepting,
-      fn: lambda do |query, value, filters|
-        filters[:accepting] =
-          case value
-          when 'yes', 'no', 'unknown'
-            value.to_sym
-          when 'false'
-            :no
-          else
-            :yes
-          end
-        query.where(accepting: filters[:accepting])
-      end
+      enum: ['no' => :no, 'unknown' => :unknown, 'false' => :no],
+      default: :yes
     }
   ]
 

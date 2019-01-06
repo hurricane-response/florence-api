@@ -1,11 +1,10 @@
 class Location
   module HHRD
     class Pois < Location
-
       # Import, Models, HTML Controller, API Controller
       config(
-        legacy_table_name: "point-of-interest",
-        organization: "hurricane-harvey-rescue-dispatchers"
+        legacy_table_name: 'point-of-interest',
+        organization: 'hurricane-harvey-rescue-dispatchers'
       )
 
       filter(:rally_point, type: :truthy)

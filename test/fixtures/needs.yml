@@ -13,6 +13,7 @@ katy:
   tell_us_about_the_supply_needs: "baby formula"
   anything_else_you_would_like_to_tell_us: ""
   source: "https://www.facebook.com/KatyChristianMinistries/posts/1825892877424111"
+  archived: false
 
 victory:
   updated_by: "Brisa"
@@ -29,3 +30,21 @@ victory:
   tell_us_about_the_supply_needs: "open until 6pm:"
   anything_else_you_would_like_to_tell_us: ""
   source: "https://www.facebook.com/VCCHouston/"
+  archived: false
+
+archived:
+  updated_by: "Brisa"
+  timestamp: "8/31/2017 12:30:35"
+  location_name: "Someplace"
+  location_address: "11420 Cutten Rd Houston Texas TX 77066"
+  longitude: -95.51761
+  latitude: 29.947117
+  contact_for_this_location_name: ""
+  contact_for_this_location_phone_number: "(281) 587-1110"
+  are_volunteers_needed: false
+  tell_us_about_the_volunteer_needs: ""
+  are_supplies_needed: true
+  tell_us_about_the_supply_needs: "open until 6pm:"
+  anything_else_you_would_like_to_tell_us: ""
+  source: "https://www.facebook.com/VCCHouston/"
+  archived: true

@@ -1,6 +1,6 @@
 class TrashController < ApplicationController
   before_action :authenticate_admin!, only: [:destroy]
-  before_action :set_trash, only: [:show, :destroy]
+  before_action :set_trash, only: %i[show destroy]
 
   def index
     @trash = Trash.all

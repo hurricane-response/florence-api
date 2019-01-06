@@ -7,15 +7,13 @@ class Trash < ApplicationRecord
   def restore!
     restored = false
     transaction do
-      restored = @resource.save && self.destroy
+      restored = @resource.save && destroy
       raise ActiveRecord::Rollback unless restored
     end
     restored ? @resource : nil
   end
 
-  def resource
-    @resource
-  end
+  attr_reader :resource
 
 private
 

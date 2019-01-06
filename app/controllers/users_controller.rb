@@ -13,6 +13,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(admin: params[:admin])
 
-    redirect_to @user, notice: "User is now #{@user.admin? ? "" : "not"} an admin."
+    redirect_to @user, notice: "User is now #{@user.admin? ? '' : 'not'} an admin."
   end
 end

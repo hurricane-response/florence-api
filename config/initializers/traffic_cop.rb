@@ -1,4 +1,4 @@
-require "connection_pool"
+require 'connection_pool'
 
 # The amazon product advertising API rate limits us pretty hard
 # So we need the connection_pool and redis to count our req/s

@@ -16,6 +16,7 @@ nrg:
   supply_needs: "blankets clothing sanitary etc"
   source: "Https://twitter.com/BakerRipley/status/902725937762054145"
   address_name: "NRG Center  NRG Pkwy Houston TX 77054 Houston TX"
+  archived: false
 
 lonestar:
   county: "Harris"
@@ -36,6 +37,7 @@ lonestar:
   supply_needs: " Juice boxes for kids towels travel-sized toiletries – shampoo toothpaste toothbrushes pet kennels leashes packaged snacks and ext. cords/power strips"
   source: "https://t.co/REjWR4UR7Q"
   address_name: "Lone Star College North Harris 2700 W W Thorne Dr Houston TX"
+  archived: false
 
 inactive:
   county: "New Castle County"
@@ -56,13 +58,12 @@ inactive:
   supply_needs: " Juice boxes for kids towels travel-sized toiletries – shampoo toothpaste toothbrushes pet kennels leashes packaged snacks and ext. cords/power strips"
   source: "https://t.co/REjWR4UR7Q"
   address_name: "Lone Star College North Harris 2700 W W Thorne Dr Houston TX"
-  active: false
+  archived: true
 
 incomplete1:
   address: "155 9th Street, San Francisco, CA, 94103"
   shelter: "Code for Amerca HQ"
   accepting: "no"
-  active: true
   updated_by: "Doostee"
   notes: "This is not actually a shelter.  This is just a test."
   longitude: -122.4136007
@@ -74,7 +75,6 @@ incomplete2:
   shelter: "Pennsylvania Convention Center"
   county: "Philadelphia"
   accepting: "no"
-  active: true
   updated_by: "Doostee"
   notes: "This is not actually a shelter.  This is just a test."
   longitude: -122.4136007

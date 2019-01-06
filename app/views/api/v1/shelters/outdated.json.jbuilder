@@ -1,6 +1,5 @@
 json.cache! @outdated do
   json.shelters @outdated do |shelter|
-    print shelter ? "#{shelter.id} " : '?'
     json.cache! shelter do
       json.partial! shelter
     end
