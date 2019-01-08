@@ -1,4 +1,4 @@
-FROM ruby:2.4.1-stretch
+FROM ruby:2.6.0-stretch
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
