@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.4.1'
+ruby '2.6.0'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
@@ -18,7 +18,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.2'
 gem 'redcarpet'
 gem 'redis', '~> 3.2'
 gem 'sass-rails', '~> 5.0'
@@ -28,7 +28,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'vacuum'
 
 group :development, :test do
-  gem 'bundler-audit'
+  gem 'bundler-audit', '>= 0.1'
+  gem 'bundler-stats', '>= 1.1'
   gem 'capybara', '~> 2.13'
   gem 'pry'
   gem 'selenium-webdriver'
