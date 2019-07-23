@@ -1,7 +1,17 @@
-# The Hurricane Florence API
+# The Hurricane API
 
-* We serve JSON data here, open and fresh
-* We help client applications help those affected by Hurricane Florence.
+This API Server is the backend data management dashboard for mapping community resources such as Shelter and Food Distribution Points in disaster-effected regions.  It has importers for data from a FEMA managed GeoServer that contains data supplied by the RedCross, and user interfaces for manually updating.
+
+There are planned features to have crowdsourced update tools to help the community update the data in real time as shelter/distribution point records become stale.
+
+## History
+
+The Hurricane API was born out of necessity during Hurricane Harvey in 2017 when Houston, TX was innundated with a storm and people struggled to location shelters.  The developers at Sketch City took it upon themselves to crowdsource a solution.  This software is the product of their efforts and has continued to be developed by other Code for America brigade members.
+
+## Objective
+
+* We serve GeoJSON to mapping front-ends
+* We help client applications help those affected by hurricanes and other natural disasters.
 
 ## Developer Quick Links
 
@@ -15,12 +25,13 @@
 
 ## Thanks to
 
-Source Code Collaborators can be viewed: https://hurricane-florence-api.herokuapp.com/contributors.html
+
 
 But the API wouldn't mean anything without our volunteers:
 
 * [Entire Sketch-City organization](http://sketchcity.org/)
 * [Code for America](https://www.codeforamerica.org/)
+* [Source Code Collaborators](https://api.hurricane-response.org/contributors.html)
 
 ## LICENSE
 
