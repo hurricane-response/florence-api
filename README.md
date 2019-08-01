@@ -1,4 +1,4 @@
-# The Hurricane API
+# The Hurricane Response API
 
 This API Server is the backend data management dashboard for mapping community resources such as Shelter and Food Distribution Points in disaster-effected regions.  It has importers for data from a FEMA managed GeoServer that contains data supplied by the RedCross, and user interfaces for manually updating.
 

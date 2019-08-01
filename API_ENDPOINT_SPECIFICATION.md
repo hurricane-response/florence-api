@@ -7,7 +7,7 @@
 
 ### Common Filtering
 
-Filters can be applied with URL Parameters. Available filter options are provider per endpoint.
+Filters can be applied with URL Parameters. Available filter options are provided per endpoint.
 
 
 ### Shelters Endpoint
@@ -23,7 +23,6 @@ Filters can be applied with URL Parameters. Available filter options are provide
 * `lat` and `lon` : specify the lat / lon. We'll order by the lat/lon and return results within a 100 mile radius
 * `limit`: only return n results
 
-    
 * Sample API for list of all shelters accepting people: `https://api.hurricane-response.org/api/v1/shelters?accepting=yes`
 
 #### Sample JSON array

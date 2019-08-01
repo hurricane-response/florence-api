@@ -4,13 +4,14 @@
 
 ### Prequisites
 
+* A Github Account
+
+Docker can be used to get up and running quickly, or a local environment can be setup with these tools:
+
 * Ruby 2.6.0
 * Rails 5.2
-* One of these:
 * PostgreSQL 9.6+
 * Redis 4+
-* Docker (Optional)
-* A Github Account
 
 ### Fork Repository
 
@@ -54,7 +55,7 @@ If you are setting up your database for the first time:
   The `-P` flag will prompt you to create a password for the new user
 * Create the database (with the owner of the database set to user just created in the last step)
   * Example `createdb -O harvey-api_development harvey-api_development`
-* un rails structure load to create the schema: `rails db:structure:load`, otherwise you can migrate to get any new updates: `rails db:migrate`
+* Run rails structure load to create the schema: `rails db:structure:load`, otherwise you can migrate to get any new updates: `rails db:migrate`
 
 #### Importing data
 
@@ -73,7 +74,7 @@ Starting ImportNeedsJob 2017-09-03 18:33:05 +0000
 ImportNeedsJob Complete - {92}
 ```
 
-##### Third Part Imports
+##### Third Party Imports
 
 There are other imports that can be run to pull data from NSS, or other source on a per-event basis.  Speak with a collaborator to find out more.
 
