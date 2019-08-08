@@ -38,13 +38,33 @@ Docker can be used to get up and running quickly, or a local environment can be 
 
 #### Prerequisites
 
-* PostgreSQL (9.6+) is installed and running on your local machine
+- Postgres (9.6 or higher): https://wiki.postgresql.org/wiki/Detailed_installation_guides
+- Ruby (using rbenv or rvm install version 2.6.0): https://www.ruby-lang.org/en/documentation/installation/
+- Rails: https://guides.rubyonrails.org/getting_started.html
+- Redis:
+  - Linux: https://redis.io/topics/quickstart
+  - Windows: https://redislabs.com/ebook/appendix-a/a-3-installing-on-windows/a-3-2-installing-redis-on-window/
+  - Mac: Using homebrew:
+```
+  brew update
+  brew install redis
 
-#### Method 1: Automatic
+  # If you want it to autorun for you at startup:
+  brew services start redis
+
+  # if you want to run it only when working:
+  redis-server /usr/local/etc/redis.conf
+
+  # test if redis is running, the following command should
+  # return 'PONG':
+  redis-cli ping
+```
+
+#### Database Setup Method 1: Automatic
 
 Run `rails db:setup`
 
-#### Method 2: Manual
+#### Database Setup Method 2: Manual
 
 ##### First Time Setup
 If you are setting up your database for the first time:
