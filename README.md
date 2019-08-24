@@ -16,11 +16,10 @@ The Hurricane API was born out of necessity during Hurricane Harvey in 2017 when
 ## Developer Quick Links
 
 * [CONTRIBUTORS](https://github.com/hurricane-response/florence-api/graphs/contributors)
-* [GETTING STARTED](#getting-started)
+* [GETTING STARTED/CONTRIBUTING](CONTRIBUTING.md)
 * [API ENDPOINTS](API_ENDPOINT_SPECIFICATION.md)
 * [LICENSE](#license)
 * [CODE OF CONDUCT](CODE_OF_CONDUCT.md)
-* [CONTRIBUTING](CONTRIBUTING.md)
 * [CHANGELOG](CHANGELOG.md)
 
 ## Thanks to
