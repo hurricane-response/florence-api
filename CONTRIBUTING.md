@@ -79,19 +79,21 @@ If you are setting up your database for the first time:
 
 #### Importing data
 
-##### Shelters and Needs from Production API
+##### Shelters and Distribution Points from Production API (Optional)
 
-**DO NOT RUN THIS JOB IN PRODUCTION.** Since this job pulls data from the production API, running it in production can only be counter-productive, and would likely be destructive. The `ActiveJob`s and associated Rake task `rails api:import`, which imports data for shelters and needs from the production API into the application database, is intended for use in development and test environments only.
+**THIS COMMAND IS INTENDED FOR DEVELOPMENT ENVIRONMENTS ONLY**
 
-Import needs and shelters data from the production API: `rails api:import`
+This import will pull data from the production API so you can mirror live data in your local/personal development environment.  If you are working with the production API server, do not use this command as it would duplicate data already present in the production API database.
+
+This command is _optional_ and can consume a lot of time / geocoding credits with Google, so be mindful if you choose to import of how many records are currently available in the Production API.
+
+To import shelters and distribution points data from the production API, run: `rails api:import`
 
 Sample output if successful
 
 ```{text}
 Starting ImportSheltersJob 2017-09-03 18:33:03 +0000
 ImportSheltersJob Complete - {285}
-Starting ImportNeedsJob 2017-09-03 18:33:05 +0000
-ImportNeedsJob Complete - {92}
 ```
 
 ##### Third Party Imports
