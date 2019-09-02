@@ -54,4 +54,14 @@ class Api::SheltersControllerTest < ActionDispatch::IntegrationTest
     json = JSON.parse(response.body)
     assert_equal count, json['features'].length
   end
+
+  test 'returned features serials with correct pets allowed value' do
+    pets_values = %w[Yes No Unknown].freeze
+
+    get '/api/v1/shelters'
+    json = JSON.parse(response.body)
+    json['shelters'].each do |shelter|
+      assert pets_values.include?(shelter['pets'])
+    end
+  end
 end
