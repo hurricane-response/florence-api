@@ -4,7 +4,7 @@ json.extract! shelter, :accepting, :shelter,
               :longitude, :latitude, :supply_needs, :source,
               :google_place_id, :special_needs, :id, :archived
 
-json.pets shelter.allow_pets ? 'Yes' : 'No'
+json.pets shelter.allow_pets.nil? ? 'Unknown' : (shelter.allow_pets ? 'Yes' : 'No')
 json.pets_notes shelter.pets
 json.needs((shelter.volunteer_needs || '').split(',') + (shelter.supply_needs || '').split(','))
 
