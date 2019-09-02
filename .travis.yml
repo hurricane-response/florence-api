@@ -1,4 +1,5 @@
 language: ruby
+dist: xenial
 cache: bundler
 rvm:
 - 2.6.0
@@ -11,6 +12,7 @@ addons:
     - google-chrome-stable
 services:
 - redis-server
+- xvfb
 before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 - cp config/database.yml.travis config/database.yml
@@ -20,9 +22,6 @@ before_script:
 - sudo apt-get --only-upgrade install google-chrome-stable
 - sudo cp chromedriver /usr/local/bin/.
 - sudo chmod +x /usr/local/bin/chromedriver
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- sleep 3
 script:
 - RAILS_ENV=test bundle exec rails db:structure:load --trace
 - bundle exec rails db:test:prepare
