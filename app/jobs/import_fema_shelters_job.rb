@@ -36,7 +36,7 @@ private
       Shelter.create!(data)
       1
     else
-      unarchive!(shelter)
+      update!(shelter, data)
       0
     end
   end
@@ -66,10 +66,13 @@ private
     Shelter.unscope(:where).where('LOWER(TRIM(source)) = ?', data[:source].strip.downcase)
   end
 
-  def unarchive!(shelter)
+  def update!(shelter, data)
+    _data = shelter.updated_by.blank? ? data : {}
     if shelter.archived
       logger.info "Unarchiving pre-existing shelter with ID #{shelter.id}"
-      shelter.update_columns(archived: false, updated_at: Time.now)
+      _data[:archived] = false
     end
+    shelter.assign_attributes(_data)
+    shelter.save if shelter.changed?
   end
 end

@@ -29,4 +29,46 @@ class ImportFemaSheltersJobTest < ActiveJob::TestCase
       assert_equal shelters.count, Shelter.count
     end
   end
+
+  test 'import update unaltered shelter records' do
+    VCR.use_cassette('fema_shelters') do
+      # setup
+      shelters = FemaImporter.shelters
+      ImportFemaSheltersJob.perform_now
+
+      # modify a shelter
+      shelter = Shelter.first
+      correct_value = shelter.shelter
+      shelter.update_column(:shelter, 'This Shelter will be modified')
+
+      # reimport
+      ImportFemaSheltersJob.perform_now
+
+      shelter.reload
+      assert_equal correct_value, shelter.shelter
+    end
+  end
+
+  test 'import does not update user-updated shelter records' do
+    VCR.use_cassette('fema_shelters') do
+      # setup
+      shelters = FemaImporter.shelters
+      ImportFemaSheltersJob.perform_now
+
+      # mock a user edit
+      shelter = Shelter.first
+      correct_value = 'This Shelter was user-updated'
+      shelter.assign_attributes(
+        shelter: correct_value,
+        updated_by: users(:admin),
+      )
+      shelter.save
+
+      # reimport
+      ImportFemaSheltersJob.perform_now
+
+      shelter.reload
+      assert_equal correct_value, shelter.shelter
+    end
+  end
 end
