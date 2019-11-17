@@ -1,5 +1,14 @@
 # Change Log
 
+## PENDING
+
+**Maintenance:**
+
+- Upgrade Ruby to 2.6.5
+- Upgrade Ruby Gems for security purposes
+- Update documentation to reflect
+- Remove deprecated feature tests that caused testing to fail after upgrades (amazon products)
+
 ## [2.7.0](https://github.com/hurricane-response/florence-api/tree/2.7.0) (2018-10-25)
 
 [Full Changelog](https://github.com/hurricane-response/florence-api/compare/2.6.3...2.7.0)
