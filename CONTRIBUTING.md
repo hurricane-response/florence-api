@@ -8,7 +8,7 @@
 
 Docker can be used to get up and running quickly, or a local environment can be setup with these tools:
 
-* Ruby 2.6.0
+* Ruby 2.6.5
 * Rails 5.2
 * PostgreSQL 9.6+
 * Redis 4+
@@ -39,7 +39,7 @@ Docker can be used to get up and running quickly, or a local environment can be 
 #### Prerequisites
 
 - Postgres (9.6 or higher): https://wiki.postgresql.org/wiki/Detailed_installation_guides
-- Ruby (using rbenv or rvm install version 2.6.0): https://www.ruby-lang.org/en/documentation/installation/
+- Ruby (using rbenv or rvm install version 2.6.5): https://www.ruby-lang.org/en/documentation/installation/
 - Rails: https://guides.rubyonrails.org/getting_started.html
 - Redis:
   - Linux: https://redis.io/topics/quickstart
