@@ -44,7 +44,7 @@ class FemaImporter
 
         # If not closed, the sheter will likely have staff available to answer Questions
         # if shelter-seekers do show up even if they are not accepting at this time.
-        active: status != 'CLOSED',
+        archived: !(status != 'CLOSED'), # Yes, double negative
         accepting: accepting
       }
 
